@@ -1,0 +1,49 @@
+﻿@model Planetario.Models.FuncionarioModel
+@{
+    var listaFuncionarios = ViewBag.listaFuncionarios;
+    var cantidadFuncionarios = ViewBag.listaFuncionarios.Count;
+}
+<head>
+    <link href="~/Styles/ListaFuncionarios.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+</head>
+<span class="titulo">
+    Funcionarios
+</span>
+
+<style>
+    .cuadroFuncionario {
+        margin-bottom: 10px;
+        padding: 1em;
+    }
+    img {
+        border-radius: 0.5em;
+        border: 2px solid #133b5c;
+        box-shadow: 0px 0px 0px #ccc;
+        height:180px;
+        width:180px;
+        object-fit:cover;
+    }
+</style>
+
+<div class="row d-flex flex-wrap align-items-center">
+    @foreach (var funcionario in ViewBag.ListaFuncionarios)
+    {
+        <div class="cuadroFuncionario row d-flex flex-wrap align-items-center col-md-6">
+            <div class="imagenFuncionario col-md-4">
+                <img src=@Url.Action("ObtenerImagen", "Funcionarios", new { correo = funcionario.correo })>
+            </div>
+            <div class="textoFuncionario col-md-8">
+                <h3>@funcionario.nombre @funcionario.apellido1 @funcionario.apellido2</h3>
+                <p>@funcionario.correo</p>
+                <p>@funcionario.areaExpertis</p>
+                @Html.ActionLink("Ver más", "verFuncionario", "Funcionarios", new { correo = @funcionario.correo.ToString() }, null)
+                <br />
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

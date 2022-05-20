@@ -1,0 +1,97 @@
+﻿@model Planetario.Models.ProductoModel
+@{
+    ViewBag.Title = "Agregar Producto";
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <script src="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("AgregarProducto", "Ventas", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "listar()" }))
+    {
+        <span class="titulo">Agregar Producto</span>
+        <p class="alert-success">@ViewBag.Mensaje</p>
+        <h4> Formulario de agregar productos</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.Precio, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.CantidadDisponible, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.CantidadDisponible, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CantidadDisponible, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.CantidadRebastecer, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.CantidadRebastecer, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CantidadRebastecer, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Tamano, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.Tamano, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Tamano, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Categoria, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.Categoria, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Categoria, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+
+                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextAreaFor(model => model.Descripcion, new { @class = "form-control", @rows = 5, @cols = 80 })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.FechaIngreso, htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-6 col-sm-12">
+                    @Html.TextBoxFor(model => model.FechaIngreso, new { @type = "date", @class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.FechaIngreso, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.FotoArchivo, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.FotoArchivo, new { type = "file", @class = "btn btn alert-info" })
+                    @Html.ValidationMessageFor(model => model.FotoArchivo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-1 col-md-4 col-sm-2">
+                <input type="submit" class="btn btn-success" value="Agregar" />
+            </div>
+        </div>
+
+
+    }
+    <div>
+        @Html.ActionLink("Regresar a Inicio", "InformacionBasica", "Home")
+    </div>
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

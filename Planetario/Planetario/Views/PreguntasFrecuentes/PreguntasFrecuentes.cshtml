@@ -1,0 +1,75 @@
+﻿@{ 
+    ViewBag.Title = "preguntasFrecuentes";
+    ViewBag.Title = "categorias";
+    ViewBag.Title = "Crear Planeta";
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Preguntas Frecuentes</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <span class="titulo">Preguntas Frecuentes</span>
+        <p class="card">
+            En este lugar estarán todas las preguntas qué nuestros colaboradores han añadido atraves del tiempo. <br />
+            Están dividas por categoria y por tópico.
+        </p>
+    </div>
+
+    <div class="container">
+        <div class="accordion accordion-flush" id="accordionCategories">
+            @for (int numCategoria = 0; numCategoria < ViewBag.categorias.Count; numCategoria++)
+            {
+                <div class="accordion-item">
+                    <div class="accordion-header" id="heading_@numCategoria">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@numCategoria" aria-expanded="true" aria-controls="collapse_@numCategoria">
+                            @ViewBag.categorias[numCategoria]
+                        </button>
+                    </div>
+                    <div id="collapse_@numCategoria" class="accordion-collapse collapse" aria-labelledby="heading_@numCategoria" data-bs-parent="#accordionCategories">
+                        <div class="accordion accordion-flush" id="accordionPregunta">
+                            @foreach (var preguntaFrecuente in ViewBag.preguntasFrecuentes)
+                            {
+                                if (preguntaFrecuente.categoriaPregunta == @ViewBag.categorias[numCategoria])
+                                {
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="header_@preguntaFrecuente.idPregunta">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@preguntaFrecuente.idPregunta" aria-expanded="true" aria-controls="collapse_@preguntaFrecuente.idPregunta">
+                                                @preguntaFrecuente.pregunta
+                                            </button>
+                                        </div>
+                                        <div id="collapse_@preguntaFrecuente.idPregunta" class="accordion-collapse collapse" aria-labelledby="header_@preguntaFrecuente.idPregunta" data-bs-parent="#accordionPregunta">
+                                            <p>
+                                                <i>
+                                                    Tópico(s): @preguntaFrecuente.topicoPregunta @if (preguntaFrecuente.topicoPregunta2 != "NULL")
+                                                    {@preguntaFrecuente.topicoPregunta2}
+                                                else { } @if (preguntaFrecuente.topicoPregunta3 != "NULL")
+                                                    {@preguntaFrecuente.topicoPregunta3}
+                                                else { }
+                                            </i>
+                                        </p>
+                                        &nbsp
+                                        <p><b>Respuesta:</b></p>
+                                        <p>@preguntaFrecuente.respuesta</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            </div>
+                        
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Agregar Pregunta", "AgregarNuevaPregunta", null, new { @class = "btn btn-success" })
+    }
+    </body>
+</html>

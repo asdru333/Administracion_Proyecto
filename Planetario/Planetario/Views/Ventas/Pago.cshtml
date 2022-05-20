@@ -1,0 +1,262 @@
+﻿@model Planetario.Models.UbicacionModel
+@{ 
+    ViewBag.Title = "Pago";
+    string urlDescuentos = Url.Content("/Ventas/ObtenerPorcentajeDescuento");
+}
+<style>
+    input, select, textarea {
+        max-width:none;
+    }
+    #infoTarjeta_detallesDireccion {
+        height:5em;
+    }
+    .form-floating label {
+        left: auto;
+    }
+</style>
+
+<body>
+    <span class="titulo">Pago</span>
+    @if (ViewBag.ListaProductos != null || ViewBag.ListaEntradas != null)
+    {
+        using (Html.BeginForm("Pago", "Ventas", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card p-4 bg-light">
+                        <h6 class="text-uppercase">Detalles de pago</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.NombreTarjeta, new { @class = "form-control input-lg", @placeholder = "" })
+                                    @Html.LabelFor(model => model.infoTarjeta.NombreTarjeta, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.NombreTarjeta, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.NumeroTarjeta, new { @class = "form-control input-lg", @placeholder = "", @type = "number", @maxLength = "16" })
+                                    @Html.LabelFor(model => model.infoTarjeta.NumeroTarjeta, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.NumeroTarjeta, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.FechaExpiracion, new { @class = "form-control input-lg", @placeholder = "", @type = "month", @maxLength = "5" })
+                                    @Html.LabelFor(model => model.infoTarjeta.FechaExpiracion, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.FechaExpiracion, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.CVV, new { @class = "form-control input-lg", @placeholder = "", @type = "number", @maxLength = "3" })
+                                    @Html.LabelFor(model => model.infoTarjeta.CVV, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.CVV, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                            </div>
+
+                        </div>
+
+
+                        <h6 class="text-uppercase">Dirección de cobro</h6>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.provincia, new { @class = "form-control input-lg", @placeholder = "" })
+                                    @Html.LabelFor(model => model.infoTarjeta.provincia, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.provincia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.ciudad, new { @class = "form-control input-lg", @placeholder = "" })
+                                    @Html.LabelFor(model => model.infoTarjeta.ciudad, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.ciudad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.codigoPostal, new { @class = "form-control input-lg", @placeholder = "", @type = "number", @maxLength = "5" })
+                                    @Html.LabelFor(model => model.infoTarjeta.codigoPostal, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.codigoPostal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(model => model.infoTarjeta.detallesDireccion, new { @class = "form-control input-lg", @placeholder = "" })
+                                @Html.LabelFor(model => model.infoTarjeta.detallesDireccion, htmlAttributes: new { @class = "" })
+                                @Html.ValidationMessageFor(model => model.infoTarjeta.detallesDireccion, "", new { @class = "text-danger" })
+                            </div>
+                            <br /><br />
+                        </div>
+                        @if (ViewBag.FormaDeCompra == "Express")
+                        {
+                            <p>ㅤ</p>
+                            <h6 class="text-uppercase">Dirección de envio</h6>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control input-lg", @placeholder = "" })
+                                        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control input-lg", @placeholder = "" })
+                                        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "" })
+                                        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control input-lg", @placeholder = "" })
+                                    @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-3 offset-md-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <h4>Subtotal: (@ViewBag.CantidadItems items)</h4>
+                                <h5><strong>Precio base: </strong>₡@ViewBag.Precio</h5>
+
+
+                                @if (ViewBag.FormaDeCompra == "Express" && ViewBag.Membresia != "Solar")
+                                {
+                                    <h5><strong>Costo de envío: </strong>₡2000</h5>
+                                }
+                                else if (ViewBag.FormaDeCompra == "Express" && ViewBag.Membresia == "Solar")
+                                {
+                                    <h5><strong>Costo de envío: ¡Gratuito!</strong></h5>
+                                }
+
+                    @if (ViewBag.Membresia == "Lunar")
+                    {
+                        {
+                            ViewBag.Precio = ViewBag.Precio * 0.95;
+                        }
+                        <h5 id="precioConDescuento"><strong>Precio con descuento: </strong>₡@(ViewBag.Precio)</h5>
+                        <h6>Descuento de 5% aplicado por membresía <strong>Lunar.</strong></h6>
+                    }
+                    else if (ViewBag.Membresia == "Solar")
+                    {
+                        {
+                            ViewBag.Precio = ViewBag.Precio * 0.9;
+                        }
+                        <h5 id="precioConDescuento"><strong>Precio con descuento: </strong>₡@(ViewBag.Precio)</h5>
+                        <h5>Descuento de 10% aplicado por membresía <strong>Solar.</strong></h5>
+                    }
+                    <h5 id="iva"><strong>IVA: </strong>₡@(ViewBag.Precio*0.13)</h5>
+                    <h5 id="precioFinal"><strong>Precio + IVA: </strong>@(ViewBag.Precio + ViewBag.Precio*0.13)</h5>
+                    <h5 id="precioConDescuento"></h5>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <input type="submit" class="btn btn-success container-fluid" value="Pagar"/>
+            </div>
+        </div>
+        <br />
+        <div id="descuentos">
+            <div class="card">
+                <div class="card-body">
+                    <input form="text" id="entradaDescuento" placeholder="Código de descuento" class="form-control" />
+                </div>
+                <div class="card-footer text-center">
+                    <button type="button" class="btn btn-primary container-fluid" data-bs-toggle="modal" data-bs-target="#modalDescuento">
+                        Aplicar descuento
+                    </button>
+                    <div class="modal fade border-warning" id="modalDescuento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p> ¿Está seguro que quiere aplicar este cupón? </p><br />
+                                    <p> Esta acción no es reversible. </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btnCerrarModalDescuento" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" onclick="obtenerPorcentajeDescuento()">Aplicar cupón</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="mensaje">
+
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    @Html.Hidden("formaDeCompra", (object)ViewBag.FormaDeCompra)
+
+<script>
+    var entradaDescuento = document.getElementById("entradaDescuento");
+    var mensaje = document.getElementById("mensaje");
+    var porcentajeDescuento = 0;
+    var subTotal = 1*(@ViewBag.Precio);
+    var iva = subTotal * 0.13;
+    var precioConDescuento = subTotal;
+    var precioFinal = subTotal + iva;
+
+    function obtenerPorcentajeDescuento() {
+        let urlProductos = "@urlDescuentos?codigo=" + entradaDescuento.value;
+        console.log(urlProductos);
+        fetch(urlProductos)
+            .then(response => response.json())
+            .then(data => aplicarDescuento(data));
+        document.getElementById("btnCerrarModalDescuento").click()
+    }
+    function aplicarDescuento(porcentaje) {
+        if (porcentaje != 0) {
+            mensaje.innerHTML = `<p><div class="card bg-success bg-opacity-25 border">
+                                    <div class="card-body">
+                                        <p class="card-text text-center">
+                                            Se ha aplicado un ${porcentaje}% de descuento con el código ${entradaDescuento.value}
+                                        </p>
+                                    </div>
+                                </div></p>`;
+            document.getElementById("descuentos").innerHTML = "";
+            porcentajeDescuento = porcentaje;
+            precioConDescuento = (subTotal - subTotal * porcentaje / 100).toFixed(2);
+            iva = precioConDescuento * 0.13;
+            precioFinal = 1*(precioConDescuento) + 1*(iva);
+            document.getElementById("precioConDescuento").innerHTML = `<strong>Precio con descuento: </strong>₡${precioConDescuento}`;
+            document.getElementById("precioFinal").innerHTML = `<strong>Precio + IVA: </strong>₡${precioFinal}`;
+            document.getElementById("iva").innerHTML = `<strong>IVA: </strong>₡${iva}`
+        }
+        else {
+            mensaje.innerHTML = `<div class="card bg-danger bg-opacity-25 border">
+                                        <div class="card-body">
+                                        <p class="card-text text-center">
+                                            El código ${entradaDescuento.value} no es válido
+                                        </p>
+                                    </div>
+                                </div>`;
+        }
+    }
+
+</script>
+
+</body>

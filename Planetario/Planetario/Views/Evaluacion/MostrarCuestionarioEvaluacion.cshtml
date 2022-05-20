@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>Reportes Satisfacción</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+</head>
+<body>
+    <span class="titulo">
+        Reportes de satisfacción
+    </span>
+
+    @using (Html.BeginForm("MostrarCuestionarioEvaluacion", "Evaluacion", FormMethod.Post, new { id = "formularioGeneral", enctype = "multipart/form-data" }))
+    {
+        <div class="form-horizontal">
+
+            <div class="row">
+                <div class="col">
+                    <p>Fecha Inicio</p>
+                    @Html.TextBox("fechaInicio", "", new { @type = "date", @class = "form-control" })
+                </div>
+                <div class="col">
+                    <p>Fecha Final</p>
+                    @Html.TextBox("fechaFin", "", new { @type = "date", @class = "form-control" })
+                </div>
+                <div class="col">
+                    <br />
+                    <input type="submit" class="btn btn-primary align-bottom" value="Filtrar por fecha" />
+                    <button class="btn btn-success" type="button" onclick="cerrarAbrirAcordeon()" id="botonAbrirCerrar"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseOne,
+                                #panelsStayOpen-collapseTwo,
+                                #panelsStayOpen-collapseThree,
+                                #panelsStayOpen-collapseFour,
+                                #panelsStayOpen-collapseFive,
+                                #panelsStayOpen-collapseSix,
+                                #panelsStayOpen-collapseSeven"
+                            aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseOne panelsStayOpen-collapseTwo">
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <hr />
+    <div class="row text-center">
+        <h4>En total <strong>@ViewBag.Cantidad personas</strong> han respondido el cuestionario de satisfacción.</h4>
+    </div>
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                    <p class="p-2">El sitio web es esteticamente agradable.</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                    <div id="chartAgradable" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    <p class="p-2">Navegar por las distintas páginas del sitio web es fácil.</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                    <div id="chartNavegar" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                    <p class="p-2">Comprar en el sitio web es fácil.</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+                <div class="accordion-body">
+                    <div id="chartComprar" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                    <p class="p-2">Los precios de los productos y actividaes son apropiados.</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
+                <div class="accordion-body">
+                    <div id="chartPrecios" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                    <p class="p-2">Estoy satisfecho con mi experiencia en el sitio.</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFive">
+                <div class="accordion-body">
+                    <div id="chartSatisfecho" style="height: 300px; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                    <p class="p-2">Resultados Importantes</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingSix">
+                <div class="accordion-body">
+                    <p>@ViewBag.Fechas</p>
+                    <div class="row">
+                        <div class="col"> <p>@ViewBag.Navegacion</p> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"> <p>@ViewBag.Compras</p> </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                    <p class="p-2">Últimos comentarios</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body">
+                    <div id="comentarios"></div>
+                        @foreach(var item in ViewBag.Comentarios)
+                        { 
+                            <p>@item</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="~/Utils/js/reportesEvaluacion.js"></script>
+
+    <script>
+        document.getElementById("botonAbrirCerrar").click()
+
+        var opciones = @Html.Raw(Json.Encode(@ViewBag.Opciones));
+
+        var respuestasAgradable = @Html.Raw(Json.Encode(@ViewBag.RespuestasEsteticamente));
+        var respuestasNavegar = @Html.Raw(Json.Encode(@ViewBag.RespuestasNavegar));
+        var respuestasComprar = @Html.Raw(Json.Encode(@ViewBag.RespuestasComprar));
+        var respuestasPrecios = @Html.Raw(Json.Encode(@ViewBag.RespuestasPrecios));
+        var respuestasSatisfecho = @Html.Raw(Json.Encode(@ViewBag.RespuestasSatisfecho));
+    </script>
+
+</body>

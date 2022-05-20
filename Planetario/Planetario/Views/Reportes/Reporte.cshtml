@@ -1,0 +1,131 @@
+﻿@{
+    string linkDatos = Url.Content("~/Reportes/ObtenerFiltroPorRanking");
+
+    List<SelectListItem> ListaOrden = new List<SelectListItem>() {
+        new SelectListItem { Text = "Más vendido", Value = "ASC" },
+        new SelectListItem { Text = "Menos vendido", Value = "DESC" }
+    };
+
+    List<SelectListItem> ListaCategoria = new List<SelectListItem>();
+    foreach(var item in ViewBag.listaDeCategorias)
+    {
+        ListaCategoria.Add(new SelectListItem { Text = item, Value = item });
+    }
+
+    List<SelectListItem> ListaProductos = new List<SelectListItem>();
+    foreach(var item in ViewBag.listaDeProductos)
+    {
+        ListaProductos.Add(new SelectListItem { Text = item, Value = item });
+    }
+};
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reportes simples</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+<body>
+    <span class="titulo">
+        Reporte de ventas simple
+    </span>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-2"><p>Orden</p></div>
+                <div class="col-2"><p>Fecha inicial</p></div>
+                <div class="col-2"><p>Fecha final</p></div>
+            </div>
+            <div class="row">
+                <div class="col-2">@Html.DropDownList("orden", ListaOrden, new { @class = "form-control", @id = "orden", @onchange = "actualizarTablaPorRanking()" })</div>
+                <div class="col-2">
+                    <input type="date" id="fechaInicial" name="fechaInicial" value = "@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" onchange="actualizarTablaPorRanking()">
+                </div>
+                <div class="col-2">
+                    <input type="date" id="fechaFinal" name="fechaFinal" value = "@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" onchange="actualizarTablaPorRanking()">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="tablaProductosConFiltro"></div>
+        </div>
+    </div>
+
+    <br>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="well bs-component">
+            <h4> Filtrar Productos:  </h4>
+            <h5><strong>@ViewBag.Mensaje</strong></h5>
+            <hr />
+            <div class="row">
+
+                <div class="col">
+                    <div class="form-group">
+                        @Html.Label("Nombre")
+                        @Html.DropDownList("nombre", ListaProductos, "---")
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div>
+                        <label for="FechaInicio">Fecha Inicio:</label>
+                        <input type="date" id="FechaInicio" name="FechaInicio">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div>
+                        <label for="FechaFinal">Fecha Final:</label>
+                        <input type="date" id="FechaFinal" name="FechaFinal">
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top:25px"></div>
+
+            <div class="form-group">
+                <button type="submit" id="botonBuscar" class="btn btn-primary"> Buscar</button>
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.listaFechas != null && ViewBag.listaVentas != null)
+    {
+        <div id="chart" style="height: 300px; width: 100%;"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script src="~/Utils/js/graficoReporteSimple.js"></script>
+        <script>
+                var fecha = @Html.Raw(Json.Encode(ViewBag.listaFechas));
+                var cantidad = @Html.Raw(Json.Encode(ViewBag.listaVentas));
+        </script>
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <script src="~/Utils/js/crearTabla.js"></script>
+    <script src="~/Utils/js/tablasReporteSimple.js"></script>
+
+    <script>
+        main()
+        function actualizarTablaPorRanking() {
+            const ordenEscogido = document.getElementById("orden").value
+            const fechaInicialEscogida = document.getElementById("fechaInicial").value
+            const fechaFinalEscogida = document.getElementById("fechaFinal").value
+            const diccionarioParametros = {
+                orden: ordenEscogido,
+                fechaInicial: fechaInicialEscogida,
+                fechaFinal: fechaFinalEscogida,
+            }
+            actualizarDatosTabla(gridRanking, "@linkDatos", diccionarioParametros, data => data.map(p => [p.Nombre, p.Precio, p.FechaIngreso.split(" ")[0], p.FechaUltimaVenta, p.CantidadVendidos]))
+        }
+    </script>
+
+</body>
+</html>

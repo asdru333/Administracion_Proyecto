@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Cuestionarios";
+}
+@{
+    List<String> PublicoDirigido = new List<String>() {
+        "Simple", "Intermedio", "Avanzado"
+    };
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cuestionario</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+</head>
+<body>
+    <span class="titulo"> Cuestionarios </span>
+
+    <form method="post" class="navbar-form navbar-right" action="@Url.Action("ListaCuestionarios", "Cuestionario")">
+        <select name="dificultad" id="dificultad" onchange="this.form.submit()">
+            @if (ViewBag.Dificultad != "")
+            {
+                <option value=@ViewBag.Dificultad>@ViewBag.Dificultad</option>
+            }
+            <option value="">Todas</option>
+            @foreach (string element in PublicoDirigido)
+            {
+                if (@ViewBag.Dificultad != element)
+                {
+                    <option value=@element>@element</option>
+                }
+            }
+        </select>
+    </form>
+
+    <table class="table table-hover table-responsive">
+        <tr>
+            <th>Cuestionario</th>
+            <th>Dificultad</th>
+            <th>Link</th>
+        </tr>
+        @foreach (Planetario.Models.CuestionarioModel cuestionario in ViewBag.ListaCuestionarios)
+        {
+            <tr>
+                <td>@cuestionario.NombreCuestionario</td>
+                <td>@cuestionario.Dificultad</td>
+                <td>@Html.ActionLink("hacer cuestionario", "verCuestionario", "Cuestionario", new { nombre = @cuestionario.NombreCuestionario.ToString() }, null)</td>
+            </tr>
+        }
+    </table>
+
+</body>
+</html>

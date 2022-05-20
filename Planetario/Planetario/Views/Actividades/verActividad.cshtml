@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Actividades";
+    string funcionAgregarAlCarrito = Url.Content("~/Ventas/AgregarAlCarrito");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.actividad.NombreActividad</title>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
+</head>
+<body>
+    <div class="row text-center">
+        <span class="titulo">@ViewBag.actividad.NombreActividad</span>
+    </div>
+    <section>
+        <div class="row">
+            <p class="card-title"> <b>Descripción:</b> </p>
+            <p class="card-text">@ViewBag.actividad.Descripcion</p>
+        </div>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 text-center">
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Categoría</b> </span></p>
+                    <p> @ViewBag.actividad.Categoria </p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Público Dirigido</b> </span></p>
+                    <p> @ViewBag.actividad.PublicoDirigido </p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Duración</b> </span></p>
+                    <p> @ViewBag.actividad.Duracion minutos</p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Complejidad</b> </span></p>
+                    <p> @ViewBag.actividad.Complejidad </p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Precio</b> </span></p>
+                    <p> @ViewBag.actividad.PrecioAproximado Colones</p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Fecha</b> </span></p>
+                    <p> @ViewBag.actividad.Fecha </p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Tipo</b> </span></p>
+                    <p> @ViewBag.actividad.Tipo </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <p><span> <i class="fa fa-check"></i><b>Tópicos</b></span></p>
+            @foreach (var topico in ViewBag.topicos)
+            {
+                <p style="display:inline;">@topico</p>
+            }
+        </div>
+        <div class="row">
+            <p>Contacto del organizador: @ViewBag.actividad.PropuestoPor</p>
+        </div>
+        
+        <div id="twitch-embed"></div>
+        <div>
+            <div class="row">
+                <div class="col col-md-4 col-sm-12">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Compartir
+                    </button>
+                </div>
+                <div class="col col-4">
+                    @Html.ActionLink("Comprar Entradas", "ComprarEntradas", "Actividades", new { nombreDeLaActividad = ViewBag.actividad.NombreActividad }, new { @class = "btn btn-success" })
+                </div>
+            </div>
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Compartir en redes sociales</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Link para compartir
+                            <div class="input-group">
+                                <div id="url"></div>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" onclick="myFunction()">Copiar al portapapeles</button>
+                                </div>
+                            </div>
+                            &nbsp
+                            <ul class="share-buttons" data-source="simplesharingbuttons.com">
+                                <li><a href="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&layout=button_count&size=small&appId=175191305830549&width=99&height=20" title="Compartir en Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + 'https://imgur.com/a/RfPVpdJ' ); return false;"><img alt="Share on Facebook" src="~/images/flat_web_icon_set/color/Facebook.png" width="50" height="50" /></a></li>
+                                <li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&text=:%20https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ" target="_blank" title="Tweetear" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL) + ':%20' + 'https://imgur.com/a/RfPVpdJ'); return false;"><img alt="Tweet" src="~/images/flat_web_icon_set/color/Twitter.png" width="50" height="50" /></a></li>
+                                <li><a href="http://www.tumblr.com/share?v=3&u=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&quote=&s=" target="_blank" title="Publicar en Tumblr" onclick="window.open('http://www.tumblr.com/share?v=3&u=' + 'https://imgur.com/a/RfPVpdJ'); return false;"><img alt="Post to Tumblr" src="~/images/flat_web_icon_set/color/Tumblr.png" width="50" height="50" /></a></li>
+                                <li><a href="http://pinterest.com/pin/create/button/?url=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&description=" target="_blank" title="Pinterest" onclick="window.open('http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(document.URL) + '&description=' +  encodeURIComponent(document.title)); return false;"><img alt="Pin it" src="~/images/flat_web_icon_set/color/Pinterest.png" width="50" height="50" /></a></li>
+                                <li><a href="https://getpocket.com/save?url=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&title=" target="_blank" title="Agregar a Pocket" onclick="window.open('https://getpocket.com/save?url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><img alt="Add to Pocket" src="~/images/flat_web_icon_set/color/Pocket.png" width="50" height="50" /></a></li>
+                                <li><a href="http://www.reddit.com/submit?url=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&title=" target="_blank" title="Publicar en Reddit" onclick="window.open('http://www.reddit.com/submit?url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><img alt="Submit to Reddit" src="~/images/flat_web_icon_set/color/Reddit.png" width="50" height="50" /></a></li>
+                                <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&title=&summary=&source=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ" target="_blank" title="Compartir en LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><img alt="Share on LinkedIn" src="~/images/flat_web_icon_set/color/LinkedIn.png" width="50" height="50" /></a></li>
+                                <li><a href="http://wordpress.com/press-this.php?u=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&quote=&s=" target="_blank" title="Publicar en WordPress" onclick="window.open('http://wordpress.com/press-this.php?u=' + encodeURIComponent(document.URL) + '&quote=' +  encodeURIComponent(document.title)); return false;"><img alt="Publish on WordPress" src="~/images/flat_web_icon_set/color/Wordpress.png" width="50" height="50" /></a></li>
+                                <li><a href="https://pinboard.in/popup_login/?url=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&title=&description=" target="_blank" title="Guardar en Pinboard" onclick="window.open('https://pinboard.in/popup_login/?url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><img alt="Save to Pinboard" src="~/images/flat_web_icon_set/color/Pinboard.png" width="50" height="50" /></a></li>
+                                <li><a href="mailto:?subject=&body=:%20https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ" target="_blank" title="Enviar por correo electrónico" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&body=' +  encodeURIComponent(document.URL)); return false;"><img alt="Send email" src="~/images/flat_web_icon_set/color/Email.png" width="50" height="50" /></a></li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:75px"></div>
+
+        <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+        <script type="text/javascript">
+        var Link = '@ViewBag.actividad.Link';
+        console.log(Link);
+        Link = Link.toLowerCase();
+        if (Link != null) {
+            //Twitch embed.
+            new Twitch.Embed("twitch-embed", {
+                width: 800,
+                height: 700,
+                channel: Link,
+                theme: 'light'
+            });
+        };
+        </script>
+
+    </section>
+
+    <aside style="width: 15%,">
+        <span class="titulo">Actividades Similares:</span>
+
+        @foreach (Planetario.Models.ActividadModel actividad in ViewBag.actividades)
+        {
+            if (ViewBag.actividad.NombreActividad != actividad.NombreActividad)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header card-title">
+                            @if (@actividad.Tipo == "Charla")
+                            {
+                                <i class="fa fa-commenting" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                            }
+                            @actividad.NombreActividad
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Categoría: </strong>@actividad.Categoria</p>
+                            <p class="card-text"><strong>Fecha: </strong>@actividad.Fecha</p>
+                            <p class="card-text"><strong>Precio: </strong>₡@actividad.PrecioAproximado</p>
+                        </div>
+                        <a class="hidden stretched-link" href="@Url.Action("verActividad","Actividades", new { nombreDeLaActividad = actividad.NombreActividad.ToString() })"></a>
+                    </div>
+                </div>
+            }
+        }
+        <p style="text-align: center;">No hay actividades relacionadas.</p>
+    </aside>
+
+    <script>
+        let display = "";
+        display += `<input type="text" id="myInput" class="form-control" disabled=true value="` + document.URL + `"aria-label="Recipient's username" aria-describedby="basic-addon2">`;
+        document.getElementById("url").innerHTML = display;
+
+        function myFunction() {
+            var copyText = document.getElementById("myInput");
+            console.log(copyText.value);
+            navigator.clipboard.writeText(copyText.value);
+            setTimeout(function () {
+                alert("Texto copiado!");
+            }, 100);
+
+        }
+    </script>
+
+</body>
+</html>

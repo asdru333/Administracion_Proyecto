@@ -1,0 +1,6 @@
+﻿{
+  "Astronomía": [ "Astrobiología", "Astrofísica", "Astroquímica", "Astronomía Observacional", "Astronomía Teórica", "Mecánica Celeste" ],
+  "Cuerpos del sistema solar": [ "Asteroides", "Cometas", "Planetas", "Satélites" ],
+  "General": [ "Astrofotografía", "Instrumentos", "Pregunta Sencilla" ],
+  "Objetos del cielo profundo": [ "Estrellas", "Galaxias", "Nebulosas", "Planetarias" ]
+}

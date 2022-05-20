@@ -1,0 +1,111 @@
+﻿@model Planetario.Models.EventoModel
+
+
+<span class="titulo">@Html.DisplayFor(model => model.Titulo)</span>
+<hr />
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <p>
+            <span>
+                    <i class="fa fa-check"></i>
+                    <strong>Fecha</strong>
+            </span>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Fecha)
+        </p>
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+        <p>
+            <span>
+                <i class="fa fa-check"></i>
+                <strong>Descripción</strong>
+            </span>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Descripcion)
+        </p>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <p>
+            <span>
+                <i class="fa fa-check"></i>
+                <strong>Hora</strong>
+            </span>
+        </p>
+        <p>
+            @Html.DisplayFor(model => model.Hora)
+        </p>
+    </div>
+</div>
+
+<span>
+    <i class="fa fa-check"></i>
+    <strong>Tiempo restante para iniciar</strong>
+</span>
+<p id="countdown"></p>
+
+<div id="twitch-embed"></div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12" >
+        @Html.ActionLink("Volver al calendario", "CalendarioFenomenos", "Calendario", new { area = "" }, new { @class = "btn btn-secondary" })
+    </div>
+</div>
+
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Setear la fecha a la que vamos a contar.
+        var fecha = '@Model.Fecha'.split('/');
+        var tiempo = '@Model.Hora'.split(':');
+        var dia = fecha[1];
+        var mes = fecha[0]-1;
+        var año = fecha[2];
+        var hora = tiempo[0];
+        var minuto = tiempo[1];
+
+        console.log(fecha);
+
+        var countDownDate = new Date(año, mes, dia, hora, minuto, 0, 0).getTime();
+
+        // Actualizar el countdown cada segundo.
+        var x = setInterval(function () {
+
+            // Obtener la fecha y hora de hoy.
+            var now = new Date().getTime();
+            // La diferencia entre la fecha de hoy y la que vamos a contar.
+            var distance = countDownDate - now;
+
+            // Calculos para los dias, horas, minutos y segundos.
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Mostrar el valor.
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // Si el countdown llego a cero, mostrar el stream si es virtual, si es presencial solo mostrar que ya empezó.
+            if (distance < 0) {
+                var Link = '@Model.Link';
+                Link = Link.toLowerCase();
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "¡Ya empezó!";
+                if (Link != null) {
+                    //Twitch embed.
+                    new Twitch.Embed("twitch-embed", {
+                        width: 1200,
+                        height: 700,
+                        channel: Link,
+                        theme: 'light'
+                    });
+                };
+            }
+        }, 1000);
+    })
+</script>

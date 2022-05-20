@@ -1,0 +1,156 @@
+
+﻿@{ViewBag.Title = "Calendario Fenomenos";}
+@{string consultaActividades = Url.Content("~/Calendario/GetActividadesPlanetario");}
+@{string consultaEventos = Url.Content("~/Calendario/GetEventosPlanetario");}
+@{string RSSFeed = Url.Content("~/Calendario/GetEventosRSSFeed");}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calendario Fenomenos</title>
+    <meta charset="utf-8" />
+    <script src="~/Scripts/moment.js"></script>
+    <link href='../lib/main.css' rel='stylesheet' />
+    <script src='../lib/main.js'></script>
+    <script src='..lib/locales-all.js'></script>
+    <script src="~/lib/locales-all.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <style>
+        .fc-toolbar {
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+
+        .fc-toolbar h2 {
+            display: inline;
+        }
+
+        body {
+            margin: 40px 10px;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #calendar {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        input[type=checkbox] {
+            -ms-transform: scale(1.3);
+            -moz-transform: scale(1.3);
+            -webkit-transform: scale(1.3);
+            -o-transform: scale(1.3);
+            transform: scale(1.3);
+            padding: 10px;
+        }
+
+        div.form-check, div.form-check-inline {
+            width: 20%
+        }
+    </style>
+</head>
+<body>
+
+    <span class="titulo">
+        Calendario Prueba Pipeline
+    </span>
+
+    <div class="text-center row-cols-md-2 row-cols-sm-1">
+        <div class="col form-check form-check-inline">
+            <p>
+                <label class="form-check-label" for="checkbox1">Charlas y talleres</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox1" checked onchange="cambiarEstadoActividadesPlanetario()" />
+            </p>
+        </div>
+        <div class="col form-check form-check-inline">
+            <p>
+                <label class="form-check-label" for="checkbox2">Eventos Astronomicos</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox2" checked onchange="cambiarEstadoEventosAstronomicos()" />
+            </p>
+        </div>
+        <div class="col form-check form-check-inline">
+            <p>
+                <label class="form-check-label" for="checkbox3">Eventos del Planetario</label>
+                <input class="form-check-input" type="checkbox" value="" id="checkbox3" checked onchange="cambiarEstadoEventosPlanetario()" />
+            </p>
+        </div>
+    </div>
+
+    <h4>&nbsp;</h4>
+
+    <div id='calendar'></div>
+
+    <script>
+        function cambiarEstadoActividadesPlanetario() {
+            estadoActual = document.getElementById("checkbox1").checked;
+            console.log(estadoActual);
+            if (estadoActual) {
+                calendar.addEventSource({ id: 1, url: "@consultaActividades", color: '#133b5c', textcolor: '#fcdab7' });
+            }
+            else {
+                sourceEventos = calendar.getEventSourceById(1);
+                if (sourceEventos !== null) {
+                    sourceEventos.remove();
+                }
+            }
+             calendar.refetchEvents();
+        }
+        function cambiarEstadoEventosAstronomicos() {
+            estadoActual = document.getElementById("checkbox2").checked;
+            
+            if (estadoActual) {
+                calendar.addEventSource({id:2, url: "@RSSFeed", color: '#fcdab7', textColor: 'black' });
+            }
+            else {
+                sourceEventos = calendar.getEventSourceById(2);
+                if (sourceEventos !== null) {
+                    sourceEventos.remove();
+                }
+            }
+            calendar.refetchEvents();
+        }
+        function cambiarEstadoEventosPlanetario() {
+            estadoActual = document.getElementById("checkbox3").checked;
+            if (estadoActual) {
+                calendar.addEventSource({ id: 3, url: "@consultaEventos", color: '#1e5f74' });
+            }
+            else {
+                sourceEventos = calendar.getEventSourceById(3);
+                if (sourceEventos !== null) {
+                    sourceEventos.remove();
+                }
+            }
+            calendar.refetchEvents();
+        }
+
+        var calendar;
+        document.addEventListener('DOMContentLoaded', async function () {
+            var calendarEl = document.getElementById('calendar');
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'es',
+                headerToolbar: {
+                    left: 'prev,next title',
+                    right: 'today dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                initialDate: '2021-11-12',
+
+                editable: false,
+                selectable: true,
+                businessHours: true,
+                eventDidMount: function (info) { info.el.title = info.event.title; },
+                dayMaxEvents: true,
+                eventSources:[],
+
+            });
+
+            cambiarEstadoEventosPlanetario();
+            cambiarEstadoEventosAstronomicos();
+            cambiarEstadoActividadesPlanetario();
+            calendar.render();
+        });
+    </script>
+
+</body>
+</html>

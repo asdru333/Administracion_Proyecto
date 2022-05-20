@@ -1,0 +1,115 @@
+﻿<body>
+    <span class="titulo">Juegos educativos</span>
+
+    <p class="text-center">¡Diviértete con juegos educativos y aprende de una forma no tradicional!</p>
+
+    <style>
+        .card {
+            border: 2px solid #133b5c;
+            box-shadow: 0px 0px 2px #133b5c;
+        }
+
+            .card:hover {
+                box-shadow: 0px 0px 12px #133b5c;
+            }
+    </style>
+
+    <div class="row rows-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Utils/images/Juegos/ETGame.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                <div class="card-body">
+                    <h5 class="card-title">ET Brain</h5>
+                    <p class="card-text">Entrena tu mente con cada uno de los fascinantes minijuegos de ET Brain. Sigue las instrucciones para cada mini juego en este fascinante potenciador mental listo para jugar.</p>
+                </div>
+                <div class="card-footer">
+                    <p>Dificultad: Intermedio</p>
+                </div>
+                <a href="@Url.Action("ETBrain","Juegos")" class="hidden stretched-link"></a>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Utils/images/Juegos/UFO2048.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                <div class="card-body">
+                    <h5 class="card-title">2048 UFO</h5>
+                    <p class="card-text">Mueve todas las fichas hacia arriba, abajo, izquierda o derecha. 2 de las mismas baldosas vecinas aumentan de tamaño. Intenta alcanzar la meta indicada.</p>
+                </div>
+                <div class="card-footer">
+                    <p>Dificultad: Intermedio</p>
+                </div>
+
+                @if (ViewBag.Membresia == "Lunar" || ViewBag.Membresia == "Solar")
+                {
+                    <a href="@Url.Action("UFO2048","Juegos")" class="hidden stretched-link"></a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Comprar","Membresias")" onclick = "return confirm('¿Quieres adquirir una membresía para poder jugar este juego?')" class="hidden stretched-link"></a>
+                }
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Utils/images/Juegos/conectaPlanetas.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                <div class="card-body">
+                    <h5 class="card-title">¡Crucigrama Espacial!</h5>
+                    <p class="card-text">Reconocimiento de las características generales del Sistema Solar y los cuerpos que lo integran, entre ellos la Tierra como un planeta y la Luna como su satélite.</p>
+                </div>
+                <div class="card-footer">
+                    <p>Dificultad: Fácil</p>
+                </div>
+                <a href="@Url.Action("ConectaPlanetas","Juegos")" class="hidden stretched-link"></a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row rows-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Utils/images/Juegos/RapidMath.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                <div class="card-body">
+                    <h5 class="card-title">Rapid Math</h5>
+                    <p class="card-text">Resuelva las operaciones matemáticas lo más rápido posible, antes de que se acabe el tiempo. Toque la respuesta o use la salida del teclado.</p>
+                </div>
+                <div class="card-footer">
+                    <p>Dificultad: Intermedio</p>
+                </div>
+                <a href="@Url.Action("RapidMath","Juegos")" class="hidden stretched-link"></a>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Utils/images/Juegos/MapaSistema.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                <div class="card-body">
+                    <h5 class="card-title">SisteMap Solar</h5>
+                    <p class="card-text">Aprende las ubicaciones de los planetas en nuestro Sistema Solar de una forma entretenida!</p>
+                </div>
+                <div class="card-footer">
+                    <p>Dificultad: Fácil</p>
+                </div>
+                <a href="@Url.Action("SistemaInteractivo","Juegos")" class="hidden stretched-link"></a>
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/Utils/images/Juegos/VideoQuiz.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                <div class="card-body">
+                    <h5 class="card-title">Video Quiz Solar</h5>
+                    <p class="card-text">Reconocer las principales características del sistema solar y sus componentes.</p>
+                </div>
+                <div class="card-footer">
+                    <p>Dificultad: Fácil</p>
+                </div>
+                <a href="@Url.Action("VideoQuiz","Juegos")" class="hidden stretched-link"></a>
+            </div>
+
+        </div>
+    </div>
+
+</body>

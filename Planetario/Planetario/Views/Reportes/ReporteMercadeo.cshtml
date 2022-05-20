@@ -1,0 +1,140 @@
+﻿@{
+    string linkDatosExtranjeros = Url.Content("~/Reportes/ObtenerDatosExtranjeros");
+    string linkDatosPorGeneroYEdad = Url.Content("~/Reportes/ObtenerDatosPorGeneroYEdad");
+    string linkDatosParesProductos = Url.Content("~/Reportes/ObtenerParesProductos");
+    List<SelectListItem> ListaCategoria = new List<SelectListItem>();
+    foreach (var item in ViewBag.listaDeCategorias)
+    {
+        ListaCategoria.Add(new SelectListItem { Text = item, Value = item });
+    }
+    List<SelectListItem> ListaMembrersias = new List<SelectListItem>()
+    {
+        new SelectListItem { Text = "Terrestre", Value = "Terrestre" },
+        new SelectListItem { Text = "Lunar", Value = "Lunar" },
+        new SelectListItem { Text = "Solar", Value = "Solar" }
+    };
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actividades</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+</head>
+<body>
+    <span class="titulo">
+        Reporte de Mercadeo
+    </span>
+
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                    <p class="p-2" id="acordion-extranjeros">Datos sobre los productos que compran los extranjeros clientes extranjeros</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-4" style="width: fit-content;"><p>Categoría</p></div>
+                            <div class="col-4">@Html.DropDownList("Categorias", ListaCategoria, new { @class = "form-control", @id = "categoriaProductos", @onchange = "actualizarTablaDatosExtranjeros()" })</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="tablaDatosExtranjeros"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    <p class="p-2" id="acordion-filtros">Productos por filtros</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-4"><p>Categoría</p></div>
+                            <div class="col-4"><p>Público</p></div>
+                            <div class="col-4"><p>Género</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">@Html.DropDownList("categoria", ListaCategoria, new { @class = "form-control", @id = "categoriaProductosConFiltro", @onchange = "actualizarTablaProductosConFiltro()" })</div>
+                            <div class="col-4">@Html.DropDownList("publico", ViewBag.listaPublicos as List<SelectListItem>, new { @class = "form-control", @id = "publicoProductosConFiltro", @onchange = "actualizarTablaProductosConFiltro()" })</div>
+                            <div class="col-4">@Html.DropDownList("genero", ViewBag.listaGeneros as List<SelectListItem>, new { @class = "form-control", @id = "generoProductosConFiltro", @onchange = "actualizarTablaProductosConFiltro()" })</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="tablaProductosConFiltro"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                    <p class="p-2" id="acordion-parejas">Parejas de productos que se suelen comprar juntos</p>
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-4"><p>Membresía</p></div>
+                            <div class="col-4"><p>Público</p></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">@Html.DropDownList("Membresias", ListaMembrersias, new { @class = "form-control", @id = "membresiaParesProductos", @onchange = "actualizarTablaParesDeProductos()" })</div>
+                            <div class="col-4">@Html.DropDownList("Publicos", ViewBag.listaPublicos as List<SelectListItem>, new { @class = "form-control", @id = "publicoParesProductos", @onchange = "actualizarTablaParesDeProductos()" })</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="tablaParesDeProductos"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+    <script src="~/Utils/js/crearTabla.js"></script>
+    <script src="~/Utils/js/tablasReporteMercadeo.js"></script>
+    <script>
+        main()
+        function actualizarTablaDatosExtranjeros() {
+            const categoriaEscogida = document.getElementById("categoriaProductos").value
+            const diccionariParametros = { categoria: categoriaEscogida }
+            actualizarDatosTabla(gridExtranjeros, "@linkDatosExtranjeros", diccionariParametros, data => data.map(p => [p.Nombre, p.Pais, p.Precio, p.Cantidad, p.Ingresos]))
+        }
+
+        function actualizarTablaProductosConFiltro() {
+            const categoriaEscogida = document.getElementById("categoriaProductosConFiltro").value
+            const generoEscogido = document.getElementById("generoProductosConFiltro").value
+            const publicoEscogido = document.getElementById("publicoProductosConFiltro").value
+            const diccionariParametros = {
+                categoria: categoriaEscogida,
+                genero: generoEscogido,
+                publico: publicoEscogido
+            }
+            actualizarDatosTabla(gridProductosPorFiltro, "@linkDatosPorGeneroYEdad", diccionariParametros, data => data.map(p => [p.Nombre, p.Precio, p.Cantidad, p.Ingresos]))
+        }
+
+        function actualizarTablaParesDeProductos() {
+            const publicoEscogido = document.getElementById("publicoParesProductos").value
+            const membresiaEscogida = document.getElementById("membresiaParesProductos").value
+            const diccionariParametros = {
+                membresia: membresiaEscogida,
+                publico: publicoEscogido
+            }
+            actualizarDatosTabla(gridParesDeProductos, "@linkDatosParesProductos", diccionariParametros, data => data.map(p => [p.Producto, p.CompradoCon, p.CantidadVeces, p.Ingresos]))
+        }
+    </script>
+</body>
+</html>

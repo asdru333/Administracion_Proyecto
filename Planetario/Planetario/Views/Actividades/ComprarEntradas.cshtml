@@ -1,0 +1,82 @@
+﻿<link rel="stylesheet" href="~/Utils/css/SelectorAsientos.css">
+
+<span class="titulo">@ViewBag.actividad.NombreActividad</span>
+<p class="lead">Escoja sus entradas</p>
+<div class="row" style="margin-top:5%;">
+    <div class="col-6">
+        <div id="map-container"></div>
+        <div id="legend-container"></div>
+    </div>
+    <div class="col-6">
+        <div id="cart-container"></div>
+        <input type="submit" onclick="agregarAlCarrito()" class="btn btn-success btn-lg btn-lg" value="Agregar al carrito" data-bs-toggle="modal" data-bs-target="#exampleModal" />
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Entradas agregadas al carrito!</h3>
+            </div>
+            <div class="modal-footer">
+                @Html.ActionLink("Devolverme a actividades", "ListadoDeActividades", "Actividades", new { }, new { @class = "btn btn-danger btn-lg btn-lg" })
+                @Html.ActionLink("Ir al carrito", "Carrito", "Ventas", new { }, new { @class = "btn btn-success btn-lg btn-lg" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Utils/js/SelectorAsientos.js"></script>
+<script>
+    var sc;
+    var nombreActividadVar = '@(ViewBag.actividad.NombreActividad)';
+    @{ string linkAsientosReservados = Url.Content("~/Actividades/ObtenerAsientosReservados"); }
+    fetch("@linkAsientosReservados" + "?nombreDeLaActividad=" + "@ViewBag.actividad.NombreActividad")
+        .then(respuesta => {
+            return respuesta.json()
+        })
+        .then(data => {
+            var options = {
+                map: {
+                    id: 'map-container',
+                    rows: 5,
+                    columns: 10,
+                    reserved: {
+                        seats: data,
+                    },
+                    disabled: {
+                    }
+                },
+                types: [
+                    { type: "regular", backgroundColor: "#006c80", price: @ViewBag.Actividad.PrecioAproximado},
+                ],
+                cart: {
+                    id: 'cart-container',
+                    width: 280,
+                    height: 250,
+                    currency: '₡',
+                },
+                legend: {
+                    id: 'legend-container',
+                },
+                assets: {
+                    path: "/Utils/images/assets",
+                }
+            };
+
+            sc = new Seatchart(options);
+
+
+        })
+    function agregarAlCarrito() {
+        var carrito = sc.getCartDict().regular;
+        var cantidadCarrito = carrito.length;
+        console.log(cantidadCarrito);
+        if (cantidadCarrito > 0) {
+        $.getJSON('/Ventas/AgregarAlCarrito', { idComprable: @ViewBag.asientosRelacionadosActividad[0].IdComprable, cantidad: cantidadCarrito }, function (data) {
+            console.log(data);
+        });
+        }
+    }
+</script>

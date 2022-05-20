@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0A8340CF-46B6-4E4F-B352-0D2AD9347E6F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Planetario</RootNamespace>
+    <AssemblyName>Planetario</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44368</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Moq, Version=4.5.30.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.30\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\JuegosController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\DatosController.cs" />
+    <Compile Include="Controllers\EvaluacionController.cs" />
+    <Compile Include="Handlers\DatosHandler.cs" />
+    <Compile Include="Handlers\EvaluacionHandler.cs" />
+    <Compile Include="Controllers\MembresiasController.cs" />
+    <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
+    <Compile Include="Interfaces\EvaluacionInterfaz.cs" />
+    <Compile Include="Interfaces\DatosInterfaz.cs" />
+    <Compile Include="Interfaces\ReportesInterfaz.cs" />
+    <Compile Include="Handlers\ClientesHandler.cs" />
+    <Compile Include="Handlers\CookiesHandler.cs" />
+    <Compile Include="Handlers\DatosHandler.cs" />
+    <Compile Include="Handlers\ReportesHandler.cs" />
+    <Compile Include="Handlers\DescuentosHandler.cs" />
+    <Compile Include="Handlers\FacturasHandler.cs" />
+    <Compile Include="Controllers\ActividadesController.cs" />
+    <Compile Include="Controllers\EstadisticasController.cs" />
+    <Compile Include="Controllers\CuestionarioController.cs" />
+    <Compile Include="Controllers\CalendarioFenomenosController.cs" />
+    <Compile Include="Controllers\EventosController.cs" />
+    <Compile Include="Controllers\FuncionariosController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\PreguntasFrecuentesController.cs" />
+    <Compile Include="Controllers\NoticiasController.cs" />
+    <Compile Include="Controllers\MaterialEducativoController.cs" />
+    <Compile Include="Handlers\ActividadHandler.cs" />
+    <Compile Include="Handlers\BaseDatosHandler.cs" />
+    <Compile Include="Handlers\EventosHandler.cs" />
+    <Compile Include="Handlers\MembresiasHandler.cs" />
+    <Compile Include="Interfaces\ActividadesInterfaz.cs" />
+    <Compile Include="Interfaces\MembresiasInterfaz.cs" />
+    <Compile Include="Interfaces\CookiesInterfaz.cs" />
+    <Compile Include="Interfaces\DescuentosInterfaz.cs" />
+    <Compile Include="Interfaces\ProductosInterfaz.cs" />
+    <Compile Include="Interfaces\VentasInterfaz.cs" />
+    <Compile Include="Handlers\ParticipanteHandler.cs" />
+    <Compile Include="Handlers\PersonaHandler.cs" />
+    <Compile Include="Handlers\ProductosHandler.cs" />
+    <Compile Include="Handlers\VentasHandler.cs" />
+    <Compile Include="Models\AsientoModel.cs" />
+    <Compile Include="Models\ComprableModel.cs" />
+    <Compile Include="Models\CompraModel.cs" />
+    <Compile Include="Models\CuestionarioEvaluacionMostrarModel .cs" />
+    <Compile Include="Models\CuestionarioEvaluacionRecibirModel.cs" />
+    <Compile Include="Models\CuestionarioEvaluacionModel.cs" />
+    <Compile Include="Models\DescuentoModel.cs" />
+    <Compile Include="Models\EntradaModel.cs" />
+    <Compile Include="Models\EventoModel.cs" />
+    <Compile Include="Handlers\EstadisticasHandler.cs" />
+    <Compile Include="Models\EstadisticasModel.cs" />
+    <Compile Include="Handlers\CuestionarioHandler.cs" />
+    <Compile Include="Handlers\ArchivosHandler.cs" />
+    <Compile Include="Handlers\PreguntasFrecuentesHandler.cs" />
+    <Compile Include="Models\CuestionarioModel.cs" />
+    <Compile Include="Models\FacturaModel.cs" />
+    <Compile Include="Models\InscripcionModel.cs" />
+    <Compile Include="Models\PagoModel.cs" />
+    <Compile Include="Models\PersonaModel.cs" />
+    <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\PreguntasFrecuentesModel.cs" />
+    <Compile Include="Handlers\NoticiasHandler.cs" />
+    <Compile Include="Models\NoticiaModel.cs" />
+    <Compile Include="Handlers\FuncionariosHandler.cs" />
+    <Compile Include="Handlers\MaterialesEducativosHandler.cs" />
+    <Compile Include="Models\FuncionarioModel.cs" />
+    <Compile Include="Models\ActividadModel.cs" />
+    <Compile Include="Models\MaterialEducativoModel.cs" />
+    <Compile Include="Models\ProductoModel.cs" />
+    <Compile Include="Models\RSSFeedModel.cs" />
+    <Compile Include="Models\TarjetaModel.cs" />
+    <Compile Include="Models\UbicacionModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="images\flat_web_icon_set\color\Email.png" />
+    <Content Include="images\flat_web_icon_set\color\Facebook.png" />
+    <Content Include="images\flat_web_icon_set\color\Google+.png" />
+    <Content Include="images\flat_web_icon_set\color\LinkedIn.png" />
+    <Content Include="images\flat_web_icon_set\color\Pinboard.png" />
+    <Content Include="images\flat_web_icon_set\color\Pinterest.png" />
+    <Content Include="images\flat_web_icon_set\color\Pocket.png" />
+    <Content Include="images\flat_web_icon_set\color\Reddit.png" />
+    <Content Include="images\flat_web_icon_set\color\Tumblr.png" />
+    <Content Include="images\flat_web_icon_set\color\Twitter.png" />
+    <Content Include="images\flat_web_icon_set\color\Wordpress.png" />
+    <Content Include="lib\locales-all.js" />
+    <Content Include="lib\locales-all.min.js" />
+    <Content Include="lib\locales\es.js" />
+    <Content Include="lib\main.css" />
+    <Content Include="lib\main.js" />
+    <Content Include="lib\main.min.css" />
+    <Content Include="lib\main.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="App_Data\Paises.json" />
+    <Content Include="App_Data\CategoriasYTopicos.json" />
+    <Content Include="App_Data\Generos.json" />
+    <Content Include="App_Data\Publicos.json" />
+    <Content Include="App_Data\Complejidades.json" />
+    <Content Include="App_Data\TiposDeActividad.json" />
+    <Content Include="App_Data\DiasDeLaSemana.json" />
+    <Content Include="App_Data\NivelesEducativos.json" />
+    <Content Include="App_Data\OpcionesEvaluacion.json" />
+    <Content Include="images\flat_web_icon_set\License for Flat Web Icon Set.rtf" />
+    <Content Include="CreateWebApp\azuredeploy.json" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Styles\InformacionBasica.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.0.min.map" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Utils\css\actividades.css" />
+    <Content Include="Utils\css\background.css" />
+    <Content Include="Utils\css\botonesCompartir.css" />
+    <Content Include="Utils\css\fonts.css" />
+    <Content Include="Utils\css\layout.css" />
+    <Content Include="Utils\css\main.css" />
+    <Content Include="Utils\css\membresias.css" />
+    <Content Include="Utils\css\rows.css" />
+    <Content Include="Utils\css\msfmultiselect.css" />
+    <Content Include="Utils\css\estilosComparador.css" />
+    <Content Include="Utils\css\SelectorAsientos.css" />
+    <Content Include="Utils\css\util.css" />
+    <Content Include="Utils\css\ventas.css" />
+    <Content Include="Utils\css\vistaPagos.css" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Utils\fonts\montserrat\OFL.txt" />
+    <Content Include="Utils\images\assets\icons\bin.svg" />
+    <Content Include="Utils\images\assets\membresias.jpg" />
+    <Content Include="Utils\images\icons\favicon.ico" />
+    <Content Include="Utils\images\imagenesComparador\ariel.jpg" />
+    <Content Include="Utils\images\imagenesComparador\callisto.jpg" />
+    <Content Include="Utils\images\imagenesComparador\ceres.jpg" />
+    <Content Include="Utils\images\imagenesComparador\dione.jpg" />
+    <Content Include="Utils\images\imagenesComparador\earth.jpg" />
+    <Content Include="Utils\images\imagenesComparador\enceladus.jpg" />
+    <Content Include="Utils\images\imagenesComparador\europa.jpg" />
+    <Content Include="Utils\images\imagenesComparador\ganymede.jpg" />
+    <Content Include="Utils\images\imagenesComparador\iapetus.jpg" />
+    <Content Include="Utils\images\imagenesComparador\io.jpg" />
+    <Content Include="Utils\images\imagenesComparador\jupiter.jpg" />
+    <Content Include="Utils\images\imagenesComparador\mars.jpg" />
+    <Content Include="Utils\images\imagenesComparador\mercury.jpg" />
+    <Content Include="Utils\images\imagenesComparador\milky-way-hd.jpg" />
+    <Content Include="Utils\images\imagenesComparador\milky-way.jpg" />
+    <Content Include="Utils\images\imagenesComparador\mimas.jpg" />
+    <Content Include="Utils\images\imagenesComparador\miranda.jpg" />
+    <Content Include="Utils\images\imagenesComparador\moon.jpg" />
+    <Content Include="Utils\images\imagenesComparador\neptune.jpg" />
+    <Content Include="Utils\images\imagenesComparador\oberon.jpg" />
+    <Content Include="Utils\images\imagenesComparador\og-image.png" />
+    <Content Include="Utils\images\imagenesComparador\pluto.jpg" />
+    <Content Include="Utils\images\imagenesComparador\rhea.jpg" />
+    <Content Include="Utils\images\imagenesComparador\saturn.jpg" />
+    <Content Include="Utils\images\imagenesComparador\sun.jpg" />
+    <Content Include="Utils\images\imagenesComparador\tethys.jpg" />
+    <Content Include="Utils\images\imagenesComparador\titan.jpg" />
+    <Content Include="Utils\images\imagenesComparador\titania.jpg" />
+    <Content Include="Utils\images\imagenesComparador\triton.jpg" />
+    <Content Include="Utils\images\imagenesComparador\umbriel.jpg" />
+    <Content Include="Utils\images\imagenesComparador\uranus.jpg" />
+    <Content Include="Utils\images\imagenesComparador\venus.jpg" />
+    <Content Include="Utils\images\img-01.png" />
+    <Content Include="Utils\images\Juegos\conectaPlanetas.jpg" />
+    <Content Include="Utils\images\Juegos\ETGame.jpg" />
+    <Content Include="Utils\images\Juegos\MapaSistema.jpg" />
+    <Content Include="Utils\images\Juegos\RapidMath.jpg" />
+    <Content Include="Utils\images\Juegos\VideoQuiz.jpg" />
+    <Content Include="Utils\js\cuerposComparador.js" />
+    <Content Include="Utils\images\assets\icons\shoppingcart.svg" />
+    <Content Include="Utils\js\bootstrap-input-spinner.js" />
+    <Content Include="Utils\js\crearTabla.js" />
+    <Content Include="Utils\js\estadisticas.js" />
+    <Content Include="Utils\js\estadisticasIdiomas.js" />
+    <Content Include="Utils\js\formularioInscripcion.js" />
+    <Content Include="Utils\js\main.js" />
+    <Content Include="Utils\js\mainComparador.js" />
+    <Content Include="Utils\js\msfmultiselect.js" />
+    <Content Include="Utils\js\reportesEvaluacion.js" />
+    <Content Include="Utils\js\graficoReporteSimple.js" />
+    <Content Include="Utils\js\tablasReporteSimple.js" />
+    <Content Include="Utils\js\tablasReporteMercadeo.js" />
+    <Content Include="Utils\js\SelectorAsientos.js" />
+    <Content Include="Utils\vendor\animate\animate.css" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Utils\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Utils\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Utils\vendor\bootstrap\js\popper.js" />
+    <Content Include="Utils\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="Utils\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Utils\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="Utils\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Utils\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Utils\vendor\select2\select2.css" />
+    <Content Include="Utils\vendor\select2\select2.js" />
+    <Content Include="Utils\vendor\select2\select2.min.css" />
+    <Content Include="Utils\vendor\select2\select2.min.js" />
+    <Content Include="Utils\vendor\tilt\tilt.jquery.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\PreguntasFrecuentes\PreguntasFrecuentes.cshtml" />
+    <Content Include="Views\PreguntasFrecuentes\AgregarNuevaPregunta.cshtml" />
+    <Content Include="Views\Home\HorariosParqueoTransporte.cshtml" />
+    <Content Include="Views\Funcionarios\ListaFuncionarios.cshtml" />
+    <Content Include="Views\Funcionarios\AgregarFuncionario.cshtml" />
+    <Content Include="Views\Noticias\listadoDeNoticias.cshtml" />
+    <Content Include="Views\Noticias\verNoticia.cshtml" />
+    <Content Include="Views\MaterialEducativo\AlmacenarNuevoMaterialEducativo.cshtml" />
+    <Content Include="Views\Noticias\crearNoticia.cshtml" />
+    <Content Include="Views\MaterialEducativo\listadoDeMateriales.cshtml" />
+    <Content Include="Views\Home\InformacionBasica.cshtml" />
+    <Content Include="Views\Actividades\ListadoDeActividades.cshtml" />
+    <Content Include="Views\MaterialEducativo\buscarMaterialesEducativos.cshtml" />
+    <Content Include="Views\Actividades\BuscarActividad.cshtml" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Utils\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Black.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-BlackItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Bold.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-BoldItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-ExtraBold.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-ExtraBoldItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-ExtraLight.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-ExtraLightItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Italic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Light.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-LightItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Medium.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-MediumItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Regular.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-SemiBold.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-SemiBoldItalic.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-Thin.ttf" />
+    <Content Include="Utils\fonts\montserrat\Montserrat-ThinItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="Utils\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Utils\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="Views\Actividades\CrearActividad.cshtml" />
+    <Content Include="Views\Funcionarios\VerFuncionario.cshtml" />
+    <Content Include="Views\Funcionarios\iniciarSesion.cshtml" />
+    <Content Include="Views\Estadisticas\verInvolucramiento.cshtml" />
+    <Content Include="Views\Estadisticas\verIdiomas.cshtml" />
+    <Content Include="Views\Cuestionario\ListaCuestionarios.cshtml" />
+    <Content Include="Views\Cuestionario\VerCuestionario.cshtml" />
+    <Content Include="Views\Cuestionario\agregarCuestionario.cshtml" />
+    <Content Include="Views\Calendario\CalendarioFenomenos.cshtml" />
+    <Content Include="Views\Eventos\AgregarEvento.cshtml" />
+    <Content Include="Views\Eventos\VerEvento.cshtml" />
+    <Content Include="Views\Actividades\Inscribirme.cshtml" />
+    <Content Include="Views\Actividades\VerFacturasDeActividad.cshtml" />
+    <Content Include="Views\MaterialEducativo\verMaterial.cshtml" />
+    <Content Include="Views\Evaluacion\CuestionarioEvaluacion.cshtml" />
+    <Content Include="Views\Evaluacion\MostrarCuestionarioEvaluacion.cshtml" />
+    <Content Include="Views\Home\CompararCuerpos.cshtml" />
+    <Content Include="Views\Shared\_LayoutAlternativo.cshtml" />
+    <Content Include="Views\Juegos\Lista.cshtml" />
+    <Content Include="Views\Juegos\UFO2048.cshtml" />
+    <Content Include="Views\Personas\IniciarSesion.cshtml" />
+    <Content Include="Views\Ventas\AgregarProducto.cshtml" />
+    <Content Include="Views\Reportes\Reporte.cshtml" />
+    <Content Include="Views\Reportes\ReporteMercadeo.cshtml" />
+    <Content Include="Views\Actividades\ComprarEntradas.cshtml" />
+    <Content Include="Views\Ventas\Carrito.cshtml" />
+    <Content Include="Views\Ventas\ListaProductos.cshtml" />
+    <Content Include="Views\Clientes\Registro.cshtml" />
+    <Content Include="Views\Ventas\Pago.cshtml" />
+    <Content Include="Views\Membresias\Comprar.cshtml" />
+    <Content Include="Views\Membresias\Pago.cshtml" />
+    <Content Include="Views\Membresias\Satisfactorio.cshtml" />
+    <Content Include="Views\Ventas\VerProducto.cshtml" />
+    <Content Include="Views\Juegos\ConectaPlanetas.cshtml" />
+    <Content Include="Views\Juegos\ETBrain.cshtml" />
+    <Content Include="Views\Juegos\RapidMath.cshtml" />
+    <Content Include="Views\Juegos\SistemaInteractivo.cshtml" />
+    <Content Include="Views\Juegos\VideoQuiz.cshtml" />
+    <Content Include="Views\Actividades\VerActividad.cshtml" />
+    <Content Include="Views\Ventas\ComprarAhora.cshtml" />
+    <Content Include="Views\Ventas\AgregarCupon.cshtml" />
+    <Content Include="Views\Ventas\CompraExitosa.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57582</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44368/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

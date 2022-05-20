@@ -1,0 +1,37 @@
+﻿@{ 
+    ViewBag.Title = "Noticias";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Noticias</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+</head>
+<body>
+    <span class="titulo">
+        Noticias
+    </span>
+
+    @foreach (Planetario.Models.NoticiaModel noticia in ViewBag.noticias)
+    {
+        <h1>@Html.ActionLink(noticia.Titulo, "verNoticia", "Noticias", new { stringId = @noticia.id.ToString() }, new { @class="h4"})</h1>
+        <p><strong>Autor: </strong>@noticia.CorreoAutor</p>
+        <p><strong>Fecha: </strong>@noticia.Fecha</p>
+        <p><strong>Categoria: </strong>@noticia.CategoriaNoticia</p>
+        if (noticia.Cuerpo.Length > 200)
+        {
+        <p>@noticia.Cuerpo.Substring(0, 200) ... @Html.ActionLink("ver mas", "verNoticia", "Noticias", new { stringId = @noticia.id.ToString() }, null) </p>
+            
+        }
+        else
+        {
+            @noticia.Cuerpo
+        }
+
+        <hr /><br />
+    }
+
+</body>
+</html>

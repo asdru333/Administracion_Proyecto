@@ -1,0 +1,183 @@
+﻿@model Planetario.Models.PreguntasFrecuentesModel 
+@{ 
+    ViewBag.Title = "Añadir Pregunta";
+    List<SelectListItem> categorias = new List<SelectListItem>() {
+        new SelectListItem { Text = "Cuerpos del Sistema Solar" },
+        new SelectListItem { Text = "Objetos de Cielo Profundo" },
+        new SelectListItem { Text = "Astronomia" },
+        new SelectListItem { Text = "General" },
+    };
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <style>
+        h1 {
+            font-size: 40px;
+            font-family: verdana;
+        }
+    </style>
+</head>
+
+<body>
+
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlCrear)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message</h3>
+            </div>
+        }
+    }
+
+    <span class="titulo">
+        Agregar Pregunta
+    </span>
+
+    @using (Html.BeginForm("AgregarNuevaPregunta", "PreguntasFrecuentes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="well bs-component">
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Ingrese los datos para agregar una Pregunta </h4>
+                <hr />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.categoriaPregunta, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.categoriaPregunta, categorias, "--Categoría--", new { @id = "categoriaPregunta", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.categoriaPregunta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.topicoPregunta, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.topicoPregunta, Enumerable.Empty<SelectListItem>(), "--Topico 1--", new { @id = "topicoPregunta", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.topicoPregunta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.topicoPregunta2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.topicoPregunta2, Enumerable.Empty<SelectListItem>(), "--Topico 2--", new { @id = "topicoPregunta2", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.topicoPregunta2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.topicoPregunta3, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.topicoPregunta3, Enumerable.Empty<SelectListItem>(), "--Topico 3--", new { @id = "topicoPregunta3", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.topicoPregunta3, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pregunta, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.pregunta, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.pregunta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.respuesta, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.respuesta, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.respuesta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-success" value="Crear" />
+                        @Html.ActionLink("Volver", "PreguntasFrecuentes", null, new { @class = "btn btn-danger" })
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Regresar a Inicio", "InformacionBasica", "Home")
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+            $('#categoriaPregunta').change(function () {
+                var categoriaSeleccionada = $(this).val();
+                if (categoriaSeleccionada != null && categoriaSeleccionada != '') {
+                    $.getJSON('@Url.Action("../Topicos/ConseguirTopicos")', { categoria: categoriaSeleccionada }, function (topicos) {
+                        var topicoSeleccionado = $('#topicoPregunta');
+                        topicoSeleccionado.empty();
+                        $.each(topicos, function (index, topico) {
+                            if (index != 0) {
+                            topicoSeleccionado.append($('<option/>', {
+                                value: topico.Value,
+                                text: topico.Text
+                            }));
+                            }
+                        });
+                    });
+                }
+            });
+    </script>
+
+    <script type="text/javascript">
+            $('#categoriaPregunta').change(function () {
+                var categoriaSeleccionada = $(this).val();
+                if (categoriaSeleccionada != null && categoriaSeleccionada != '') {
+                    $.getJSON('@Url.Action("../Topicos/ConseguirTopicos")', { categoria: categoriaSeleccionada }, function (topicos) {
+                        var topicoSeleccionado = $('#topicoPregunta2');
+                        topicoSeleccionado.empty();
+                        $.each(topicos, function (index, topico) {
+                            topicoSeleccionado.append($('<option/>', {
+                                value: topico.Value,
+                                text: topico.Text
+                            }));
+                        });
+                    });
+                }
+            });
+    </script>
+
+    <script type="text/javascript">
+            $('#categoriaPregunta').change(function () {
+                var categoriaSeleccionada = $(this).val();
+                if (categoriaSeleccionada != null && categoriaSeleccionada != '') {
+                    $.getJSON('@Url.Action("../Topicos/ConseguirTopicos")', { categoria: categoriaSeleccionada }, function (topicos) {
+                        var topicoSeleccionado = $('#topicoPregunta3');
+                        topicoSeleccionado.empty();
+                        $.each(topicos, function (index, topico) {
+                            topicoSeleccionado.append($('<option/>', {
+                                value: topico.Value,
+                                text: topico.Text
+                            }));
+                        });
+                    });
+                }
+            });
+    </script>
+
+</body>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval"))
+}
+</html>

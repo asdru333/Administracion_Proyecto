@@ -1,0 +1,284 @@
+﻿@{
+    string urlProductos = Url.Content("/Ventas/ListaProductosFiltrados");
+    List<SelectListItem> categorias = new List<SelectListItem>()
+{
+            new SelectListItem(){ Text="Ropa", Value = "Ropa"},
+            new SelectListItem(){ Text="Accesorios", Value = "Accesorios"},
+            new SelectListItem(){ Text="Telescopios", Value = "Telescopio"},
+        };
+    List<SelectListItem> ordenarPor = new List<SelectListItem>()
+{
+        new SelectListItem{Text="Más nuevos",Value="fechaIngreso DESC"},
+        new SelectListItem{Text="Tamaño (Ascendente)",Value="tamano ASC"},
+        new SelectListItem{Text="Tamaño (Descendente)",Value="tamano DESC"},
+        new SelectListItem{Text="Categoría (A - Z)",Value="categoria ASC"},
+        new SelectListItem{Text="Categoría (Z - A)",Value="categoria DESC"},
+        new SelectListItem{Text="Precio (Ascendente)",Value="precio ASC"},
+        new SelectListItem{Text="Precio (Descendente)",Value="precio DESC"}
+    };
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/ventas.css" />
+</head>
+
+<style>
+    #tienda {
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .titulo {
+        padding-bottom: 10px;
+    }
+
+    div.col {
+        margin-top: 0;
+    }
+
+    input {
+        max-width: none;
+    }
+
+    .row > * {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .card {
+        margin: 1em;
+    }
+     
+    #columna-filtros{
+        min-height: 950px;
+    }
+</style>
+
+
+<div id="tienda" class="container-fluid">
+    <div class="row align-items-center" id="fila-busqueda">
+
+        <div class="col-2">
+            <span class="h5">Tienda de souveniers</span>
+        </div>
+        <div class="col-6">
+            <input type="text" id="busqueda" placeholder="Buscar productos..." class="form-control" />
+        </div>
+        <div class="col-2">
+            <button class="btn btn-outline-primary" onclick="textoParaBuscar= busqueda.value; obtenerProductos()" id="buscar">Buscar</button>
+        </div>
+        <div class="col-2 text-center">
+            @Html.DropDownList("orden", ordenarPor, htmlAttributes: new { @class = "form-select", @onchange = "obtenerProductos()" })
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div id="columna-filtros" class="col-md-2">
+            <h5>Filtros</h5>
+            <label id="labelPrecioMinimo" for="filtroPrecioMin">Precio mínimo</label>
+
+            <div class="row">
+                <div class="col-6">
+                    <p>0</p>
+                </div>
+                <div class="col-6 texto-derecha">
+                    <p>MAX</p>
+                </div>
+            </div>
+            <input type="range" id="filtroPrecioMin" placeholder="" class="form-range" min="0" value="0" step="1000" max="100000" onchange="obtenerProductos();mostrarPrecioMinimo()" />
+            <label id="labelPrecioMaximo" for="filtroPrecioMax">Precio máximo</label>
+            <div class="row">
+                <div class="col-6">
+                    <p>0</p>
+                </div>
+                <div class="col-6 texto-derecha">
+                    <p>MAX</p>
+                </div>
+            </div>
+            <input type="range" id="filtroPrecioMax" placeholder="" class="form-range" min="0" value="100000" step="1000" max="100000" onchange="obtenerProductos();mostrarPrecioMaximo()" />
+            <br /><br />
+            <label for="filtroCategoria">Categoría</label>
+            <br />
+            @Html.DropDownList("categoria", categorias, "Todas", htmlAttributes: new { @class = "form-select", @onchange = "obtenerProductos()" })
+            <br /><br />
+            <a class="btn btn-outline-danger container-fluid" onclick="eliminarFiltros()">Eliminar filtros</a>
+        </div>
+
+        <div class="col-md-10">
+            <div class="row d-flex flex-wrap align-items-center" id="listaProductos" onload="obtenerProductos()">
+
+            </div>
+            <div id="cargando" style="display:none;">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-danger" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-info" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3 id="agregado">Producto agregado al carrito!</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="location.href = '/Ventas/Carrito'" class="btn btn-outline-primary" href= id="seguirComprando">Ir al Carrito</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" id="seguirComprando">Seguir Comprando</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCompra" tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelModal">Modo de envío</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿De qué manera desea recibir el producto?
+            </div>
+            <div class="modal-footer">
+                <a id="botonComprarAhoraExpress"  class="btn btn-secondary container-fluid">Express</a>
+                <a id="botonComprarAhora"  class="btn btn-success container-fluid">Recoger en el planetario</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    var textoParaBuscar = "";
+
+    const categoria = document.getElementById("categoria");
+    const orden = document.getElementById("orden");
+    const precioMin = document.getElementById("filtroPrecioMin");
+    const precioMax = document.getElementById("filtroPrecioMax");
+    const busqueda = document.getElementById("busqueda");
+
+    function eliminarFiltros() {
+        textoParaBuscar = "";
+        categoria.value = "";
+        orden.value = "fechaIngreso DESC";
+        precioMin.value = 0;
+        precioMax.value = 100000;
+        obtenerProductos();
+    }
+
+    function obtenerProductos() {
+        let urlProductos = crearUrlProductos()
+        console.log(urlProductos);
+        fetch(urlProductos)
+            .then(response => { mostrarPantallaCargando(); return response.json() })
+            .then(data => { agregarProductos(data); mostrarListaProductos()});
+    }
+
+    function mostrarPantallaCargando() {
+        document.getElementById("cargando").style.display = "initial"
+        document.getElementById("listaProductos").style.display = "none"
+    }
+
+    function mostrarListaProductos() {
+        document.getElementById("cargando").style.display = "none"
+        document.getElementById("listaProductos").style.display = "initial"
+    }
+
+    function crearUrlProductos() {
+        var urlProductos = "@urlProductos" + "?";
+        urlProductos += "precioMinimo=" + precioMin.value;
+        urlProductos += "&precioMaximo=" + precioMax.value;
+        urlProductos += "&categoria=" + categoria.value;
+        urlProductos += "&palabraBusqueda=" + textoParaBuscar;
+        urlProductos += "&orden=" + orden.value;
+        return urlProductos;
+    }
+
+    function agregarProductos(productos) {
+        let divProductos = document.getElementById("listaProductos");
+        divProductos.innerHTML = "";
+        for (let i = 0; i < productos.length; i++) {
+            let producto = productos[i]
+            let cartaProducto = crearContenedorProducto(producto)
+            divProductos.appendChild(cartaProducto)
+        }
+    }
+
+    function crearContenedorProducto(producto) {
+        let divContenedor = document.createElement("div");
+        divContenedor.className = "col-md-6"
+        divContenedor.innerHTML = `
+                <div class="card card-con-imagen-izq card-con-margen bg-light">
+                <a href="/Ventas/VerProducto/${producto["Id"]}"><img class="border" src="/Ventas/ObtenerImagen/${producto["Id"]}" id="${producto["Id"]}"></a>
+                <div class="card-body">
+                    <a href="/Ventas/VerProducto/${producto["Id"]}" class="h3 card-title">${producto["Nombre"]}</a>
+                    <p class="card-text">${producto["Descripcion"]}</p>
+                    <p class="card-text"><strong>Precio: </strong>₡${producto["Precio"]}</p>
+                    <div class="row">
+                       <div class="col"><input type="submit" onclick="agregarAlCarrito(${producto["Id"]})" class="btn btn-outline-success" value="Agregar al carrito" data-bs-toggle="modal" data-bs-target="#exampleModal" id="agregar_${producto["Id"]}"/></div>
+                       <div class="col"><a onclick="MostrarModalCompra(${producto["Id"]})" class="btn btn-outline-success ">Comprar ahora</a></div>
+                    </div>
+                </div>
+                </div>
+        `
+        return divContenedor
+    }
+
+    function mostrarPrecioMinimo() {
+        const value = document.getElementById("filtroPrecioMin").value
+        document.getElementById("labelPrecioMinimo").innerText = "Precio mínimo ( " + value + " )"
+    }
+
+    function mostrarPrecioMaximo() {
+        const value = document.getElementById("filtroPrecioMax").value
+        document.getElementById("labelPrecioMaximo").innerText = "Precio máximo ( " + value + " )"
+    }
+
+    function agregarAlCarrito(id) {
+        $.getJSON('/Ventas/AgregarAlCarrito', { idComprable: id, cantidad: 1 }, function (data) {
+            console.log(data);
+        });
+    }
+    function MostrarModalCompra(id) {
+        document.getElementById("botonComprarAhora").setAttribute("onclick", "comprarAhora("+id+")");
+        document.getElementById("botonComprarAhoraExpress").setAttribute("onclick", "comprarAhoraExpress("+id+")");
+        $("#ModalCompra").modal('show');
+        
+    }
+    function comprarAhora(id) {
+        window.location.href = '/Ventas/ComprarAhora?id=' + id + '&cantidad=1' + "&formaDeCompra=Recoger";
+    }
+    function comprarAhoraExpress(id) {
+        window.location.href = '/Ventas/ComprarAhora?id=' + id + '&cantidad=1' + "&formaDeCompra=Express";
+    }
+
+    mostrarPrecioMinimo()
+    mostrarPrecioMaximo()
+    obtenerProductos();
+</script>

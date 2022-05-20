@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "Estadisticas";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <span class="titulo">
+        Estadísticas de Actividades
+    </span>
+
+    <div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="well bs-component">
+                <h4> Filtrar Participantes:  </h4>
+                <h5><strong>@ViewBag.Mensaje</strong></h5>
+                <hr />
+                <div class="row">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.Label("Día de la semana")
+                            @Html.DropDownList("opcionDia", (IEnumerable<SelectListItem>)ViewBag.listaDias, "Todos")
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.Label("Público Meta")
+                            @Html.DropDownList("opcionPublico", (IEnumerable<SelectListItem>)ViewBag.listaPublico, "Todos")
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.Label("Nivel de Complejidad")
+                            @Html.DropDownList("opcionComplejidad", (IEnumerable<SelectListItem>)ViewBag.listaComplejidad, "Todos")
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            @Html.Label("Categoria")
+                            @Html.DropDownList("opcionCategoria", (IEnumerable<SelectListItem>)ViewBag.listaCategorias, "Todos")
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group" id="dropdownTopico" style="width: 75px">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="margin-top:25px"></div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"> Buscar</button>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div style="margin-top:100px"></div>
+
+    <div class="form-group">
+        <h4><strong>Estadisticas Generales:</strong></h4>
+
+        <h5>
+            Forma del gráfico:
+            <select id="opcion">
+                <option value="barra">Barra</option>
+                <option value="linea">Linea</option>
+            </select>
+        </h5>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <div id="chartFecha" style="height: 300px; width: 100%;"></div>
+        </div>
+
+        <div class="col">
+            <div id="chartPublico" style="height: 300px; width: 100%;"></div>
+        </div>
+    </div>
+
+    <div style="margin-top:70px"></div>
+
+    <div class="row">
+        <div class="col">
+            <div id="chartComplejidad" style="height: 300px; width: 100%;"></div>
+        </div>
+
+        <div class="col">
+            <div id="chartCategoria" style="height: 300px; width: 100%;"></div>
+        </div>
+    </div>
+
+    <div style="margin-top:70px"></div>
+
+    <div class=row>
+        <div id="chartTopico" style="height: 300px; width: 100%;"></div>
+    </div>
+
+
+    <div style="margin-top:100px"></div>
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="~/Utils/js/estadisticas.js"></script>
+    <script>
+        var participacionesPorDia = @Html.Raw(Json.Encode(@ViewBag.participacionesPorDia));
+        var participacionesPorPublico = @Html.Raw(Json.Encode(@ViewBag.participacionesPorPublico));
+        var participacionesPorComplejidad = @Html.Raw(Json.Encode(@ViewBag.participacionesPorComplejidad));
+        var participacionesPorCategoria = @Html.Raw(Json.Encode(@ViewBag.participacionesPorCategoria));
+
+        var participacionesPorTopicoTodos = @Html.Raw(Json.Encode(@ViewBag.participacionesPorTopicoTodos));
+
+        var resultado = @Html.Raw(Json.Encode(@ViewBag.Mensaje));
+
+        var dias = @Html.Raw(Json.Encode(@ViewBag.listaDias));
+        var publicos = @Html.Raw(Json.Encode(@ViewBag.listaPublico));
+        var complejidades = @Html.Raw(Json.Encode(@ViewBag.listaComplejidad));
+        var categorias = @Html.Raw(Json.Encode(@ViewBag.listaCategorias));
+        var topicos = @Html.Raw(Json.Encode(@ViewBag.listaTopicos));
+
+    </script>
+
+</body>
+</html>
+

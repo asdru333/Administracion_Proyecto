@@ -1,0 +1,58 @@
+﻿.cuadro {
+    border-radius: 0.3em;
+    border: 1px solid #aaa;
+    margin: 1em;
+    padding: 1em;
+    height: 12em;
+    box-shadow: 7px 7px 0px 0px #aaa;
+}
+
+.cuadro:hover {
+    box-shadow: 10px 10px 0px 0px #aaa;
+}
+
+header,
+section,
+aside {
+    margin: 0 1.5% 24px 1.5%;
+}
+
+section {
+    float: left;
+    width: 63%;
+}
+
+aside {
+    float: right;
+    width: 30%;
+}
+
+row {
+    text-align: center;
+}
+
+.col {
+    margin-bottom: 1em;
+}
+/*
+    .card {
+    margin: 1%;
+    border-radius: 15%;
+    border-color: #133b5c;
+    border-width: .15em;
+    box-shadow: 3px 7px #133b5c;
+}
+
+*/
+
+.card {
+    margin:1em;
+    box-shadow: 0px 0px 2px #133b5c;
+}
+    .card:hover {
+        box-shadow: 0px 0px 12px #133b5c;
+    }
+
+.site-footer {
+    display: none;
+}

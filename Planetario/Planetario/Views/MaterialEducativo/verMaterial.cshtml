@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Materiales";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.material.Titulo</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <style>
+        header,
+        section,
+        aside {
+            margin: 0 1.5% 24px 1.5%;
+        }
+
+        section {
+            float: left;
+            width: 63%;
+        }
+
+        aside {
+            float: right;
+            width: 30%;
+        }
+
+        row {
+            text-align: center;
+        }
+
+        .col {
+            margin-bottom: 1em;
+        }
+
+        .card {
+            margin: 1%;
+            border-radius: 15%;
+            border-color: #133b5c;
+            border-width: .15em;
+            box-shadow: 3px 7px #133b5c;
+        }
+
+        .site-footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="row text-center">
+        <span class="titulo">@ViewBag.material.Titulo</span>
+    </div>
+    <section>
+        <div class="row">
+            <p class="card-title"> <b>Vista previa:</b> </p>
+            <img src=https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg>
+        </div>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 text-center">
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Categoria</b> </span></p>
+                    <p> @ViewBag.material.Categoria </p>
+                </div>
+                <div class="col">
+                    <p><span> <i class="fa fa-check"></i><b>Publico Dirigido</b> </span></p>
+                    <p> @ViewBag.material.PublicoDirigido </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-4 col-sm-12">
+                @Html.ActionLink("Ver", "descargarArchivo",
+                         new { titulo = @ViewBag.material.Titulo }
+                     )
+            </div>
+        </div>
+    </section>
+
+    <aside>
+        <span class="titulo">Materiales Similares:</span>
+
+        @foreach (Planetario.Models.MaterialEducativoModel material in ViewBag.materiales)
+        {
+            if (ViewBag.material.Titulo != material.Titulo)
+            {
+                <div class="col">
+                    <div class="card">
+                        <span class="titulo">                        
+                                <i class="fa fa-commenting" aria-hidden="true"></i>                                                       
+                            <br />
+                            @Html.ActionLink(@material.Titulo, "verMaterial", "MaterialesEducativos", new { nombre = material.Titulo.ToString() }, new { style = "font-size: 30px" })
+                        </span>
+                        <div class="detallesActividad" , style="text-align:center">
+                            <div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <b>Publico Dirigido: </b>@material.PublicoDirigido
+                            </div>
+                            <div>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <b>Categoria: </b>@material.Categoria
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </aside>
+</body>
+</html>

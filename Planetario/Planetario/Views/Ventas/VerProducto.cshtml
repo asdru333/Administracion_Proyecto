@@ -1,0 +1,117 @@
+﻿<style>
+    img {
+        width:100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0.5em;
+    }
+    div.row {
+        margin:0;
+    }
+    #tarjetaDescripcion {
+        min-height:100%;
+    }
+</style>
+
+<body>
+    <span class="titulo">@ViewBag.producto.Nombre</span>
+    <div class="row">
+        <div class="col-md-4">
+            <img class="border" src="/Ventas/ObtenerImagen/@ViewBag.producto.Id">
+        </div>
+        <div class="col-md-5">
+            <div class="card bg-light" id="tarjetaDescripcion">
+                <div class="card-body">
+                    <h4 class="card-title">Descripción</h4>
+                    <p class="card-text" id="descripcion">@ViewBag.producto.Descripcion</p>
+                    <hr />
+                    <p class="card-text"><strong>Categoría:</strong> @ViewBag.producto.Categoria</p>
+                    <p class="card-text"><strong>Tamaño:</strong> @ViewBag.producto.Tamano</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><strong>Precio: </strong>₡@ViewBag.producto.Precio</h4>
+                    <p class="card-text">Cantidad disponible: @ViewBag.producto.CantidadDisponible</p>
+                </div>
+                <div class="card-footer">
+                    <h5>Cantidad: </h5>
+                    <input type="number" min="1" value="1" id="entradaCantidad" class="form-control" onchange="actualizarCantidad()" />
+                    <br />
+                    <input type="submit" onclick="agregarAlCarrito(@ViewBag.producto.Id)" class="btn btn-outline-success btn-lg btn-lg container-fluid" value="Agregar al carrito" data-bs-toggle="modal" data-bs-target="#exampleModal" />
+                    <br /><br />
+                    <input value="¡Comprar Ahora!" type="submit" onclick="MostrarModalCompra()" class="btn btn-lg btn-success container-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3>Producto agregado al carrito!</h3>
+                </div>
+                <div class="modal-footer">
+                    @Html.ActionLink("Ir al carrito", "Carrito", "Ventas", new { }, null)
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Seguir Comprando</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalCompra" tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModal">Modo de envío</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿De qué manera desea recibir los productos?
+                </div>
+                <div class="modal-footer">
+                    <a onclick="comprarAhoraExpress(@ViewBag.producto.Id)" class="btn btn-secondary container-fluid">Express</a>
+                    <a onclick="comprarAhora(@ViewBag.producto.Id)" class="btn btn-success container-fluid">Recoger en el planetario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var cantidad = 1;
+
+        function actualizarCantidad() {
+            let entradaCantidad = document.getElementById("entradaCantidad").value;
+            if (!isNaN(entradaCantidad)) {
+                cantidad = entradaCantidad;
+            }
+        }
+
+        function agregarAlCarrito(id) {
+            actualizarCantidad();
+            $.getJSON('/Ventas/AgregarAlCarrito', { idComprable: id, cantidad: cantidad }, function (data) {
+                console.log(data);
+            });
+        }
+        function MostrarModalCompra() {
+            $("#ModalCompra").modal('show');
+        }
+        function comprarAhora(id) {
+            actualizarCantidad();
+            window.location.href = '/Ventas/ComprarAhora?id=' + id + '&cantidad=' + cantidad + "&formaDeCompra=Recoger";
+        }
+        function comprarAhoraExpress(id) {
+            actualizarCantidad();
+            window.location.href = '/Ventas/ComprarAhora?id=' + id + '&cantidad=' + cantidad + "&formaDeCompra=Express";
+        }
+    </script>
+
+</body>

@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'AzurePipelinePI'
+    subscriptionId: 'd5302347-8b12-4e5e-8121-fb50d6841b7b'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'AzurePipelinePI-rg'
+    location: 'Central US'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/Bryan1150/PI-Inge-Bases-Grupo-3/master/Planetario/Planetario/CreateWebApp/azuredeploy.json'
+    overrideParameters: '-projectName AzurePipelinePI'
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
+- script: |
+   
+  displayName: 'Run a multi-line script'

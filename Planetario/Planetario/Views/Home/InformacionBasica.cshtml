@@ -1,0 +1,192 @@
+﻿@{ 
+    ViewBag.title = "Información Basica Planetario";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.title</title>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Utils/css")
+</head>
+<body>
+
+    <style>
+        .carousel-item {
+            height: 500px;
+            
+        }
+
+        .blockquote-custom {
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .blockquote-custom-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -40px;
+            left: 19px;
+        }
+
+        .card {
+            margin:1em;
+            box-shadow: 0px 0px 2px #133b5c;
+        }
+        .card-clickeable:hover {
+            box-shadow: 0px 0px 12px #133b5c;
+        }
+        .card-clickeable2:hover {
+            box-shadow: 0px 0px 18px white;
+        }
+    </style>
+
+    <div class="col-md-12">
+        <div id="carruselNoticias" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carruselNoticias" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carruselNoticias" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carruselNoticias" data-bs-slide-to="2"></button>
+            </div>
+
+            <div class="carousel-inner">
+                <div  class="carousel-item active">
+                    <img src="https://i.huffpost.com/gen/1729981/images/o-ASTEROID-IMPACT-facebook.jpg" alt="Asteroide" class="d-block w-100">
+                    <div class="carousel-caption">
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <div class="card bg-dark bg-opacity-75 card-clickeable2 border">
+                                    <h3 class="card-header ">Asteroide en dirección hacia la Tierra</h3>
+                                    <div class="card-body ">
+                                        <p style="color:white;" class="card-text">Un asteroide de 500 toneladas esta en dirección de colisión a la Tierra en los próximos 100 años</p>
+                                    </div>
+                                    <a href="/Noticias/verNoticia?stringId=1" class="hidden stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="carousel-item">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2019%2F09%2F865267-galaxia-andromeda-estrella-espacio.jpg&f=1&nofb=1" alt="Galaxia" class="d-block w-100">
+                    <div class="carousel-caption">
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <div class="card bg-dark bg-opacity-75 card-clickeable2 border">
+                                    <h3 class="card-header ">Se descubre una nueva Galaxia</h3>
+                                    <div class="card-body ">
+                                        <p style="color:white;" class="card-text">Científicos encuentran nueva galaxia cercana a la nuestra</p>
+                                    </div>
+                                    <a href="/Noticias/verNoticia?stringId=2" class="hidden stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.chispa.tv%2F__export%2F1509561633274%2Fsites%2Fdebate%2Fimg%2F2017%2F11%2F01%2F855febf1dce40a0fb692d206fd87c9b9858d100c_crop1509560219671.jpg_242310155.jpg&f=1&nofb=1" alt="New York" class="d-block w-100">
+                    <div class="carousel-caption">
+                        <div class="row">
+                            <div class="col-8 offset-2">
+                                <div class="card bg-dark bg-opacity-75 card-clickeable2 border">
+                                    <h3 class="card-header ">Se encontró el primer planeta de la galaxia recién descubierta</h3>
+                                    <div class="card-body ">
+                                        <p style="color:white;" class="card-text">El planeta será llamado Grupo-03</p>
+                                    </div>
+                                    <a href="/Noticias/verNoticia?stringId=3" class="hidden stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carruselNoticias" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carruselNoticias" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-8 offset-md-2">
+        <div class="row rows-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100 card-clickeable">
+                    <img src="~/Utils/images/Juegos/ETGame.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                    <div class="card-body">
+                        <h5 class="card-title">Juegos en Planetario Halley</h5>
+                        <p class="card-text">Ahora el Planetario Halley cuenta con diversos juegos para divertirse mientras aprendes!</p>
+                    </div>
+                    <a href="/Juegos/Lista" class="hidden stretched-link"></a>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="card h-100 card-clickeable">
+                    <img src="~/Utils/images/assets/membresias.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                    <div class="card-body">
+                        <h5 class="card-title">Beneficios para nuestros Socios</h5>
+                        <p class="card-text">Ahora, al adquirir una membresía, puedes obtener beneficios, visita la página de membresias para aprender más.</p>
+                    </div>
+                    <a href="/Membresias/Comprar" class="hidden stretched-link"></a>
+                </div>
+
+            </div>
+
+            <div class="col">
+                <div class="card h-100 card-clickeable">
+                    <img src="~/Utils/images/Juegos/MapaSistema.jpg" class="card-img-top" style="object-fit: cover; height: 240px;" />
+                    <div class="card-body">
+                        <h5 class="card-title">Compara cuerpos celestes dentro del Planetario</h5>
+                        <p class="card-text">Ahora puedes tener una idea de las dimensiones de los planetas comparandolos en nuestra nueva sección para comprarar.</p>
+                    </div>
+                    <a href="/Home/CompararCuerpos" class="hidden stretched-link"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card border">
+                    <div class="card-body">
+                        <blockquote class="blockquote blockquote-custom bg-white px-3 pt-4">
+                            <div class="blockquote-custom-icon bg-info shadow-1-strong">
+                                <i class="fa fa-quote-left text-white"></i>
+                            </div>
+                            <p class="mb-0 mt-2 font-italic">
+                                "El Planetario Halley me parece un sitio web muy interesante, puedo estar al tanto de las últimas noticias, estudiar con los materiales brindados, participar en actividades, aprender mientras juego, ver los eventos internos y externos, y hasta comprar souveniers. Sin duda es una página que seguiré usando."
+                            </p>
+                            <footer class="blockquote-footer pt-4 mt-4 border-top">
+                                <a href="#">Neil deGrasse Tyson</a>
+                            </footer>
+                        </blockquote>
+
+
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="Evaluacion/CuestionarioEvaluacion" class="btn btn-primary">Dejanos tú opinión.</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div style="margin-top:100px"></div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

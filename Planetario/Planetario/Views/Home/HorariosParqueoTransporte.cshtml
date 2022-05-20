@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>Horarios, parqueos y trasnporte del Planetario</title>
+    <meta charset="utf-8" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+        function initMap() {
+            var planetario = new google.maps.LatLng(9.937031544611857, -84.04483716100493);
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 20,
+                center: planetario,
+            });
+
+            const marker = new google.maps.Marker({
+                position: planetario,
+                map: map,
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="row text-center" style="width: 99%;">
+        <div class="col-md-6">
+            <span class="titulo">Horario</span>
+            <table class="table table-hover" style="height: 54px;">
+                <tbody>
+                    <tr style="height: 18px;">
+
+                        <td style="height: 18px; width: 180px; text-align: center;">Lunes - Viernes</td>
+                        <td style="height: 18px; width: 180px; text-align: center;">8:00 &ndash; 16:00</td>
+
+                    </tr>
+                    <tr style="height: 18px;">
+
+                        <td style="height: 18px; width: 180px; text-align: center;">S&aacute;bado</td>
+                        <td style="height: 18px; width: 180px; text-align: center;">10:00  &ndash; 19:00</td>
+
+                    </tr>
+                    <tr style="height: 18px;">
+
+                        <td style="height: 18px; width: 180px; text-align: center;">Domingo</td>
+                        <td style="height: 18px; width: 180px; text-align: center;">Cerrado todo el d&iacute;a</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6">
+            <span class="titulo">Transporte</span>
+            <table class="table table-hover table-responsive" style="height: 54px;">
+                <tbody>
+                    <tr style="height: 18px;">
+
+                        <td style="height: 18px; width: 180px; text-align: center;">Lunes - Viernes</td>
+                        <td style="height: 18px; width: 410px; text-align: center; ">8:00, 9:00, 10:00, 11:00, 12:00, 13:00, 14:00</td>
+
+                    </tr>
+                    <tr style="height: 18px;">
+
+                        <td style="height: 18px; width: 180px; text-align: center;">S&aacute;bado</td>
+                        <td style="height: 18px; width: 410px; text-align: center; ">10:00, 11:00, 12:00, 13:00, 14:00, 15:00, 16:00, 17:00</td>
+
+                    </tr>
+                    <tr style="height: 18px;">
+
+                        <td style="height: 18px; width: 180px; text-align: center;">Domingo</td>
+                        <td style="height: 18px; width: 410px; text-align: center; ">No funciona el transporte</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row text-center" style="width: 99%;">
+        <span class="titulo">Estacionamiento</span>
+        <div class="container">
+            <p class="text-center">
+                El estacionamiento consistirá de 50 parqueos para carros que se encuentran al aire libre.
+                Cinco de estos son para gente con discapacidad. También se cuentan con 10 parqueos para motos.
+                El estacionamiento a la misma hora que abre el planetario y cierra una hora después de que el planetario haya cerrado.
+            </p>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <span class="titulo">Ubicación</span>
+        <p class="text-center">Nos ubicamos en la Ciudad de la Investigación de la UCR, San Pedro de Montes de Oca. Del supermercado Muñoz y Nanne 400 metros Norte (entrada principal a la Ciudad de la Investigación).</p>
+        <div id="map"></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLElcIYt5Tjb1rNAuONwwL8AXOkskFkak&callback=initMap" async defer></script>
+        <hr />
+    </div>
+
+    <div style="margin-top:70px"></div>
+
+</body>
+

@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetario Halley</title>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Utils/css")
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/layout.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #133b5c;">
+        <div class="container-fluid">
+            @Html.ActionLink("Planetario Halley", "InformacionBasica", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:#fff" })
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sobre nosotros
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="nav-item">
+                                @Html.ActionLink("Información importante", "HorariosParqueoTransporte", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Nuestros Funcionarios", "ListaFuncionarios", "Funcionarios", new { area = "" }, new { @class = "dropdown-item" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Preguntas Frecuentes", "PreguntasFrecuentes", "PreguntasFrecuentes", new { area = "" }, new { @class = "dropdown-item" })
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Materiales educativos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="nav-item">
+                                @Html.ActionLink("Comparador de cuerpos celestes", "CompararCuerpos", "Home", new { area = "" }, new { @class = "dropdown-item" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Cuestionarios", "ListaCuestionarios", "Cuestionario", new { area = "" }, new { @class = "dropdown-item" })
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Noticias", "listadoDeNoticias", "Noticias", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Actividades", "listadoDeActividades", "Actividades", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Calendario", "CalendarioFenomenos", "Calendario", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+
+                    <li class="nav-item">
+                        @Html.ActionLink("Juegos", "Lista", "Juegos", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" href="/Ventas/ListaProductos" id="navTienda">Tienda</a></li>
+
+                </ul>
+                <ul class="navbar-nav ms-auto">
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (((Context.User.Identity as FormsIdentity).Ticket.UserData) == "Funcionario")
+                        {
+                            <li class="nav-item"><a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"> <i class="fa fa-cogs"></i> </a> </li>
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuSettings" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuSettings">
+                                <li class="dropdown-item" id="membresia"></li>
+                                <li class="dropdown-item" id="carrito"></li>
+                                <li class="dropdown-item"><a class="nav-link" href="/Personas/CerrarSesion"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a class="nav-link" href="/Clientes/Registro"><span class="fa fa-user-plus "></span> Registro</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="/Personas/IniciarSesion" id="login"><span class="fa fa-sign-in"></span> Iniciar sesión</a></li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content ">
+        @RenderBody()
+    </div>
+    <footer class="site-footer">
+        <p style="text-align:center"> @DateTime.Now</p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">
+                        Copyright &copy; 2021 Derechos reservados
+                        <a href="#">Planetario Halley</a>.
+                    </p>
+                    <a href="/Evaluacion/CuestionarioEvaluacion">Dejanos tú opinión.</a>
+                </div>
+               
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&layout=button_count&size=small&appId=175191305830549&width=99&height=20" title="Compartir en Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&text=:%20https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ" title="Tweetear"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="linkedin" href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ&title=&summary=&source=https%3A%2F%2Fimgur.com%2Fa%2FRfPVpdJ" title="Compartir en LinkedIn"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <span class="titulo">Panel de administración</span>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 text-center">
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseMateriales" role="button" aria-expanded="false" aria-controls="collapseMateriales">
+                            <h3>
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <br />
+                                Materiales
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="card-body collapse" id="collapseMateriales">
+                        <p class="card-text">@Html.ActionLink("Agregar Material", "AlmacenarNuevoMaterialEducativo", "MaterialEducativo", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseNoticias" role="button" aria-expanded="false" aria-controls="collapseNoticias">
+                            <h3>
+                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                <br />
+                                Noticias
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="card-body collapse" id="collapseNoticias">
+                        <p class="card-text">@Html.ActionLink("Agregar Noticia", "crearNoticia", "Noticias", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapsePreguntas" role="button" aria-expanded="false" aria-controls="collapsePreguntas">
+                            <h3>
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                <br />
+                                Preguntas
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="card-body collapse" id="collapsePreguntas">
+                        <p class="card-text">@Html.ActionLink("Agregar Pregunta", "AgregarNuevaPregunta", "PreguntasFrecuentes", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseActividades" role="button" aria-expanded="false" aria-controls="collapseActividades">
+                            <h3>
+                                <i class="fa fa-rocket" aria-hidden="true"></i>
+                                <br />
+                                Actividades
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="card-body collapse" id="collapseActividades">
+                        <p class="card-text">@Html.ActionLink("Agregar Actividad", "crearActividad", "Actividades", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseFuncionarios" role="button" aria-expanded="false" aria-controls="collapseFuncionarios">
+                            <h3>
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                <br />
+                                Funcionarios
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="card-body collapse" id="collapseFuncionarios">
+                        <p class="card-text">@Html.ActionLink("Agregar Funcionario", "AgregarFuncionario", "Funcionarios", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseEventos" role="button" aria-expanded="false" aria-controls="collapseEventos">
+                            <h3>
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                <br />
+                                Eventos
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="card-body collapse" id="collapseEventos">
+                        <p class="card-text">@Html.ActionLink("Agregar Evento", "AgregarEvento", "Eventos", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseCuestionarios" role="button" aria-expanded="false" aria-controls="collapseCuestionarios">
+                            <h3>
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                <br />
+                                Cuestionarios
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseCuestionarios">
+                        <p class="card-text">@Html.ActionLink("Agregar Cuestionario", "agregarCuestionario", "Cuestionario", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseEstadisticas" role="button" aria-expanded="false" aria-controls="collapseEstadisticas">
+                            <h3>
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                <br />
+                                Reportes
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseEstadisticas">
+                        <p class="card-text">@Html.ActionLink("Agregar Cupones", "AgregarCupon", "Ventas", new { area = "" }, new { @class = "" })</p>
+                        <p class="card-text">@Html.ActionLink("Estadísticas de Idiomas", "verIdiomas", "Estadisticas", new { area = "" }, new { @class = "" })</p>
+                        <p class="card-text">@Html.ActionLink("Estadísticas de Involucramiento", "verInvolucramiento", "Estadisticas", new { area = "" }, new { @class = "" })</p>
+                        <p class="card-text">@Html.ActionLink("Reporte de ventas", "Reporte", "Reportes", new { area = "" }, new { @class = "" })</p>
+                        <p class="card-text">@Html.ActionLink("Reporte de mercadeo", "ReporteMercadeo", "Reportes", new { area = "" }, new { @class = "" })</p>
+                        <p class="card-text">@Html.ActionLink("Reporte de Feedback", "MostrarCuestionarioEvaluacion", "Evaluacion", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+        <div class="offcanvas-bottom"></div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function obtenerMembresia() {
+            $.getJSON('/Ventas/ObtenerMembresia', function (data) {
+                if (data.membresia != "No Disponible") {
+                    let content = "";
+                    const membresia = document.getElementById('membresia');
+                    content += `<a class="nav-link" href="/Membresias/Comprar"><i class ="fa fa-address-book-o"></i> `
+                    content += data.membresia;
+                    content += `</a>`;
+                    membresia.innerHTML = content;
+                }
+            });
+        }
+
+        function obtenerCantidadCarrito() {
+            $.getJSON('/Ventas/ObtenerCantidadCarrito', function (data) {
+                let content = "";
+                console.log(data.cantidad);
+                const carrito = document.getElementById('carrito');
+                content += `<a class="nav-link" href="/Ventas/Carrito" id="carrito"><i class="fa fa-shopping-cart"></i> Carrito( `
+                content += data.cantidad;
+                content += ` )</a>`;
+                carrito.innerHTML = content;
+            });
+        }
+        obtenerMembresia();
+        obtenerCantidadCarrito();
+
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

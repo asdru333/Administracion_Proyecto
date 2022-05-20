@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.noticia.Titulo</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <style>
+        img {
+            border: 2px solid #133b5c;
+            box-shadow: 0px 0px 0px #ccc;
+            max-height: 100%;
+            max-width: 200%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-top:50px"></div>
+    <h1>@ViewBag.noticia.Titulo</h1>
+    <div class="well">
+        <small>
+            Autor: @ViewBag.noticia.CorreoAutor<br />
+            Fecha: @ViewBag.noticia.Fecha <br />
+        </small>
+        <hr />
+        <p style="text-align: justify">@ViewBag.noticia.Cuerpo</p>
+        <hr />
+
+        @if (@ViewBag.noticia.id == 1)
+        {
+            <div class="col-md-4">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi0.wp.com%2Finsurgentepress.com.mx%2Fwp-content%2Fuploads%2F2020%2F05%2FApophisAsteroid.jpg%3Ffit%3D1600%252C900%26ssl%3D1&f=1&nofb=1" />
+            </div>
+        }
+
+        @if (@ViewBag.noticia.id == 2)
+        {
+            <div class="col-md-4">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2019%2F09%2F865267-galaxia-andromeda-estrella-espacio.jpg&f=1&nofb=1" />
+            </div>
+        }
+
+        @if (@ViewBag.noticia.id == 3)
+        {
+            <div class="col-md-4">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.chispa.tv%2F__export%2F1509561633274%2Fsites%2Fdebate%2Fimg%2F2017%2F11%2F01%2F855febf1dce40a0fb692d206fd87c9b9858d100c_crop1509560219671.jpg_242310155.jpg&f=1&nofb=1" />
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Regresar", "listadoDeNoticias", "Noticias")
+        </div>
+    </div>
+</body>
+</html>

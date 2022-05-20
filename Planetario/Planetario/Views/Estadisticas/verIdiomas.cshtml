@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "Estadisticas";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <script src="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.js"></script> 
+    <link href="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <span class="titulo">
+        Estadísticas de Idiomas
+    </span>
+
+    <div>
+        <h4><strong>Filtro por Idiomas:</strong></h4>
+        <h5>@ViewBag.cantidadFuncionarios</h5>
+
+        <form onsubmit="listar()" method="post" style="row text-center">
+            <div id="myselect">
+                <select id="multiselect" name="others[]" multiple="multiple">
+
+                    @foreach (var idioma in ViewBag.opcionIdiomas)
+                    {
+                        <option value=@idioma.Text>@idioma.Text</option>
+                    }
+
+                </select>
+            </div>
+            <input type="hidden" id="seleccionIdiomas" name="seleccionIdiomas" value="">
+            <button type="submit" class="btn btn-primary"> Buscar</button>
+        </form>
+
+        <div style="margin-top:70px"></div>
+
+        @if (ViewBag.cantidad > 0)
+        {
+
+        <div>
+
+            <table class="table">
+
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Expertis</th>
+                    <th>Idiomas</th>
+                </tr>
+
+                @foreach (var funcionario in ViewBag.funcionariosBuscados)
+                {
+                    <tr>
+                        <td><p>@Html.ActionLink((string)funcionario.Nombre + " " + (string)funcionario.Apellido.ToString(), "verFuncionario", "Funcionarios", new { correo = @funcionario.Correo.ToString() }, null)</p></td>
+                        <td>@funcionario.Correo</td>
+                        <td>@funcionario.Expertis</td>
+                        <td>@funcionario.Idiomas</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+        }
+    </div>
+
+    <div style="margin-top:70px"></div>
+
+    <div class="form-group">
+        <h4><strong>Estadisticas Generales:</strong></h4>
+
+        <h5>
+            Forma del gráfico:
+            <select id="opcion">
+                <option value="barra">Barra</option>
+                <option value="linea">Linea</option>
+            </select>
+        </h5>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <div id="chart" style="height: 300px; width: 100%;"></div>
+        </div>
+    </div>
+
+    <div style="margin-top:100px"></div>
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="~/Utils/js/estadisticasIdiomas.js"></script>
+    <script>
+        var listaIdiomas = @Html.Raw(Json.Encode(@ViewBag.listaIdiomas));
+        var listaNumIdiomas = @Html.Raw(Json.Encode(@ViewBag.listaNumIdiomas));
+
+        var select = new MSFmultiSelect(
+            document.querySelector('#multiselect'),
+            {
+                theme: 'theme2',
+                selectAll: false,
+                searchBox: false,
+                width: 400,
+                height: 50,
+                onChange: function (checked, value, instance) {
+
+                },
+                placeholder: 'idiomas',
+                afterSelectAll: function (checked, values, instance) {
+
+                }
+            }
+        );
+
+        function listar()
+        {
+            var seleccion = "";
+
+            for (i = 0; i < listaIdiomas.length; i++) {
+                if (select.data[i] === true) {
+                    seleccion += listaIdiomas[i]
+                    seleccion += ";"
+                }
+            }
+            document.getElementById("seleccionIdiomas").value = seleccion;
+        }
+    </script>
+
+</body>
+</html>
+

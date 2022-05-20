@@ -1,0 +1,139 @@
+﻿<head>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/ventas.css" />
+</head>
+
+<body>
+    <span class="titulo">Carrito</span>
+    @if (ViewBag.ListaProductos != null || ViewBag.ListaEntradas != null)
+    {
+        <div class="row">
+            <div class="col-md-8">
+                @if (ViewBag.ListaProductos != null)
+                {
+                    <h1>Productos</h1>
+                    foreach (var producto in ViewBag.ListaProductos)
+                    {
+                        <div class="card card-con-imagen-izq bg-light">
+                            <a href="@Url.Action("VerProducto","Ventas",new { producto.Id})"><img class="border" src="@Url.Action("ObtenerImagen", "Ventas", new { id = producto.Id })"></a>
+                            <div class="card-body">
+
+                                <a href="@Url.Action("VerProducto","Ventas",new { producto.Id})" class="h3 card-title" id="@producto.Id">@producto.Nombre</a>
+                                <p class="card-text">@producto.Descripcion</p>
+
+                                <div class="row" style="margin-top: 0;">
+                                    <div class="col-6">
+                                        <p class="card-text"><strong>Precio: </strong>₡@producto.Precio</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="card-text"><strong>Cantidad: </strong>@producto.CantidadCarrito</p>
+                                    </div>
+                                </div>
+                                <input type="submit" onclick="MostrarModalConfirmacion(@producto.Id)" class="btn btn-outline-danger" value="Eliminar" id="eliminar_@producto.Id" />
+                            </div>
+                        </div>
+                        <br />
+                    }
+                }
+
+                @if (ViewBag.ListaEntradas != null)
+                {
+                    <br><h1>Entradas a actividades</h1><br />
+                    foreach (var entrada in ViewBag.ListaEntradas)
+                    {
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h3 class="card-title">Entrada para: @entrada.Nombre</h3>
+                                <div class="row" style="margin-top: 0;">
+                                    <div class="col-6">
+                                        <p class="card-text"><strong>Precio: </strong>₡@entrada.Precio</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="card-text"><strong>Cantidad: </strong>@entrada.CantidadCarrito</p>
+                                    </div>
+                                </div>
+                                <input type="submit" onclick="MostrarModalConfirmacion(@entrada.Id)" class="btn btn-outline-danger" value="Eliminar" />
+                            </div>
+                        </div>
+                        <br />
+                    }
+                }
+            </div>
+
+            <div class="col-md-3 offset-md-1">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-text">
+                            <h4>Subtotal: (@ViewBag.CantidadItems items)</h4>
+                            <h5><strong>Precio: </strong>₡@ViewBag.Precio</h5>
+                            <h5><strong>IVA: </strong>₡@ViewBag.IVA</h5>
+                            <h5><strong>Precio Total: </strong>₡@ViewBag.PrecioTotal</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <input type="submit" onclick="MostrarModalCompra()" class="btn btn-success container-fluid" value="Pagar" />                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="text-center" id="vacio">No tienes artículos.</p>
+    }
+
+    <div class="modal fade" id="ModalEliminarProducto" tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModal">Confirmación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro qué quiere eliminar el producto?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <input type="submit" id="BotonConfirmarSi" onclick="EliminarElementoDelCarrito()" class="btn btn-success" value="Si" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalCompra" tabindex="-1" aria-labelledby="LabelModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModal">Modo de envío</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿De qué manera desea recibir los productos?
+                </div>
+                <div class="modal-footer">
+                    <a href="@Url.Action("Pago","Ventas", new { formaDeCompra = "Express" })" class="btn btn-secondary container-fluid">Express</a>
+                    <a href="@Url.Action("Pago","Ventas", new { formaDeCompra = "Recoger" })" class="btn btn-success container-fluid">Recoger en el planetario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var idUltimoBorrar;
+        function EliminarElementoDelCarrito() {
+            $.getJSON('/Ventas/EliminarElementoDelCarritoDelUsuario', { idComprable: idUltimoBorrar }, function (data) {
+                console.log(data);
+            });
+            window.location.reload();
+        }
+
+        function MostrarModalConfirmacion(idComprable) {
+            $("#ModalEliminarProducto").modal('show');
+            idUltimoBorrar = idComprable
+        }
+
+        function MostrarModalCompra(idComprable) {
+            $("#ModalCompra").modal('show');
+        }
+    </script>
+</body>

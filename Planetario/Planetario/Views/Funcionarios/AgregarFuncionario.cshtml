@@ -1,0 +1,161 @@
+﻿@model Planetario.Models.FuncionarioModel
+@{
+    ViewBag.Title = "Agregar Funcionario";
+    List<SelectListItem> generos = ViewBag.generos;
+    List<SelectListItem> paises = ViewBag.paises;
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <script src="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("AgregarFuncionario", "Funcionarios", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "listar()" }))
+    {
+        <span class="titulo">Agregar Funcionario</span>
+        <p class="alert-success">@ViewBag.Message</p>
+        <h4> Formulario de agregar funcionarios</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.nombre, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.apellido1, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.apellido1, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.apellido1, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.apellido2, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.apellido2, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.apellido2, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.correo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Contrasena, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.Contrasena, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Contrasena, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.areaExpertis, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.areaExpertis, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.areaExpertis, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+
+                @Html.LabelFor(model => model.fechaIncorporacion, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.fechaIncorporacion, new { @type = "date", @class = "form-control datepicker" })
+                    @Html.ValidationMessageFor(model => model.fechaIncorporacion, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.DropDownListFor(model => model.pais, paises, "-País-", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.genero, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.DropDownListFor(model => model.genero, generos, "-Selección-", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.genero, "", new { @class = "text-danger" })
+                </div>
+
+                <label for="myselect" class="control-label">Idiomas</label>
+                <div id="myselect">
+                    <select id="multiselect" name="others[]" multiple="multiple" class="form-control">
+
+                        @foreach (var idioma in ViewBag.opcionIdiomas)
+                        {
+                            <option value=@idioma.Text>@idioma.Text</option>
+                        }
+
+                    </select>
+                </div>
+                <input type="hidden" id="idiomas" name="idiomas" value="">
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @Html.LabelFor(model => model.FotoArchivo, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextBoxFor(model => model.FotoArchivo, new { type = "file", @class = "btn btn alert-info" })
+                    @Html.ValidationMessageFor(model => model.FotoArchivo, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.descripcion, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", @rows = 5, @cols = 80 })
+                    @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-1 col-md-4 col-sm-2">
+                <input type="submit" class="btn btn-success" value="Agregar" />
+            </div>
+            <div class="col-1 col-md-4 col-sm-2">
+                @Html.ActionLink("Volver", "ListaFuncionarios", null, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+
+
+    }
+    <div>
+        @Html.ActionLink("Regresar a Inicio", "InformacionBasica", "Home")
+    </div>
+
+    <script>
+        let listaIdiomas = @Html.Raw(Json.Encode(ViewBag.opcionIdiomas));
+        let select = new MSFmultiSelect(
+            document.querySelector('#multiselect'),
+            {
+                theme: 'theme2',
+                selectAll: false,
+                searchBox: false,
+                width: 280,
+                height: 50,
+                onChange: function (checked, value, instance) {
+                    listar();
+                },
+                placeholder: 'idiomas',
+                afterSelectAll: function (checked, values, instance) {
+
+                }
+            }
+        );
+
+        function listar()
+        {
+            var seleccion = [];
+
+            for (i = 0; i < listaIdiomas.length; i++) {
+                if (select.data[i] === true) {
+                    seleccion.push(listaIdiomas[i].Text)
+                }
+            }
+            document.getElementById("idiomas").value = seleccion.join(";");
+
+        }
+    </script>
+</body>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

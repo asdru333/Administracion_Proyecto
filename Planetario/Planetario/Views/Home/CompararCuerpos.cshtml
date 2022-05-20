@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "CompararCuerpos";
+}
+
+<head>
+    <title>Comparación de Cuerpos del Espacio</title>
+    <meta charset='UTF-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='description' content='Interactive planet and star sizes comparison' />
+    <meta name='google' content='notranslate' />
+    <meta property='og:type' content='website' />
+    <meta property='og:title' content='Space object comparison' />
+    <meta property='og:url' content='https://mr21.github.io/space-object-comparison' />
+    <meta property='og:image' content='https://mr21.github.io/space-object-comparison/og-image.png' />
+    <meta property='og:image:width' content='1211' />
+    <meta property='og:image:height' content='735' />
+    <meta name='theme-color' content='#000000' />
+    <link rel='manifest' href='manifest.json' />
+
+
+    <link rel="stylesheet" href="~/Utils/css/estilosComparador.css" />
+</head>
+<body>
+
+    <div id="main">
+        <label id="toggleTexturesWrap">
+            <input type="checkbox" id="toggleTextures" checked />
+            <span>Texturas</span>
+        </label>
+        <div id="milkyway"></div>
+        <div class="page page-a">
+            <select required></select>
+            <div class="object-size"></div>
+            <div class="object-aka"></div>
+            <div class="object"></div>
+        </div>
+        <div class="page page-b">
+            <select required></select>
+            <div class="object-size"></div>
+            <div class="object-aka"></div>
+            <div class="object"></div>
+        </div>
+    </div>
+
+    <script src="~/Utils/js/cuerposComparador.js"></script>
+    <script src="~/Utils/js/mainComparador.js"></script>
+</body>
+

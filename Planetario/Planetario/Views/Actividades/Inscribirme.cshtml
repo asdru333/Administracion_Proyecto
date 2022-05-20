@@ -1,0 +1,241 @@
+﻿@model Planetario.Models.InscripcionModel
+@{
+    ViewBag.Title = "Proceso de inscripción";
+    List<SelectListItem> generos = ViewBag.generos;
+    List<SelectListItem> nivelesEducativos = ViewBag.nivelesEducativos;
+    List<SelectListItem> paises = ViewBag.paises;
+    string linkValidarCorreo = Url.Content("~/Actividades/ValidarCorreo");
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/vistaPagos.css">
+</head>
+<body>
+    <span class="titulo">
+        Inscribirme a @ViewBag.titulo
+    </span>
+    @if (ViewBag.Message != null)
+    {
+        if (ViewBag.ExitoAlInscribir)
+        {
+            <div class="alert-success">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert-danger">
+                <h3> @ViewBag.Message </h3>
+            </div>
+        }
+    }
+    else
+    {
+        using (Html.BeginForm("Inscribirme", "Actividades", FormMethod.Post, new { id = "formularioGeneral", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="container mt-5 px-5">
+
+                <section id="formularioCorreo" class="card">
+                    <div class="container row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-floating">
+                                @Html.TextBoxFor(model => model.infoParticipante.correo, new { @id = "entradaCorreo", @class = "form-control input-lg", @placeholder = "correo" })
+                                @Html.LabelFor(model => model.infoParticipante.correo, htmlAttributes: new { @class = "" })
+                                @Html.ValidationMessageFor(model => model.infoParticipante.correo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <input type="button" class="btn btn-success btn-lg" value="Validar" id="botonValidar" onclick="validarCorreo()" />
+                        </div>
+                    </div>
+                </section>
+
+
+                <section id="formularioDatosPersonales">
+                    <h4>Formulario inscripción</h4>
+                    <hr />
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-4 col-md-4 col-sm-12">
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoParticipante.nombre, new { @class = "form-control", @placeholder = "Nombre" })
+                                    @Html.LabelFor(model => model.infoParticipante.nombre, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.nombre, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoParticipante.apellido1, new { @class = "form-control", @placeholder = "Apellido1" })
+                                    @Html.LabelFor(model => model.infoParticipante.apellido1, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.apellido1, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoParticipante.apellido2, new { @class = "form-control", @placeholder = "Apellido2" })
+                                    @Html.LabelFor(model => model.infoParticipante.apellido2, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.apellido2, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-4 col-md-4 col-sm-12">
+                                <div class="form-floating">
+                                    @Html.DropDownListFor(model => model.infoParticipante.genero, generos, "", new { @class = "form-control", @placeholder = "Genero" })
+                                    @Html.LabelFor(model => model.infoParticipante.genero, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.genero, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-floating">
+                                    @Html.DropDownListFor(model => model.infoParticipante.pais, paises, "", new { @class = "form-control", @placeholder = "Pais" })
+                                    @Html.LabelFor(model => model.infoParticipante.pais, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.pais, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-floating">
+                                    @Html.DropDownListFor(model => model.infoParticipante.nivelEducativo, nivelesEducativos, "", new { @class = "form-control dropdown-toggle", @placeholder = "NivelEducativo" })
+                                    @Html.LabelFor(model => model.infoParticipante.nivelEducativo, htmlAttributes: new { @class = "control-label" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.nivelEducativo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-4 col-md-4 col-sm-12 text-center">
+                                @Html.LabelFor(model => model.infoParticipante.fechaNacimiento, htmlAttributes: new { @class = "control-label" })
+                                <div>
+                                    @Html.TextBoxFor(model => model.infoParticipante.fechaNacimiento, new { @type = "date", @class = "form-​control datepicker", @placeholder = "Fecha" })
+                                    @Html.ValidationMessageFor(model => model.infoParticipante.fechaNacimiento, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <input class="form-control" id="NombreActividad" name="NombreActividad" type="hidden" value="@ViewBag.titulo" />
+
+                            <div class="row">
+                                <div class="col-6 col-md-6 col-sm-12">
+                                    <input class="btn btn-success" value="Agregar" onclick="validarInfoPersonal()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="formularioDatosPago">
+                    <div class="mb-4">
+                        <h2>Confirmar el pago</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card p-3">
+                                <h6 class="text-uppercase">Detalles de pago</h6>
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(model => model.infoTarjeta.NombreTarjeta, new { @class = "form-control input-lg", @placeholder = "" })
+                                    @Html.LabelFor(model => model.infoTarjeta.NombreTarjeta, htmlAttributes: new { @class = "" })
+                                    @Html.ValidationMessageFor(model => model.infoTarjeta.NombreTarjeta, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            @Html.TextBoxFor(model => model.infoTarjeta.NumeroTarjeta, new { @class = "form-control input-lg", @placeholder = "" })
+                                            @Html.LabelFor(model => model.infoTarjeta.NumeroTarjeta, htmlAttributes: new { @class = "" })
+                                            @Html.ValidationMessageFor(model => model.infoTarjeta.NumeroTarjeta, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex flex-row">
+                                            <div class="form-floating">
+                                                @Html.TextBoxFor(model => model.infoTarjeta.FechaExpiracion, new { @class = "form-control input-lg", @placeholder = "" })
+                                                @Html.LabelFor(model => model.infoTarjeta.FechaExpiracion, htmlAttributes: new { @class = "" })
+                                                @Html.ValidationMessageFor(model => model.infoTarjeta.FechaExpiracion, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-floating">
+                                                @Html.TextBoxFor(model => model.infoTarjeta.CVV, new { @class = "form-control input-lg", @placeholder = "" })
+                                                @Html.LabelFor(model => model.infoTarjeta.CVV, htmlAttributes: new { @class = "" })
+                                                @Html.ValidationMessageFor(model => model.infoTarjeta.CVV, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h6 class="text-uppercase">Dirección de cobro</h6>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                @Html.TextBoxFor(model => model.infoTarjeta.provincia, new { @class = "form-control input-lg", @placeholder = "" })
+                                                @Html.LabelFor(model => model.infoTarjeta.provincia, htmlAttributes: new { @class = "" })
+                                                @Html.ValidationMessageFor(model => model.infoTarjeta.provincia, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                @Html.TextBoxFor(model => model.infoTarjeta.ciudad, new { @class = "form-control input-lg", @placeholder = "" })
+                                                @Html.LabelFor(model => model.infoTarjeta.ciudad, htmlAttributes: new { @class = "" })
+                                                @Html.ValidationMessageFor(model => model.infoTarjeta.ciudad, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                @Html.TextBoxFor(model => model.infoTarjeta.detallesDireccion, new { @class = "form-control input-lg", @placeholder = "" })
+                                                @Html.LabelFor(model => model.infoTarjeta.detallesDireccion, htmlAttributes: new { @class = "" })
+                                                @Html.ValidationMessageFor(model => model.infoTarjeta.detallesDireccion, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                @Html.TextBoxFor(model => model.infoTarjeta.codigoPostal, new { @class = "form-control input-lg", @placeholder = "" })
+                                                @Html.LabelFor(model => model.infoTarjeta.codigoPostal, htmlAttributes: new { @class = "" })
+                                                @Html.ValidationMessageFor(model => model.infoTarjeta.codigoPostal, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 mb-4 d-flex justify-content-between">
+                                <label class="text-danger">Cancelar pago</label>
+                                <input type="submit" class="btn btn-success btn-lg btn-lg" value="Pagar" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-blue p-3 text-white mb-3">
+                                <span>Usted debe pagar</span>
+                                <div class="d-flex flex-row align-items-end mb-3">
+                                    <h1 class="mb-0 yellow">₡ @ViewBag.precio</h1>
+                                </div>
+                                <span>por su entrada a la actividad </span>
+                                <h3 class="yellow">@ViewBag.Titulo</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            @Html.Hidden("TituloActividad", (object)ViewBag.Titulo)
+            @Html.Hidden("PrecioActividad", (object)ViewBag.precio)
+        }
+    }
+    <script src="~/Utils/js/formularioInscripcion.js"></script>
+    <script>
+        function validarCorreo() {
+            const correo = document.getElementById("entradaCorreo").value;
+            fetch("@linkValidarCorreo?correo="+correo)
+            .then(respuesta => {
+                return respuesta.json();
+            })
+            .then(data => {
+                document.getElementById("formularioCorreo").style.display = "none";
+                if(data.estaAlmacenado) {
+                    document.getElementById("formularioDatosPago").style.display = "contents";
+                    document.getElementById("infoParticipante_Nombre").value = data.infoPersonal.Nombre;
+                    document.getElementById("infoParticipante_Apellido1").value = data.infoPersonal.Apellido1;
+                    document.getElementById("infoParticipante_Apellido2").value = data.infoPersonal.Apellido2;
+                    document.getElementById("infoParticipante_Pais").value = data.infoPersonal.Pais;
+                    document.getElementById("infoParticipante_Genero").value = data.infoPersonal.Genero;
+                    document.getElementById("infoParticipante_NivelEducativo").value = data.infoPersonal.NivelEducativo;
+                    document.getElementById("infoParticipante_FechaNacimiento").value = data.infoPersonal.FechaNacimiento;
+                } else {
+                    document.getElementById("formularioDatosPersonales").style.display = "contents";
+                }
+            })
+        }
+
+    </script>
+</body>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>

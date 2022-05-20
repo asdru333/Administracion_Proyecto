@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Actividades";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Actividades</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
+</head>
+<body>
+
+    <span class="titulo">Actividades</span>
+
+    <form method="post" class="navbar-form navbar-right" action="@Url.Action("buscarActividad", "Actividades")">
+        <div class="row">
+            <div class="col-3 col-md-3 col-sm-2">
+                <input type="text" name="palabra" class="form-control" placeholder="Buscar actividad">
+            </div>
+            <div class="col-3 col-md-3 col-sm-2">
+                <button type="submit" class="btn btn-secondary"> <span class="fa fa-search" aria-hidden="true"></span> Buscar</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row d-flex flex-wrap align-items-center">
+        @foreach (Planetario.Models.ActividadModel actividad in ViewBag.actividades)
+        {
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header card-title">
+                        @if (@actividad.Tipo == "Charla")
+                        {
+                            <i class="fa fa-commenting" aria-hidden="true"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                        }
+                        @actividad.NombreActividad
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong>Categoria: </strong>@actividad.Categoria</p>
+                        <p class="card-text"><strong>Fecha: </strong>@actividad.Fecha</p>
+                        <p class="card-text"><strong>Precio: </strong>₡@actividad.PrecioAproximado</p>
+                    </div>
+                    <a class="hidden stretched-link" href="@Url.Action("verActividad","Actividades", new { nombreDeLaActividad = actividad.NombreActividad.ToString() })"></a>
+                </div>
+            </div>
+        }
+    </div>
+    <br /><br /><br />
+
+
+</body>
+</html>

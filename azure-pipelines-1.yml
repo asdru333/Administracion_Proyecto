@@ -1,0 +1,109 @@
+#Grupo de variables, en el que se incluye el web app, y la base de datos.
+variables: 
+- group: AzureResourcesVariableGroup
+
+#El trigger, en este caso es cuando se hace un commit al master.
+trigger:
+- master
+
+#Stage de compilar el repositorio, agregandole todos los paquetes necesarios con Nugget.
+stages:
+- stage: Build
+  jobs: 
+  - job: Build
+
+    pool:
+      vmImage: 'windows-latest'
+
+    variables:
+      solution: '**/*.sln'
+      buildPlatform: 'Any CPU'
+      buildConfiguration: 'Release'
+
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    # Task de ejecutar las pruebas
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
+        uiTests: true
+        runTestsInIsolation: true
+        codeCoverageEnabled: true
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+#Stage para hacerle deploy a los recursos de azure.
+- stage: DeployAzureResources
+  jobs: 
+  - job: DeployAzureResources
+    pool: 
+      vmImage: 'windows-latest'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'labAzureSubscription'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          # create a resource group
+          az group create -l $LOCATION -n $RESOURCEGROUPNAME
+          
+          # Crear y configuar un servidor Azure SQL con una base de datos Azure SQL
+          az sql server create -l $LOCATION -g $RESOURCEGROUPNAME -n $SQLSRVNAME -u $(USERNAME) -p $(PASSWORD)
+          az sql db create -g $RESOURCEGROUPNAME -s $SQLSRVNAME -n $DBNAME --service-objective Basic
+          az sql server firewall-rule create -g $RESOURCEGROUPNAME -s $SQLSRVNAME -n allowazure --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+          
+          # Crear y configurar un plan de servicio de azure, y un web app.
+          az appservice plan create -g $RESOURCEGROUPNAME -n $SVCPLANNAME --sku FREE
+          az webapp create -g $RESOURCEGROUPNAME -p $SVCPLANNAME -n $WEBAPPNAME
+  #Stage de deploy del asp.net a la web app, basicamente montarlo en la pagina web.
+- stage: DeployASPNETApp
+  jobs: 
+  - job: DeployASPNETApp
+    pool: 
+      vmImage: 'windows-latest'
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.DefaultWorkingDirectory)'
+    - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'labAzureSubscription'
+        appType: 'webApp'
+        WebAppName: '$(WEBAPPNAME)'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    - task: AzureAppServiceSettings@1
+      inputs:
+        azureSubscription: 'labAzureSubscription'
+        appName: '$(WEBAPPNAME)'
+        resourceGroupName: '$(RESOURCEGROUPNAME)'
+        connectionStrings: |
+          [
+            {
+              "name": "MyDbConnection",
+              "value": "Server=tcp:$(SQLSRVNAME).database.windows.net,1433;Initial Catalog=tododb;Persist Security Info=False;User ID=$(USERNAME);Password=$(PASSWORD);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+              "type": "SqlAzure",
+              "slotSetting": false
+            }
+          ]

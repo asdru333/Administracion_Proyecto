@@ -1,0 +1,32 @@
+﻿@model Planetario.Models.DescuentoModel
+@{
+    ViewBag.Title = "AgregarCupon";
+}
+
+@using (Html.BeginForm("AgregarCupon", "Ventas", FormMethod.Post))
+{
+<span class="titulo">Agregar Cupón</span>
+    <p class="alert-success">@ViewBag.Message</p>
+    <h4> Formulario de agregar cupones</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Codigo, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(model => model.Codigo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Descuento, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.TextBoxFor(model => model.Descuento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Descuento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <br/>
+            <input type="submit" class="btn btn-success" value="Crear" />
+        </div>
+    </div>
+}

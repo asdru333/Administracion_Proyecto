@@ -10,7 +10,7 @@ namespace Planetario.Handlers
             bool esValido = false;
             string contrasenaFuncionario;
 
-            string consulta = "SELECT [dbo].UFN_compararContrasenas('" + contrasena + "', contraseña) AS 'resultado' FROM Credenciales WHERE correoPersonaFK = '" + correo + "';";
+            string consulta = "SELECT contrasena AS 'resultado' FROM Credenciales WHERE correoPersonaFK = '" + correo + "';";
 
             DataTable tablaResultados = LeerBaseDeDatos(consulta);
 
@@ -19,7 +19,7 @@ namespace Planetario.Handlers
                 foreach (DataRow columna in tablaResultados.Rows)
                 {
                     contrasenaFuncionario = Convert.ToString(columna["resultado"]);
-                    if (contrasenaFuncionario == "correcta") { esValido = true; }
+                    if (contrasenaFuncionario == contrasena) { esValido = true; }
                 }
             }
             return esValido;

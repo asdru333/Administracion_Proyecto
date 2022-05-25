@@ -136,6 +136,7 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\VentasController.cs" />
+    <Compile Include="Interfaces\ConcursoInterfaz.cs" />
     <Compile Include="Interfaces\EvaluacionInterfaz.cs" />
     <Compile Include="Interfaces\DatosInterfaz.cs" />
     <Compile Include="Interfaces\ReportesInterfaz.cs" />

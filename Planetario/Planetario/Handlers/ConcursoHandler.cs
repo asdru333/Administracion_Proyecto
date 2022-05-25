@@ -74,6 +74,12 @@ namespace Planetario.Handlers
             return (InsertarEnBaseDatos(consulta, valoresParametros));
         }
 
+        public ConsursoModel ObtenerConcurso(string nombre)
+        {
+            string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";
+            return (ObtenerConcursos(consulta)[0]);
+        }
+
         public List<string> ObtenerParticipantes(int nombreConcurso)
         {
             string consulta = "SELECT P.correoPersonaPK FROM InscritosConcurso Ic JOIN Persona P ON Ic.ganadorFK = P.correoPersonaPK WHERE Ic.nombreConcursoFK = '" + nombreConcurso  + "';";

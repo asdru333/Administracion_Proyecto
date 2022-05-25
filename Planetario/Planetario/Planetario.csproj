@@ -129,6 +129,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\EvaluacionController.cs" />
+    <Compile Include="Handlers\ConcursoHandler.cs" />
     <Compile Include="Handlers\DatosHandler.cs" />
     <Compile Include="Handlers\EvaluacionHandler.cs" />
     <Compile Include="Controllers\MembresiasController.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Handlers\PersonaHandler.cs" />
     <Compile Include="Handlers\ProductosHandler.cs" />
     <Compile Include="Handlers\VentasHandler.cs" />
+    <Compile Include="Models\ConcursoModel.cs" />
     <Compile Include="Models\AsientoModel.cs" />
     <Compile Include="Models\ComprableModel.cs" />
     <Compile Include="Models\CompraModel.cs" />

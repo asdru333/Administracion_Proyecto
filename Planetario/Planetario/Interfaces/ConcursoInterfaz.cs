@@ -17,6 +17,7 @@ namespace Planetario.Interfaces
         ConsursoModel ObtenerConcurso(string nombre);
 
         List<string> ObtenerParticipantes(int nombreConcurso);
-    }
-    
+
+        bool Inscribirse(string participante, string concurso);
+    } 
 }

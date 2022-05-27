@@ -91,5 +91,15 @@ namespace Planetario.Handlers
             }
             return participantes;
         }
+
+        public bool Inscribirse(string participante, string concurso)
+        {
+            string consulta = "INSERT INTO InscritosConcurso (correoPersonaFK, nombreConcursoFK) VALUES ( @correoPersonaFK, @nombreConcursoFK)";
+            Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
+                {"@correoPersonaFK", participante },
+                {"@nombreConcursoFK", concurso }
+            };
+            return (InsertarEnBaseDatos(consulta, valoresParametros));
+        }
     }
 }

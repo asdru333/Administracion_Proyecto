@@ -9,6 +9,16 @@ namespace Planetario.Models
         [MaxLength(50, ErrorMessage = "Se tiene un máximo de 50 cáracteres")]
         public string NombreConcurso { get; set; }
 
+        [Required(ErrorMessage = "Es necesario que le indique la temática del concurso.")]
+        [Display(Name = "Tema del consurso")]
+        [MaxLength(50, ErrorMessage = "Se tiene un máximo de 50 cáracteres")]
+        public string Tema { get; set; }
+
+        [Required(ErrorMessage = "Es necesario que dé una descripción del concurso.")]
+        [Display(Name = "Descripción del consurso")]
+        [MaxLength(200, ErrorMessage = "Se tiene un máximo de 200 cáracteres")]
+        public string Descripcion { get; set; }
+
         [Display(Name = "Fecha de creación")]
         public string Fecha { get; set; }
 

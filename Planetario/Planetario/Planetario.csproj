@@ -125,6 +125,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ConcursoController.cs" />
     <Compile Include="Controllers\JuegosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
@@ -538,7 +539,9 @@
     <Content Include="Views\Ventas\AgregarCupon.cshtml" />
     <Content Include="Views\Ventas\CompraExitosa.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Concurso\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

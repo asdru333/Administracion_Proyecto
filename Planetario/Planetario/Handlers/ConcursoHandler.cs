@@ -18,6 +18,8 @@ namespace Planetario.Handlers
                     new ConsursoModel
                     {
                         NombreConcurso = Convert.ToString(columna["nombreConcursoPK"]),
+                        Tema = Convert.ToString(columna["tema"]),
+                        Descripcion = Convert.ToString(columna["descripcion"]),
                         Fecha = Convert.ToString(columna["fechaDeCreacion"]),
                         Inscripcion = Convert.ToBoolean(columna["inscripcion"]),
                         Abierto = Convert.ToBoolean(columna["abierto"]),
@@ -57,13 +59,15 @@ namespace Planetario.Handlers
         public bool InsertarConcurso(ConsursoModel concurso)
         {
             string consulta =
-                "INSERT INTO Concurso (nombreConcursoPK, fechaDeCreacion, inscripcion, abierto, premio, correoFuncionarioFF, ganadorFK) " +
-                "VALUES ( @nombreConcursoPK, @fecha, @inscripcion, @abierto, @premio, propuestoPor, @ganador )";
+                "INSERT INTO Concurso (nombreConcursoPK, tema, descripcion, fechaDeCreacion, inscripcion, abierto, premio, correoFuncionarioFF, ganadorFK) " +
+                "VALUES ( @nombreConcursoPK, @tema, @descripcion, @fecha, @inscripcion, @abierto, @premio, propuestoPor, @ganador )";
 
             if (concurso.Ganador == null) { concurso.Ganador = "No hay todavía"; }
 
             Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
                 {"@nombreActividadPK", concurso.NombreConcurso },
+                {"@tema", concurso.Tema },
+                {"@descripcion", concurso.Descripcion },
                 {"@fecha", concurso.Fecha },
                 {"@inscripcion", concurso.Inscripcion },
                 {"@abierto", concurso.Abierto },

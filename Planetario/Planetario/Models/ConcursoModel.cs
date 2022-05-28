@@ -2,7 +2,7 @@
 
 namespace Planetario.Models
 {
-    public class ConsursoModel
+    public class ConcursoModel
     {
         [Required(ErrorMessage = "Es necesario que le indique el nombre que va a tener el concurso.")]
         [Display(Name = "Nombre del consurso")]

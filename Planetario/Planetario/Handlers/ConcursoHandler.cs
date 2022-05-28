@@ -7,15 +7,15 @@ using Planetario.Interfaces;
 
 namespace Planetario.Handlers
 {
-    public class ConsursoHandler : BaseDatosHandler, ConcursoInterfaz
+    public class ConcursoHandler : BaseDatosHandler, ConcursoInterfaz
     {
-        private List<ConsursoModel> ConvertirTablaALista(DataTable tabla)
+        private List<ConcursoModel> ConvertirTablaALista(DataTable tabla)
         {
-            List<ConsursoModel> concursos = new List<ConsursoModel>();
+            List<ConcursoModel> concursos = new List<ConcursoModel>();
             foreach (DataRow columna in tabla.Rows)
             {
                 concursos.Add(
-                    new ConsursoModel
+                    new ConcursoModel
                     {
                         NombreConcurso = Convert.ToString(columna["nombreConcursoPK"]),
                         Tema = Convert.ToString(columna["tema"]),
@@ -31,32 +31,38 @@ namespace Planetario.Handlers
             return concursos;
         }
 
-        private List<ConsursoModel> ObtenerConcursos (string consulta)
+        private List<ConcursoModel> ObtenerConcursos (string consulta)
         {
             DataTable tabla = LeerBaseDeDatos(consulta);
-            List<ConsursoModel> lista = ConvertirTablaALista(tabla);
+            List<ConcursoModel> lista = ConvertirTablaALista(tabla);
             return lista;
         }
 
-        public List<ConsursoModel> ObtenerTodosLosConcursos()
+        public List<ConcursoModel> ObtenerTodosLosConcursos()
         {
             string consulta = "SELECT * FROM Concurso";
             return (ObtenerConcursos(consulta));
         }
 
-        public List<ConsursoModel> ObtenerConcursosInscribibles(int incripcion)
+        public List<ConcursoModel> ObtenerConcursosInscribibles(int incripcion)
         { 
             string consulta = "SELECT * FROM Concurso WHERE inscripcion = " + incripcion + ";";
             return (ObtenerConcursos(consulta));
         }
 
-        public List<ConsursoModel> ObtenerConcursosAbiertos(int abierto)
+        public List<ConcursoModel> ObtenerConcursosAbiertos(int abierto)
         {
             string consulta = "SELECT * FROM Concurso WHERE inscripcion = " + abierto + ";";
             return (ObtenerConcursos(consulta));
         }
 
-        public bool InsertarConcurso(ConsursoModel concurso)
+        public ConcursoModel ObtenerConcurso(string nombre)
+        {
+            string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";
+            return (ObtenerConcursos(consulta)[0]);
+        }
+
+        public bool InsertarConcurso(ConcursoModel concurso)
         {
             string consulta =
                 "INSERT INTO Concurso (nombreConcursoPK, tema, descripcion, fechaDeCreacion, inscripcion, abierto, premio, correoFuncionarioFF, ganadorFK) " +
@@ -78,7 +84,7 @@ namespace Planetario.Handlers
             return (InsertarEnBaseDatos(consulta, valoresParametros));
         }
 
-        public ConsursoModel ObtenerConcurso(string nombre)
+        public ConcursoModel ObtenerConcurso(string nombre)
         {
             string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";
             return (ObtenerConcursos(consulta)[0]);

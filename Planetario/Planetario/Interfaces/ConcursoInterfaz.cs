@@ -6,15 +6,15 @@ namespace Planetario.Interfaces
 {
     public interface ConcursoInterfaz
     {
-        List<ConsursoModel> ObtenerTodosLosConcursos();
+        List<ConcursoModel> ObtenerTodosLosConcursos();
 
-        List<ConsursoModel> ObtenerConcursosInscribibles(int incripcion);
+        List<ConcursoModel> ObtenerConcursosInscribibles(int incripcion);
 
-        List<ConsursoModel> ObtenerConcursosAbiertos(int abierto);
+        List<ConcursoModel> ObtenerConcursosAbiertos(int abierto);
 
-        bool InsertarConcurso(ConsursoModel concurso);
+        bool InsertarConcurso(ConcursoModel concurso);
 
-        ConsursoModel ObtenerConcurso(string nombre);
+        ConcursoModel ObtenerConcurso(string nombre);
 
         List<string> ObtenerParticipantes(int nombreConcurso);
 

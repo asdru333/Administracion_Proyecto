@@ -19,7 +19,7 @@ namespace Planetario.Models
         [MaxLength(200, ErrorMessage = "Se tiene un máximo de 200 cáracteres")]
         public string Descripcion { get; set; }
 
-        [Display(Name = "Fecha de creación")]
+        [Display(Name = "Fecha del concurso")]
         public string Fecha { get; set; }
 
         [Display(Name = "Se puede inscribir")]

@@ -28,10 +28,9 @@ namespace Planetario.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearConcurso(ConcursoModel concurso, string topicos)
+        public ActionResult CrearConcurso(ConcursoModel concurso)
         {
             ViewBag.ExitoAlCrear = false;
-            string[] topicosSeleccionados = topicos.Split(';');
             try
             {
                 if (ModelState.IsValid)

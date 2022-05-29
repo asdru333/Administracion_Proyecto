@@ -538,10 +538,11 @@
     <Content Include="Views\Ventas\ComprarAhora.cshtml" />
     <Content Include="Views\Ventas\AgregarCupon.cshtml" />
     <Content Include="Views\Ventas\CompraExitosa.cshtml" />
+    <Content Include="Views\Concurso\CrearConcurso.cshtml" />
+    <Content Include="Views\Concurso\ListadoDeConcursos.cshtml" />
+    <Content Include="Views\Concurso\VerConcurso.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Concurso\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

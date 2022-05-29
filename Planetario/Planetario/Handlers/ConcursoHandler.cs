@@ -20,7 +20,7 @@ namespace Planetario.Handlers
                         NombreConcurso = Convert.ToString(columna["nombreConcursoPK"]),
                         Tema = Convert.ToString(columna["tema"]),
                         Descripcion = Convert.ToString(columna["descripcion"]),
-                        Fecha = Convert.ToString(columna["fechaDeCreacion"]),
+                        Fecha = Convert.ToString(columna["fecha"]),
                         Inscripcion = Convert.ToBoolean(columna["inscripcion"]),
                         Abierto = Convert.ToBoolean(columna["abierto"]),
                         Premio = Convert.ToString(columna["premio"]),
@@ -65,29 +65,18 @@ namespace Planetario.Handlers
         public bool InsertarConcurso(ConcursoModel concurso)
         {
             string consulta =
-                "INSERT INTO Concurso (nombreConcursoPK, tema, descripcion, fechaDeCreacion, inscripcion, abierto, premio, correoFuncionarioFF, ganadorFK) " +
-                "VALUES ( @nombreConcursoPK, @tema, @descripcion, @fecha, @inscripcion, @abierto, @premio, propuestoPor, @ganador )";
-
-            if (concurso.Ganador == null) { concurso.Ganador = "No hay todavía"; }
+                "INSERT INTO Concurso (nombreConcursoPK, tema, descripcion, fecha, inscripcion, abierto, premio, correoFuncionarioFK, ganadorFK) " +
+                "VALUES ( @nombreConcursoPK, @tema, @descripcion, @fecha, 1, 1, @premio, @propuestoPor, NULL )";
 
             Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
-                {"@nombreActividadPK", concurso.NombreConcurso },
+                {"@nombreConcursoPK", concurso.NombreConcurso },
                 {"@tema", concurso.Tema },
                 {"@descripcion", concurso.Descripcion },
                 {"@fecha", concurso.Fecha },
-                {"@inscripcion", concurso.Inscripcion },
-                {"@abierto", concurso.Abierto },
                 {"@premio", concurso.Premio },
-                {"@propuestoPor", concurso.PropuestoPor },
-                {"@ganador", concurso.Ganador}
+                {"@propuestoPor", HttpContext.Current.User.Identity.Name }
             };
             return (InsertarEnBaseDatos(consulta, valoresParametros));
-        }
-
-        public ConcursoModel ObtenerConcurso(string nombre)
-        {
-            string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";
-            return (ObtenerConcursos(consulta)[0]);
         }
 
         public List<string> ObtenerParticipantes(int nombreConcurso)

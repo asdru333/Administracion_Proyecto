@@ -1,0 +1,70 @@
+﻿@model Planetario.Models.ConcursoModel
+
+<html>
+<head>
+    <style>
+        body {
+            background-color: #eee
+        }
+    </style>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/vistaPagos.css">
+    <script src="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/minisuperfiles/MSFmultiSelect/msfmultiselect.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    @using (Html.BeginForm("crearConcurso", "Concurso", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <span class="titulo">Agregar Concurso</span>
+        <h4>Ingrese los datos para crear un concurso</h4>
+        <p class="alert-success">@ViewBag.Message</p>
+        <hr />
+        <div class="card">
+            <div class="row">
+                <div class="col-6 col-md-4 col-sm-12">
+                    <div class="form-floating">
+                        @Html.TextBoxFor(model => model.NombreConcurso, new { @class = "form-control", @placeholder = "Nombre" })
+                        @Html.LabelFor(model => model.NombreConcurso, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.NombreConcurso, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating">
+                        @Html.TextBoxFor(model => model.Tema, new { @class = "form-control", @placeholder = "Nombre" })
+                        @Html.LabelFor(model => model.Tema, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Tema, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating">
+                        @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", @placeholder = "Nombre" })
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating">
+                        @Html.TextBoxFor(model => model.Fecha, new { @type = "date", @class = "form-control datepicker", @placeholder = "Nombre" })
+                        @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating">
+                        @Html.TextBoxFor(model => model.Premio, new { @class = "form-control", @placeholder = "Nombre" })
+                        @Html.LabelFor(model => model.Premio, htmlAttributes: new { @class = "control-label" })
+                        @Html.ValidationMessageFor(model => model.Premio, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    @Html.ActionLink("Volver", "PanelDeAdministracion", "Home", new { area = "" }, new { @class = "btn btn-danger" })
+                    <input type="submit" class="btn btn-success" value="Crear" />
+                </div>
+            </div>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Regresar a Inicio", "InformacionBasica", "Home")
+    </div>
+</body>
+</html>

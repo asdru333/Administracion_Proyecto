@@ -22,6 +22,7 @@ namespace Planetario.Controllers
             AccesoDatos = service;
         }
 
+        [HttpGet]
         public ActionResult CrearConcurso()
         {
             return View();
@@ -60,17 +61,32 @@ namespace Planetario.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult ListadoDeConcursos()
         {
             ViewBag.concursos = AccesoDatos.ObtenerConcursosInscribibles(1);
             return View();
         }
 
+        [HttpGet]
         public ActionResult VerConcurso(string concurso)
         {
-
             ViewBag.concurso = AccesoDatos.ObtenerConcurso(concurso);
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult AdministrarConcursos()
+        {
+            ViewBag.concursos = AccesoDatos.ObtenerTodosLosConcursos();
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult EliminarConcurso(string concurso)
+        {
+            //AccesoDatos.EliminarConcurso(concurso);
+            return RedirectToAction("Administrar");
         }
     }
 }

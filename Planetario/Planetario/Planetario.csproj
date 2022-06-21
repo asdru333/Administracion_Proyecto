@@ -541,6 +541,7 @@
     <Content Include="Views\Concurso\CrearConcurso.cshtml" />
     <Content Include="Views\Concurso\ListadoDeConcursos.cshtml" />
     <Content Include="Views\Concurso\VerConcurso.cshtml" />
+    <Content Include="Views\Concurso\AdministrarConcursos.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

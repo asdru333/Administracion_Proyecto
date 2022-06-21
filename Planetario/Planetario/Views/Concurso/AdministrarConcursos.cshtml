@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Concursos";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Concursos</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
+</head>
+<body>
+
+    <span class="titulo">Concursos</span>
+
+    <div class="row d-flex flex-wrap align-items-center">
+        @foreach (Planetario.Models.ConcursoModel concurso in ViewBag.concursos)
+        {
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header card-title">
+                        @concurso.NombreConcurso
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong>Tema: </strong>@concurso.Tema</p>
+                        <p class="card-text"><strong>Fecha: </strong>@concurso.Fecha</p>
+                        <p class="card-text"><strong>Precio: </strong>@concurso.Premio</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <br /><br /><br />
+
+
+</body>
+</html>

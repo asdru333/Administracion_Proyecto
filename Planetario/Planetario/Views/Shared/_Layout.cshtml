@@ -52,7 +52,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("Noticias", "listadoDeNoticias", "Noticias", new { area = "" }, new { @class = "nav-link" })
+                        @Html.ActionLink("Concursos", "listadoDeConcursos", "Concurso", new { area = "" }, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
                         @Html.ActionLink("Actividades", "listadoDeActividades", "Actividades", new { area = "" }, new { @class = "nav-link" })
@@ -235,6 +235,21 @@
                     </div>
                     <div class="collapse" id="collapseCuestionarios">
                         <p class="card-text">@Html.ActionLink("Agregar Cuestionario", "agregarCuestionario", "Cuestionario", new { area = "" }, new { @class = "" })</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card" style="border: none;">
+                        <a class="stretched-link" data-bs-toggle="collapse" href="#collapseConcursos" role="button" aria-expanded="false" aria-controls="collapseConcursos">
+                            <h3>
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                <br />
+                                Concurso
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseConcursos">
+                        <p class="card-text">@Html.ActionLink("Agregar Concurso", "CrearConcurso", "Concurso", new { area = "" }, new { @class = "" })</p>
                     </div>
                 </div>
 

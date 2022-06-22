@@ -61,12 +61,12 @@ namespace Planetario.Handlers
             string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";
             return (ObtenerConcursos(consulta)[0]);
         }
-         /**
+        
         public bool borrarConcurso(string nombre)
         {
-            
+            string consulta = "DELETE FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';" ;
+            return EliminarEnBaseDatos(consulta, null);
         }
-        */
 
         public bool InsertarConcurso(ConcursoModel concurso)
         {

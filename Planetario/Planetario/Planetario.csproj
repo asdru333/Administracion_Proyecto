@@ -131,7 +131,6 @@
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\EvaluacionController.cs" />
     <Compile Include="Handlers\ConcursoHandler.cs" />
-    <Compile Include="Handlers\DatosHandler.cs" />
     <Compile Include="Handlers\EvaluacionHandler.cs" />
     <Compile Include="Controllers\MembresiasController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />

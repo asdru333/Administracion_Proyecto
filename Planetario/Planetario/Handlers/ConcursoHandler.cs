@@ -70,11 +70,8 @@ namespace Planetario.Handlers
 
         public bool CerrarConcurso(string nombre)
         {
-            string consulta = "INSERT INTO Concurso WHERE nombreConcursoPK = '" + nombre + "'(abierto) VALUES ( @abierto)";
-            Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
-                {"@abierto", false }
-            };
-            return (InsertarEnBaseDatos(consulta, valoresParametros));
+            string consulta = "UPDATE Concurso SET abierto = 0 WHERE nombreConcursoPK = '" + nombre + "';";
+            return (InsertarEnBaseDatos(consulta, null));
         }
 
         public bool InsertarConcurso(ConcursoModel concurso)

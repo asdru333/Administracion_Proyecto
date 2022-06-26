@@ -22,6 +22,6 @@ namespace Planetario.Interfaces
 
         bool CerrarConcurso(string nombre);
 
-        bool BorrarConcurso(string nombre);
+        bool EliminarConcurso(string nombre);
     } 
 }

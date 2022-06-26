@@ -83,9 +83,9 @@ namespace Planetario.Controllers
         }
 
         [HttpGet]
-        public ActionResult EliminarConcurso(string concurso)
+        public ActionResult EliminarConcurso(string nombreDelConcurso)
         {
-            //AccesoDatos.EliminarConcurso(concurso);
+            AccesoDatos.EliminarConcurso(nombreDelConcurso);
             return RedirectToAction("AdministrarConcursos");
         }
 

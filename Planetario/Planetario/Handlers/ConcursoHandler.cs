@@ -62,7 +62,7 @@ namespace Planetario.Handlers
             return (ObtenerConcursos(consulta)[0]);
         }
         
-        public bool BorrarConcurso(string nombre)
+        public bool EliminarConcurso(string nombre)
         {
             string consulta = "DELETE FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';" ;
             return EliminarEnBaseDatos(consulta, null);

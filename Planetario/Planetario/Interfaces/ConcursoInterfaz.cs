@@ -19,5 +19,9 @@ namespace Planetario.Interfaces
         List<string> ObtenerParticipantes(int nombreConcurso);
 
         bool Inscribirse(string participante, string concurso);
+
+        bool CerrarConcurso(string nombre);
+
+        bool BorrarConcurso(string nombre);
     } 
 }

@@ -88,5 +88,12 @@ namespace Planetario.Controllers
             //AccesoDatos.EliminarConcurso(concurso);
             return RedirectToAction("Administrar");
         }
+
+        [HttpGet]
+        public ActionResult CerrarConcurso(string concurso)
+        {
+            AccesoDatos.CerrarConcurso(concurso);
+            return View();
+        }
     }
 }

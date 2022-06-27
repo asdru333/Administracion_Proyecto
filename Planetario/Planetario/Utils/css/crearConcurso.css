@@ -1,0 +1,113 @@
+.form-control {
+    width: 100% !important;
+    padding-left: 50px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding-left: 50%;
+}
+.control-label {
+    
+    /*padding-left: 35% !important;*/
+    /*padding-bottom: 44px !important;*/
+}
+.label {
+    vertical-align: middle;
+    padding-left: 35% !important;
+    padding-bottom: 44px !important;
+}
+#fecha {
+    justify-content: center !important;
+    height: 50px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+#regresarIni {
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+    text-align: center !important;
+    vertical-align: middle;
+    color:#45a049;
+}
+#regresar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center !important;
+    vertical-align: middle;
+}
+.titulo{
+    padding-top: 40px;
+}
+#ingresar{
+    text-align: center;
+}
+.form-floating{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#cont{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#card{
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffff;
+}
+
+.btn{
+    width: 48%;
+    background-color: danger;
+    color: white;
+    padding: 4px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+.row {
+    text-align: center;
+}
+.datepicker {
+    height: 50px;
+    align-items: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: left !important;
+    padding-left: 80px !important;
+    width: 100%  !important;
+    border-radius: 6px;
+}
+
+.date{
+    width: 400px;
+    height: 400px;
+    background-color: black;
+}

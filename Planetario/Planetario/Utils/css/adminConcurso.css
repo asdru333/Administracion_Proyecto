@@ -1,0 +1,15 @@
+#cardTitle {
+    background-color: #47B5FF !important;
+    height: 30px;
+    text-align: center !important;
+    
+ }
+ .card-body {
+    background-color: #DFF6FF !important;
+ }
+ .card {
+    margin-bottom: 10px;
+ }
+ .card-text {
+    background-color: #DFF6FF !important;
+ }

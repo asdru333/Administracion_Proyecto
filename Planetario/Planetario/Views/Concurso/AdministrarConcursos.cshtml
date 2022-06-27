@@ -7,9 +7,10 @@
 <head>
     <title>Concursos</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
-    <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">
+    <!--<link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">-->
     <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/adminConcurso.css">
 </head>
 <body>
 
@@ -18,15 +19,15 @@
     <div class="row d-flex flex-wrap align-items-center">
         @foreach (Planetario.Models.ConcursoModel concurso in ViewBag.concursos)
         {
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <div class="card">
-                    <div class="card-header card-title">
+                    <div class="card-header card-title text-light" id="cardTitle">
                         @concurso.NombreConcurso
                     </div>
                     <div class="card-body">
                         <p class="card-text"><strong>Tema: </strong>@concurso.Tema</p>
                         <p class="card-text"><strong>Fecha: </strong>@concurso.Fecha</p>
-                        <p class="card-text"><strong>Precio: </strong>@concurso.Premio</p>
+                        <p class="card-text"><strong>Premio: </strong>@concurso.Premio</p>
                     </div>
                 </div>
             </div>

@@ -52,7 +52,7 @@ namespace Planetario.Handlers
 
         public List<ConcursoModel> ObtenerConcursosAbiertos(int abierto)
         {
-            string consulta = "SELECT * FROM Concurso WHERE inscripcion = " + abierto + ";";
+            string consulta = "SELECT * FROM Concurso WHERE abierto = " + abierto + ";";
             return (ObtenerConcursos(consulta));
         }
 
@@ -103,14 +103,34 @@ namespace Planetario.Handlers
             return participantes;
         }
 
-        public bool Inscribirse(string participante, string concurso)
+        public bool Inscribirse(string concurso)
         {
             string consulta = "INSERT INTO InscritosConcurso (correoPersonaFK, nombreConcursoFK) VALUES ( @correoPersonaFK, @nombreConcursoFK)";
             Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
-                {"@correoPersonaFK", participante },
+                {"@correoPersonaFK", HttpContext.Current.User.Identity.Name },
                 {"@nombreConcursoFK", concurso }
             };
             return (InsertarEnBaseDatos(consulta, valoresParametros));
+        }
+
+        public bool TieneInicioSesion()
+        {
+            if (HttpContext.Current.User.Identity.Name == "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool EstaInscrito(string concurso)
+        {
+            if (HttpContext.Current.User.Identity.Name == "")
+            {
+                return false;
+            }
+            string consulta = "SELECT * FROM InscritosConcurso WHERE correoPersonaFK = '" + HttpContext.Current.User.Identity.Name +"' and nombreConcursoFK = '" + concurso + "';";
+            DataTable tabla = LeerBaseDeDatos(consulta);
+            return (tabla.Rows.Count > 0);
         }
     }
 }

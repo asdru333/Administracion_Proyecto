@@ -301,8 +301,10 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Utils\css\actividades.css" />
+    <Content Include="Utils\css\adminConcurso.css" />
     <Content Include="Utils\css\background.css" />
     <Content Include="Utils\css\botonesCompartir.css" />
+    <Content Include="Utils\css\crearConcurso.css" />
     <Content Include="Utils\css\fonts.css" />
     <Content Include="Utils\css\layout.css" />
     <Content Include="Utils\css\main.css" />

@@ -47,9 +47,18 @@
                         Compartir
                     </button>
                 </div>
-                <div class="col col-4">
-                    @Html.ActionLink("Inscribirse", "Ejemplo", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-success" })
-                </div>
+                @if (ViewBag.sesion)
+                {
+                    <div class="col col-4">
+                    @if (!ViewBag.inscrito)
+                    {
+                        @Html.ActionLink("Inscribirse", "inscribirse", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-success" })
+                    } else
+                    {
+                        @Html.ActionLink("Desinscribirse", "desinscribirse", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-success" })
+                    }
+                    </div>
+                }
             </div>
 
 
@@ -89,7 +98,20 @@
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            @if (!ViewBag.sesion)
+            {
+                <p>Inicie sesion para poder inscribirse</p>
+            }
+            else if (ViewBag.inscrito)
+            {
+                <p>Ya está inscrito a este concurso</p>
+            }
+            else
+            { 
+                <p>No está inscrito a este concurso</p>
+            }
+        </div>
         <div style="margin-top:75px"></div>
 
 </body>

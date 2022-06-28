@@ -64,7 +64,7 @@ namespace Planetario.Controllers
         [HttpGet]
         public ActionResult ListadoDeConcursos()
         {
-            ViewBag.concursos = AccesoDatos.ObtenerConcursosInscribibles(1);
+            ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(1);
             return View();
         }
 
@@ -72,6 +72,8 @@ namespace Planetario.Controllers
         public ActionResult VerConcurso(string concurso)
         {
             ViewBag.concurso = AccesoDatos.ObtenerConcurso(concurso);
+            ViewBag.sesion = AccesoDatos.TieneInicioSesion();
+            ViewBag.inscrito = AccesoDatos.EstaInscrito(concurso);
             return View();
         }
 
@@ -94,6 +96,13 @@ namespace Planetario.Controllers
         {
             AccesoDatos.CerrarConcurso(nombreDelConcurso);
             return RedirectToAction("AdministrarConcursos");
+        }
+
+        [HttpGet]
+        public ActionResult inscribirse(string nombreDelConcurso)
+        {
+            AccesoDatos.Inscribirse(nombreDelConcurso);
+            return RedirectToAction("VerConcurso", new {concurso = nombreDelConcurso });
         }
     }
 }

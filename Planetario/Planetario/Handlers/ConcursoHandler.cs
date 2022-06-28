@@ -62,10 +62,16 @@ namespace Planetario.Handlers
             return (ObtenerConcursos(consulta)[0]);
         }
         
-        public bool borrarConcurso(string nombre)
+        public bool EliminarConcurso(string nombre)
         {
             string consulta = "DELETE FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';" ;
             return EliminarEnBaseDatos(consulta, null);
+        }
+
+        public bool CerrarConcurso(string nombre)
+        {
+            string consulta = "UPDATE Concurso SET abierto = 0 WHERE nombreConcursoPK = '" + nombre + "';";
+            return (InsertarEnBaseDatos(consulta, null));
         }
 
         public bool InsertarConcurso(ConcursoModel concurso)

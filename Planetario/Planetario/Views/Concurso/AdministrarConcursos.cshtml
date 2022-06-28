@@ -29,6 +29,14 @@
                         <p class="card-text"><strong>Fecha: </strong>@concurso.Fecha</p>
                         <p class="card-text"><strong>Premio: </strong>@concurso.Premio</p>
                     </div>
+                    <div class="row">
+                        <div class="col col-4">
+                            @Html.ActionLink("Cerrar", "CerrarConcurso", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-warning" })
+                        </div>
+                        <div class="col col-4">
+                            @Html.ActionLink("Eliminar", "EliminarConcurso", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
                 </div>
             </div>
         }

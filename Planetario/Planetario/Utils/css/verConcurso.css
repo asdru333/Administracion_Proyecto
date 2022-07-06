@@ -1,0 +1,26 @@
+#cardTitle {
+    background-color: #47B5FF !important;
+    height: 30px;
+    text-align: center !important;
+    
+ }
+ .card-body {
+    background-color: #DFF6FF !important;
+ }
+ .card {
+    margin-bottom: 10px;
+    background-color: #DFF6FF !important;
+ }
+ .modal-header{
+   background-color: #133b5c !important;
+ }
+ .modal-title{
+   color: white;
+ }
+ #ShareButton{
+   padding-bottom: 4px !important;
+   padding-right: 4px !important;
+ }
+ /*.card-text {
+    background-color: #DFF6FF !important;
+ }*/

@@ -10,17 +10,18 @@
     <link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
     <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">
     <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/adminConcurso.css">
 </head>
 <body>
 
-    <span class="titulo">Concursos</span>
+    <span class="titulo">Lista de concursos</span>
 
     <div class="row d-flex flex-wrap align-items-center">
         @foreach (Planetario.Models.ConcursoModel concurso in ViewBag.concursos)
         {
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <div class="card">
-                    <div class="card-header card-title">
+                    <div class="card-header card-title text-light" id="cardTitle">
                         @concurso.NombreConcurso
                     </div>
                     <div class="card-body">

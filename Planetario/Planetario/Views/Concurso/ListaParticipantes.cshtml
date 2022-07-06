@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Concursos";
+    int contador = 1;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Concursos</title>
+    <meta charset="utf-8" />
+    <!--<link rel="stylesheet" type="text/css" href="~/Utils/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">-->
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/adminConcurso.css">
+</head>
+<body>
+
+    <span class="titulo">Participantes</span>
+        @foreach (var participante in ViewBag.participantes)
+        {
+            <div class="col-md-8">
+                <p>
+                    @contador)
+                    <a href=@Url.Action("DeclararGanador", "Concurso", new { @nombreDelConcurso = ViewBag.nombreConcurso, @correoParticipante = participante})>
+                        @participante
+                    </a>
+                </p>
+            </div>
+        }
+        
+    <br />
+    <br />
+    <br />
+</body>
+</html>

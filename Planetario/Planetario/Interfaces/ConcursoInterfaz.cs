@@ -12,11 +12,15 @@ namespace Planetario.Interfaces
 
         List<ConcursoModel> ObtenerConcursosAbiertos(int abierto);
 
+        List<ConcursoModel> ObtenerConcursosConGanadorDeclarado();
+
         bool InsertarConcurso(ConcursoModel concurso);
 
         ConcursoModel ObtenerConcurso(string nombre);
 
-        List<string> ObtenerParticipantes(int nombreConcurso);
+        IList<string> ObtenerParticipantes(string nombreConcurso);
+
+        bool InsertarGanador(string concurso, string ganador);
 
         bool Inscribirse(string concurso);
 

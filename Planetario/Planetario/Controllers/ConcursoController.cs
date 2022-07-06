@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Linq;
+using System.Web;
 using Planetario.Handlers;
 using Planetario.Models;
 using System.Collections.Generic;
@@ -82,6 +84,35 @@ namespace Planetario.Controllers
         {
             ViewBag.concursos = AccesoDatos.ObtenerTodosLosConcursos();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdministrarConcursos(string opcionFiltro = "todos")
+        {
+            if (opcionFiltro == "Abiertos")
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(1);
+            else if (opcionFiltro == "Cerrados")
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(0);
+            else if (opcionFiltro == "Ganadores")
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosConGanadorDeclarado();
+            else
+                ViewBag.concursos = AccesoDatos.ObtenerTodosLosConcursos();
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ListaParticipantes(string nombreDelConcurso)
+        {
+            ViewBag.participantes = AccesoDatos.ObtenerParticipantes(nombreDelConcurso);
+            ViewBag.nombreConcurso = nombreDelConcurso;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult DeclararGanador(string nombreDelConcurso, string correoParticipante)
+        {
+            AccesoDatos.InsertarGanador(nombreDelConcurso, correoParticipante);
+            return RedirectToAction("AdministrarConcursos");
         }
 
         [HttpGet]

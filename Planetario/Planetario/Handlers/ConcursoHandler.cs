@@ -56,6 +56,12 @@ namespace Planetario.Handlers
             return (ObtenerConcursos(consulta));
         }
 
+        public List<ConcursoModel> ObtenerConcursosConGanadorDeclarado()
+        {
+            string consulta = "SELECT * FROM Concurso where ganadorFK is not NULL";
+            return (ObtenerConcursos(consulta));
+        }
+
         public ConcursoModel ObtenerConcurso(string nombre)
         {
             string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";
@@ -91,9 +97,9 @@ namespace Planetario.Handlers
             return (InsertarEnBaseDatos(consulta, valoresParametros));
         }
 
-        public List<string> ObtenerParticipantes(int nombreConcurso)
+        public IList<string> ObtenerParticipantes(string nombreConcurso)
         {
-            string consulta = "SELECT P.correoPersonaPK FROM InscritosConcurso Ic JOIN Persona P ON Ic.ganadorFK = P.correoPersonaPK WHERE Ic.nombreConcursoFK = '" + nombreConcurso  + "';";
+            string consulta = "SELECT P.correoPersonaPK FROM Persona P JOIN InscritosConcurso Ic ON Ic.correoPersonaFK = P.correoPersonaPK WHERE Ic.nombreConcursoFK = '" + nombreConcurso  + "';";
             DataTable tablaResultados = LeerBaseDeDatos(consulta);
             List<string> participantes = new List<string>();
             foreach (DataRow fila in tablaResultados.Rows)
@@ -101,6 +107,12 @@ namespace Planetario.Handlers
                 participantes.Add(Convert.ToString(fila["correoPersonaPK"]));
             }
             return participantes;
+        }
+
+        public bool InsertarGanador(string concurso, string ganador)
+        {
+            string consulta = "UPDATE Concurso SET ganadorFK = '" + ganador + "' WHERE nombreConcursoPK = '" + concurso + "';";
+            return (InsertarEnBaseDatos(consulta, null));
         }
 
         public bool Inscribirse(string concurso)

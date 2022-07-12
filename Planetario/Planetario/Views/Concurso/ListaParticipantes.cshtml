@@ -12,13 +12,15 @@
     <link rel="stylesheet" type="text/css" href="~/Utils/css/actividades.css">-->
     <link rel="stylesheet" type="text/css" href="~/Utils/css/botonesCompartir.css">
     <link rel="stylesheet" type="text/css" href="~/Utils/css/adminConcurso.css">
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/listadoParticipantes.css">
 </head>
 <body>
 
     <span class="titulo">Participantes</span>
+    <div class="card align-items-center" id="listado">
         @foreach (var participante in ViewBag.participantes)
         {
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <p>
                     @contador)
                     <a href=@Url.Action("DeclararGanador", "Concurso", new { @nombreDelConcurso = ViewBag.nombreConcurso, @correoParticipante = participante})>
@@ -27,7 +29,7 @@
                 </p>
             </div>
         }
-        
+    </div>  
     <br />
     <br />
     <br />

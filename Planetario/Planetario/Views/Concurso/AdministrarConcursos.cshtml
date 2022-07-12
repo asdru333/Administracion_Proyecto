@@ -22,20 +22,20 @@
 
     @using (Html.BeginForm("AdministrarConcursos", "Concurso", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div class="col-8">
+        <div class="col-12 mr-5 text-center">
             @Html.DropDownList("opcionFiltro", filtro, "Todos")
         </div>
-        <div class="col-8">
-            <input type="submit" class="btn btn-success" value="Elegir" />
+        <div class="col-12 mr-20 text-center">
+            <input type="submit" class="btn btn-success mt-2" value="Elegir" />
         </div>
     }
 
     <div class="row d-flex flex-wrap align-items-center">
         @foreach (Planetario.Models.ConcursoModel concurso in ViewBag.concursos)
         {
-            <div class="col-md-4 col-sm-12">
+            <div class="card-group col-lg-4 col-md-6 col-sm-12">
                 <div class="card">
-                    <div class="card-header card-title text-light" id="cardTitle">
+                    <div class="card-header card-title text-light " id="cardTitle">
                         @concurso.NombreConcurso
                     </div>
                     <div class="card-body">
@@ -54,25 +54,25 @@
                         {
                             <p class="card-text"><strong>Ganador: </strong>@concurso.Ganador</p>
                         }
-                        <div class="row">
+                        <div class="row" id="rowButtons">
                             @if (concurso.Abierto)
                             {
                                 <div class="col col-6">
                                     @Html.ActionLink("Cerrar", "CerrarConcurso", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-warning" })
                                 </div>
                                 <div class="col col-6">
-                                    @Html.ActionLink("Eliminar", "EliminarConcurso", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-danger" })
+                                    @Html.ActionLink("Eliminar", "EliminarConcurso", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-danger float-end" })
                                 </div>
                             }
                             else if (concurso.Ganador == "")
                             {
-                                <div class="col col-6">
+                                <div class="col col-12 text-center">
                                     @Html.ActionLink("Declarar ganador", "ListaParticipantes", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-warning" })
                                 </div>
                             }
                             else
                             {
-                                <div class="col col-6">
+                                <div class="col col-12 text-center">
                                     @Html.ActionLink("Modificar ganador", "ListaParticipantes", "Concurso", new { nombreDelConcurso = concurso.NombreConcurso.ToString() }, new { @class = "btn btn-warning" })
                                 </div>
                             }

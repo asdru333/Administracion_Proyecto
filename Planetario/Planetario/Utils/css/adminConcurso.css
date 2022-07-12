@@ -1,15 +1,26 @@
 #cardTitle {
     background-color: #47B5FF !important;
-    height: 30px;
     text-align: center !important;
     
- }
- .card-body {
+}
+.card-body {
     background-color: #DFF6FF !important;
- }
- .card {
+    height: 100% !important;
+}
+.card {
     margin-bottom: 10px;
- }
- .card-text {
+    border: none !important;
+    margin: 10px;
+    background-color: white;
+    height: 100% !important;
+}
+.card-text {
     background-color: #DFF6FF !important;
- }
+}
+ .card-group {
+   height: 100%;
+}
+#rowButtons{
+   padding: 0;
+   margin: 0;
+}

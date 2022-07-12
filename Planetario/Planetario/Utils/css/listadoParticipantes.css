@@ -1,0 +1,38 @@
+#listado {
+    background-color: #DFF6FF !important;
+    text-align: center !important;
+    margin-right: 30%;
+    margin-left: 30%;
+    color: white !important;
+    border: 4px !important;
+    border-color: black !important;
+ }
+
+ @media all and (max-width: 800px) and (min-width: 200px) {
+   #listado {
+      margin-right: 8%;
+      margin-left: 8%;
+   }
+ }
+
+ /*#cardTitle {
+   background-color: #47B5FF !important;
+   text-align: center !important;
+   
+}
+.card-body {
+   background-color: #DFF6FF !important;
+}
+.card {
+   margin-bottom: 10px;
+   border: none !important;
+   background-color: white;
+   height: 100% !important;
+}
+.card-text {
+   background-color: #DFF6FF !important;
+}
+
+.stretched-link{
+  border: none !important;
+}*/

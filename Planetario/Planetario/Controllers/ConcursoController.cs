@@ -70,6 +70,20 @@ namespace Planetario.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ListadoDeConcursos(string opcionFiltro = "todos")
+        {
+            if (opcionFiltro == "Abiertos")
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(1);
+            else if (opcionFiltro == "Cerrados")
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(0);
+            else if (opcionFiltro == "Ganadores")
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosConGanadorDeclarado();
+            else
+                ViewBag.concursos = AccesoDatos.ObtenerTodosLosConcursos();
+            return View();
+        }
+
         [HttpGet]
         public ActionResult VerConcurso(string concurso)
         {

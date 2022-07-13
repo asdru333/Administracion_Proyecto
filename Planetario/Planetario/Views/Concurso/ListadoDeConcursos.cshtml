@@ -1,5 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Concursos";
+    List<SelectListItem> filtro = new List<SelectListItem>() {
+        new SelectListItem { Text = "Abiertos", Value = "Abiertos" },
+        new SelectListItem { Text = "Cerrados", Value = "Cerrados"  },
+        new SelectListItem { Text = "Ganadores", Value = "Ganadores" },
+    };
 }
 
 <!DOCTYPE html>
@@ -16,6 +20,16 @@
 
     <span class="titulo">Lista de concursos</span>
 
+    @using (Html.BeginForm("ListadoDeConcursos", "Concurso", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="col-12 mr-5 text-center">
+            @Html.DropDownList("opcionFiltro", filtro, "Todos")
+        </div>
+        <div class="col-12 mr-20 text-center">
+            <input type="submit" class="btn btn-success mt-2" value="Elegir" />
+        </div>
+    }
+
     <div class="row d-flex flex-wrap align-items-center">
         @foreach (Planetario.Models.ConcursoModel concurso in ViewBag.concursos)
         {
@@ -28,6 +42,22 @@
                         <p class="card-text"><strong>Tema: </strong>@concurso.Tema</p>
                         <p class="card-text"><strong>Fecha: </strong>@concurso.Fecha</p>
                         <p class="card-text"><strong>Precio: </strong>@concurso.Premio</p>
+                        @if (concurso.Abierto)
+                        {
+                            <p class="card-text"><strong>Estado: </strong>Abierto</p>
+                        }
+                        else
+                        {
+                            if (concurso.Ganador != "")
+                            {
+                                <p class="card-text"><strong>Ganador: </strong>@concurso.Ganador</p>
+                            }
+                            else
+                            {
+                            <p class="card-text"><strong>Estado: </strong>Cerrado</p>
+                            }
+                        }
+
                     </div>
                     <a class="hidden stretched-link border-0" href="@Url.Action("VerConcurso","Concurso", new { concurso = concurso.NombreConcurso.ToString() })"></a>
                 </div>

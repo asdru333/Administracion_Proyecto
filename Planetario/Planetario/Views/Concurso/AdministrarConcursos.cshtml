@@ -48,11 +48,14 @@
                         }
                         else
                         {
-                            <p class="card-text"><strong>Estado: </strong>Cerrado</p>
-                        }
-                        @if (concurso.Ganador != "")
-                        {
-                            <p class="card-text"><strong>Ganador: </strong>@concurso.Ganador</p>
+                            if (concurso.Ganador != "")
+                            {
+                                <p class="card-text"><strong>Ganador: </strong>@concurso.Ganador</p>
+                            }
+                            else
+                            {
+                                <p class="card-text"><strong>Estado: </strong>Cerrado</p>
+                            }
                         }
                         <div class="row" id="rowButtons">
                             @if (concurso.Abierto)

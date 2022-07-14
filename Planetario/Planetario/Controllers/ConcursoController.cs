@@ -149,5 +149,12 @@ namespace Planetario.Controllers
             AccesoDatos.Inscribirse(nombreDelConcurso);
             return RedirectToAction("VerConcurso", new {concurso = nombreDelConcurso });
         }
+
+        [HttpGet]
+        public ActionResult Desinscribirse(string nombreDelConcurso)
+        {
+            bool lol = AccesoDatos.Desinscribirse(nombreDelConcurso);
+            return RedirectToAction("VerConcurso", new { concurso = nombreDelConcurso });
+        }
     }
 }

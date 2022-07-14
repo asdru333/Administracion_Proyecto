@@ -24,6 +24,8 @@ namespace Planetario.Interfaces
 
         bool Inscribirse(string concurso);
 
+        bool Desinscribirse(string concurso);
+
         bool CerrarConcurso(string nombre);
 
         bool EliminarConcurso(string nombre);

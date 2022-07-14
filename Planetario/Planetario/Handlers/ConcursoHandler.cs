@@ -125,6 +125,16 @@ namespace Planetario.Handlers
             return (InsertarEnBaseDatos(consulta, valoresParametros));
         }
 
+        public bool Desinscribirse(string concurso)
+        {
+            string consulta =  "delete from InscritosConcurso where correoPersonaFK = @correoPersonaFK and nombreConcursoFK = @nombreConcursoFK";
+            Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
+                {"@correoPersonaFK", HttpContext.Current.User.Identity.Name },
+                {"@nombreConcursoFK", concurso }
+            };
+            return (EliminarEnBaseDatos(consulta, valoresParametros));
+        }
+
         public bool TieneInicioSesion()
         {
             if (HttpContext.Current.User.Identity.Name == "")

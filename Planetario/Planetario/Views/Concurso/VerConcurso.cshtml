@@ -54,10 +54,10 @@
                         <div class="col col-4">
                         @if (!ViewBag.inscrito)
                         {
-                            @Html.ActionLink("Inscribirse", "inscribirse", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Inscribirse", "Inscribirse", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-success" })
                         } else
                         {
-                            @Html.ActionLink("Desinscribirse", "desinscribirse", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Desinscribirse", "Desinscribirse", "Concurso", new { nombreDelConcurso = ViewBag.concurso.NombreConcurso }, new { @class = "btn btn-danger" })
                         }
                         </div>
                     }

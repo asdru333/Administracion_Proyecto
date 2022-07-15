@@ -1,26 +1,27 @@
-#cardTitle {
+#concursoTitle {
     background-color: #47B5FF !important;
     text-align: center !important;
     
 }
-.card-body {
+#body-concurso {
     background-color: #DFF6FF !important;
     height: 100% !important;
 }
-.card {
+
+#card-concurso {
     margin-bottom: 10px;
     border: none !important;
     margin: 10px;
     background-color: white;
     height: 100% !important;
 }
-.card-text {
+#concurso-text {
     background-color: #DFF6FF !important;
 }
- .card-group {
+#concurso-group {
    height: 100%;
 }
-#rowButtons{
+#concursoButtons{
    padding: 0;
    margin: 0;
 }

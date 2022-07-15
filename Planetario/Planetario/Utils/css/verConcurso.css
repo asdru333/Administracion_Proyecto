@@ -4,10 +4,10 @@
     text-align: center !important;
     
  }
- .card-body {
+ #cardBodyConcurso {
     background-color: #DFF6FF !important;
  }
- .card {
+ #cardConcurso {
     margin-bottom: 10px;
     background-color: #DFF6FF !important;
  }
@@ -21,6 +21,7 @@
    padding-bottom: 4px !important;
    padding-right: 4px !important;
  }
+
  /*.card-text {
     background-color: #DFF6FF !important;
  }*/

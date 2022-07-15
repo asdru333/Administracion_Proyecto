@@ -33,28 +33,28 @@
     <div class="row d-flex flex-wrap align-items-center">
         @foreach (Planetario.Models.ConcursoModel concurso in ViewBag.concursos)
         {
-            <div class="card-group col-lg-4 col-md-6 col-sm-12 d-flex align-items-stretch">
-                <div class="card">
-                    <div class="card-header card-title text-light" id="cardTitle">
+            <div class="card-group col-lg-4 col-md-6 col-sm-12 d-flex align-items-stretch" id="concurso-group">
+                <div class="card" id="card-concurso">
+                    <div class="card-header card-title text-light" id="concursoTitle">
                         @concurso.NombreConcurso
                     </div>
-                    <div class="card-body">
-                        <p class="card-text"><strong>Tema: </strong>@concurso.Tema</p>
-                        <p class="card-text"><strong>Fecha: </strong>@concurso.Fecha</p>
-                        <p class="card-text"><strong>Precio: </strong>@concurso.Premio</p>
+                    <div class="card-body" id="body-concurso">
+                        <p class="card-text" id="concurso-text"><strong>Tema: </strong>@concurso.Tema</p>
+                        <p class="card-text" id="concurso-text"><strong>Fecha: </strong>@concurso.Fecha</p>
+                        <p class="card-text" id="concurso-text"><strong>Precio: </strong>@concurso.Premio</p>
                         @if (concurso.Abierto)
                         {
-                            <p class="card-text"><strong>Estado: </strong>Abierto</p>
+                            <p class="card-text" id="concurso-text"><strong>Estado: </strong>Abierto</p>
                         }
                         else
                         {
                             if (concurso.Ganador != "")
                             {
-                                <p class="card-text"><strong>Ganador: </strong>@concurso.Ganador</p>
+                                <p class="card-text" id="concurso-text"><strong>Ganador: </strong>@concurso.Ganador</p>
                             }
                             else
                             {
-                            <p class="card-text"><strong>Estado: </strong>Cerrado</p>
+                            <p class="card-text" id="concurso-text"><strong>Estado: </strong>Cerrado</p>
                             }
                         }
 

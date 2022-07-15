@@ -307,6 +307,7 @@
     <Content Include="Utils\css\crearConcurso.css" />
     <Content Include="Utils\css\fonts.css" />
     <Content Include="Utils\css\layout.css" />
+    <Content Include="Utils\css\listadoParticipantes.css" />
     <Content Include="Utils\css\main.css" />
     <Content Include="Utils\css\membresias.css" />
     <Content Include="Utils\css\rows.css" />
@@ -315,6 +316,7 @@
     <Content Include="Utils\css\SelectorAsientos.css" />
     <Content Include="Utils\css\util.css" />
     <Content Include="Utils\css\ventas.css" />
+    <Content Include="Utils\css\verConcurso.css" />
     <Content Include="Utils\css\vistaPagos.css" />
     <Content Include="Utils\fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Utils\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />

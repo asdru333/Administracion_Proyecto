@@ -26,7 +26,6 @@
                     <div class="justify-content-center">
                         <div class="form-floating">
                             <div class="justify-content-center">
-                                <!--@Html.LabelFor(model => model.NombreConcurso, htmlAttributes: new { @class = "control-label" })-->
                                 @Html.TextBoxFor(model => model.NombreConcurso, new {  @class = "form-control", @placeholder = "Nombre del concurso" })
                             </div>
                         </div>
@@ -36,7 +35,6 @@
 
                         <div class="form-floating">
                             <div class="justify-content-center">
-                                <!--@Html.LabelFor(model => model.Tema, htmlAttributes: new { @class = "control-label" })-->
                                 @Html.TextBoxFor(model => model.Tema, new { @class = "form-control", @placeholder = "Nombre del tema" })
                             </div>
                         </div>
@@ -46,7 +44,6 @@
 
                         <div class="form-floating">
                             <div class="justify-content-center">
-                                <!--@Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })-->
                                 @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", @placeholder = "Descripción del concurso" })
                             </div>
                             
@@ -56,7 +53,6 @@
                         </div>
                             <div class="form-floating" style="padding-bottom: 10px">
                                 <div class="justify-content-center">
-                                    @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" })
                                     @Html.TextBoxFor(model => model.Fecha, new { @type = "date", @class = "form-control datepicker", @placeholder = "Fecha del concurso" })
                                 </div>
                                 <div class="justify-content-center">

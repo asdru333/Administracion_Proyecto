@@ -49,7 +49,7 @@ namespace Planetario.Handlers
 
         public bool InsertarCliente(PersonaModel persona)
         {
-
+            persona.fechaNacimiento = persona.fechaNacimiento.Replace("-", "");
             string consultaTablaPersona = "INSERT INTO Persona ( correoPersonaPK, nombre, apellido1, apellido2, genero, pais, fechaNacimiento, membresia ) "
                 + "VALUES ( @correo, @nombre, @apellido1, @apellido2, @genero, @pais, @nacimiento, @membresia );";
 
@@ -80,17 +80,7 @@ namespace Planetario.Handlers
             };
             }
 
-
-            string consultaTablaCliente = "INSERT INTO Cliente ( correoClientePK, nivelEducativo ) "
-                + "VALUES ( @correo, @nivelEducativo );";
-
-            string consultaTablaCredencial = "INSERT INTO Credenciales (correoPersonaFK, contraseña) VALUES (@correo, PWDENCRYPT(@contrasena))";
-
-            Dictionary<string, object> parametrosCliente = new Dictionary<string, object>
-            {
-                {"@correo", persona.correo },
-                {"@nivelEducativo", persona.nivelEducativo },
-            };
+            string consultaTablaCredencial = "INSERT INTO Credenciales (correoPersonaFK, contrasena) VALUES (@correo, @contrasena)";
 
             Dictionary<string, object> parametrosCredencial = new Dictionary<string, object>
             {
@@ -98,7 +88,7 @@ namespace Planetario.Handlers
                 {"@contrasena", persona.contrasena },
             };
 
-            return (InsertarEnBaseDatos(consultaTablaPersona, parametrosPersona) && InsertarEnBaseDatos(consultaTablaCliente, parametrosCliente) && InsertarEnBaseDatos(consultaTablaCredencial, parametrosCredencial));
+            return (InsertarEnBaseDatos(consultaTablaPersona, parametrosPersona) && InsertarEnBaseDatos(consultaTablaCredencial, parametrosCredencial));
         }
     }
 }

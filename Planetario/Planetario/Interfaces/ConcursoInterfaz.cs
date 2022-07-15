@@ -28,6 +28,8 @@ namespace Planetario.Interfaces
 
         bool CerrarConcurso(string nombre);
 
+        bool ActualizarConcurso(ConcursoModel concurso);
+
         bool EliminarConcurso(string nombre);
 
         bool EstaInscrito(string concurso);

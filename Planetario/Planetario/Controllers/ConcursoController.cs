@@ -137,6 +137,44 @@ namespace Planetario.Controllers
         }
 
         [HttpGet]
+        public ActionResult ActualizarConcurso(string nombreDelConcurso)
+        {
+            ConcursoModel concurso = AccesoDatos.ObtenerConcurso(nombreDelConcurso);
+            concurso.Fecha = CambiarFormatoFecha(concurso.Fecha);
+            ViewBag.concurso = concurso;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ActualizarConcurso(ConcursoModel concurso)
+        {
+            try
+            {
+                ViewBag.concurso = concurso;
+                if (ModelState.IsValid)
+                {
+                    if (AccesoDatos.ActualizarConcurso(concurso))
+                    {
+                        ViewBag.Message = "El concurso " + concurso.NombreConcurso + " fue actualizado con éxito.";
+                        ModelState.Clear();
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Hubo un error al guardar los datos ingresados.";
+                    }
+                }
+                else
+                {
+                    ViewBag.Message = "Hay un error en los datos ingresados";
+                }
+            } catch
+            {
+                ViewBag.Message = "Hubo un error al actualizar el concurso " + concurso.NombreConcurso;
+            }
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult CerrarConcurso(string nombreDelConcurso)
         {
             AccesoDatos.CerrarConcurso(nombreDelConcurso);
@@ -155,6 +193,21 @@ namespace Planetario.Controllers
         {
             bool lol = AccesoDatos.Desinscribirse(nombreDelConcurso);
             return RedirectToAction("VerConcurso", new { concurso = nombreDelConcurso });
+        }
+
+        public string CambiarFormatoFecha(string fecha)
+        {
+            fecha = fecha.Substring(0, fecha.IndexOf(' '));
+            string[] valores = fecha.Split('/');
+            if (valores[0].Length == 1)
+            {
+                valores[0] = '0' + valores[0];
+            }
+            if (valores[1].Length == 1)
+            {
+                valores[1] = '0' + valores[1];
+            }
+            return fecha = valores[2] + "-" + valores[1] + "-" + valores[0];
         }
     }
 }

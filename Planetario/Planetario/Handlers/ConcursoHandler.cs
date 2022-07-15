@@ -74,6 +74,22 @@ namespace Planetario.Handlers
             return EliminarEnBaseDatos(consulta, null);
         }
 
+        public bool ActualizarConcurso(ConcursoModel concurso)
+        {
+            string consulta = "UPDATE Concurso SET tema = @tema , descripcion = @descripcion, fecha = @fecha, premio = @premio, " +
+                              "inscripcion = 1, abierto = 1, correoFuncionarioFK = @propuestoPor, ganadorFK = NULL WHERE nombreConcursoPK = @nombreConcursoPK";
+
+            Dictionary<string, object> valoresParametros = new Dictionary<string, object> {
+                {"@nombreConcursoPK", concurso.NombreConcurso },
+                {"@tema", concurso.Tema },
+                {"@descripcion", concurso.Descripcion },
+                {"@fecha", concurso.Fecha },
+                {"@premio", concurso.Premio },
+                {"@propuestoPor", HttpContext.Current.User.Identity.Name }
+            };
+            return (InsertarEnBaseDatos(consulta, valoresParametros));
+        }
+
         public bool CerrarConcurso(string nombre)
         {
             string consulta = "UPDATE Concurso SET abierto = 0 WHERE nombreConcursoPK = '" + nombre + "';";

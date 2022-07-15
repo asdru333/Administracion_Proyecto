@@ -1,0 +1,90 @@
+﻿@model Planetario.Models.ConcursoModel
+
+<html>
+<head>
+    <style>
+        body {
+            background-color: #eee
+        }
+    </style>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="~/Utils/css/crearConcurso.css">
+</head>
+<body>
+    @using (Html.BeginForm("ActualizarConcurso", "Concurso", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <span class="titulo">Agregar Concurso</span>
+        <h4 id="ingresar">Ingrese los datos para actualizar el concurso: @ViewBag.concurso.NombreConcurso</h4>
+        <p class="alert-success">@ViewBag.Message</p>
+        <hr />
+        <div id="cont">
+            <div id="card">
+                <div class="row justify-content-center">
+                    <div class="justify-content-center">
+                        <div class="form-floating">
+                            <div class="justify-content-center">
+                                <!--@Html.LabelFor(model => model.NombreConcurso, htmlAttributes: new { @class = "control-label" })-->
+                                @Html.TextBoxFor(model => model.NombreConcurso, new { @type = "hidden" , @class = "form-control", @Value = @ViewBag.concurso.NombreConcurso , @placeholder = "Nombre del concurso" })
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            @Html.ValidationMessageFor(model => model.NombreConcurso, "", new { @class = "text-danger", style = "width: 80%" })
+                        </div>
+
+                        <div class="form-floating">
+                            <div class="justify-content-center">
+                                <!--@Html.LabelFor(model => model.Tema, htmlAttributes: new { @class = "control-label" })-->
+                                @Html.TextBoxFor(model => model.Tema, new { @class = "form-control", @Value = @ViewBag.concurso.Tema, @placeholder = "Nombre del tema" })
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            @Html.ValidationMessageFor(model => model.Tema, "", new { @class = "text-danger", style = "width: 80%" })
+                        </div>
+
+                        <div class="form-floating">
+                            <div class="justify-content-center">
+                                <!--@Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })-->
+                                @Html.TextBoxFor(model => model.Descripcion, new { @class = "form-control", @Value = @ViewBag.concurso.Descripcion, @placeholder = "Descripción del concurso" })
+                            </div>
+
+                        </div>
+                        <div class="form-floating">
+                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger", style = "width: 80%" })
+                        </div>
+                        <div class="form-floating" style="padding-bottom: 10px">
+                            <div class="justify-content-center">
+                                @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" }) 
+                                @Html.TextBoxFor(model => model.Fecha, new { @type = "date", @class = "form-control datepicker", @Value = @ViewBag.concurso.Fecha, @placeholder = "Fecha del concurso" })
+                            </div>
+                            <div class="justify-content-center">
+                                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger", style = "width: 80%" })
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            <div class="justify-content-center">
+                                <!--@Html.LabelFor(model => model.Premio, htmlAttributes: new { @class = "control-label" })-->
+                                @Html.TextBoxFor(model => model.Premio, new { @class = "form-control", @Value = @ViewBag.concurso.Premio, @placeholder = "Nombre del premio" })
+
+                            </div>
+                        </div>
+                        <div class="form-floating">
+                            @Html.ValidationMessageFor(model => model.Premio, "", new { @class = "text-danger", style = "width: 80%" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col align-self-center">
+                            @Html.ActionLink("Volver", "AdministrarConcursos", "Concurso", new { area = "" }, new { @class = "btn btn-danger" })
+                            <input type="submit" class="btn btn-success" value="Actualizar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <hr />
+    <div class="justify-content-center" id="regresarIni">
+        @Html.ActionLink("Regresar a Inicio", "InformacionBasica", "Home")
+    </div>
+</body>
+</html>

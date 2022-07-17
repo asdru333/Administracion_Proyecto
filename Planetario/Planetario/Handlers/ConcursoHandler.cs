@@ -62,6 +62,24 @@ namespace Planetario.Handlers
             return (ObtenerConcursos(consulta));
         }
 
+        public List<ConcursoModel> ObtenerConcursosPersona(string correoPersona)
+        {
+            string consulta = "SELECT * FROM InscritosConcurso WHERE correoPersonaFK ='" + correoPersona + "';";
+            DataTable tablaResultados = LeerBaseDeDatos(consulta);
+            List<string> nombreConcursos = new List<string>();
+            foreach (DataRow fila in tablaResultados.Rows)
+            {
+                nombreConcursos.Add(Convert.ToString(fila["nombreConcursoFK"]));
+            }
+            consulta = "SELECT * FROM Concurso WHERE nombreConcursoPK=";
+            foreach(string nombreConcurso in nombreConcursos)
+            {
+                consulta += "'" + nombreConcurso + "' OR nombreConcursoPK=";
+            }
+            consulta += "'';";
+            return (ObtenerConcursos(consulta));
+        }
+
         public ConcursoModel ObtenerConcurso(string nombre)
         {
             string consulta = "Select * FROM Concurso WHERE nombreConcursoPK = '" + nombre + "';";

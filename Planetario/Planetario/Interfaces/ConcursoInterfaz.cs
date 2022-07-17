@@ -14,6 +14,8 @@ namespace Planetario.Interfaces
 
         List<ConcursoModel> ObtenerConcursosConGanadorDeclarado();
 
+        List<ConcursoModel> ObtenerConcursosPersona(string correoPersona);
+
         bool InsertarConcurso(ConcursoModel concurso);
 
         ConcursoModel ObtenerConcurso(string nombre);

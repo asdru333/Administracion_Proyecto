@@ -6,6 +6,7 @@ using Planetario.Handlers;
 using Planetario.Models;
 using System.Collections.Generic;
 using Planetario.Interfaces;
+using System.Diagnostics;
 
 namespace Planetario.Controllers
 {
@@ -13,15 +14,17 @@ namespace Planetario.Controllers
     {
 
         private readonly ConcursoInterfaz AccesoDatos;
-
+        readonly CookiesInterfaz cookiesInterfaz;
         public ConcursoController()
         {
             AccesoDatos = new ConcursoHandler();
+            cookiesInterfaz = new CookiesHandler();
         }
 
-        public ConcursoController(ConcursoInterfaz service)
+        public ConcursoController(ConcursoInterfaz service, CookiesInterfaz cookies)
         {
             AccesoDatos = service;
+            cookiesInterfaz = cookies;
         }
 
         [HttpGet]
@@ -79,6 +82,11 @@ namespace Planetario.Controllers
                 ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(0);
             else if (opcionFiltro == "Ganadores")
                 ViewBag.concursos = AccesoDatos.ObtenerConcursosConGanadorDeclarado();
+            else if (opcionFiltro == "Mis concursos")
+            {
+                string correoUsuario = cookiesInterfaz.CorreoUsuario();
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosPersona(correoUsuario);
+            }
             else
                 ViewBag.concursos = AccesoDatos.ObtenerTodosLosConcursos();
             return View();
@@ -109,6 +117,11 @@ namespace Planetario.Controllers
                 ViewBag.concursos = AccesoDatos.ObtenerConcursosAbiertos(0);
             else if (opcionFiltro == "Ganadores")
                 ViewBag.concursos = AccesoDatos.ObtenerConcursosConGanadorDeclarado();
+            else if (opcionFiltro == "Mis concursos")
+            {
+                string correoUsuario = cookiesInterfaz.CorreoUsuario();
+                ViewBag.concursos = AccesoDatos.ObtenerConcursosPersona(correoUsuario);
+            }
             else
                 ViewBag.concursos = AccesoDatos.ObtenerTodosLosConcursos();
             return View();
